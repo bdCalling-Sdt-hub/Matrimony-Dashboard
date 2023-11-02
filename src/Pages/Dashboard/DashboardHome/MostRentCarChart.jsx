@@ -1,58 +1,79 @@
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { Pie } from '@ant-design/plots';
+import React from "react";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
+} from "recharts";
 
-const MostRentCarChart = () => {
-  const data = [
-    {
-      type: 'bmw',
-      value: 25,
-    },
-    {
-      type: 'maruti',
-      value: 27,
-    },
-    
-    {
-      type: 'marcedees',
-      value: 18,
-    },
-    {
-      type: 'nissan',
-      value: 15,
-    },
-    {
-      type: 'Toyota',
-      value: 10,
-    },
-    {
-      type: 'mitsubishi',
-      value: 5,
-    },
-  ];
-  const config = {
-    appendPadding: 10,
-    data,
-    angleField: 'value',
-    colorField: 'type',
-    radius: 0.9,
-    label: {
-      type: 'inner',
-      offset: '-30%',
-      content: ({ percent }) => `${(percent * 100).toFixed(0)}%`,
-      style: {
-        fontSize: 20,
-        textAlign: 'center',
-      },
-    },
-    interactions: [
-      {
-        type: 'element-active',
-      },
-    ],
-  };
-  return <Pie {...config} style={{height:"300px"}}/>;
-};
+const data = [
+  {
+    name: "Page A",
+    uv: 4000,
+    pv: 2400,
+    amt: 2400
+  },
+  {
+    name: "Page B",
+    uv: 3000,
+    pv: 1398,
+    amt: 2210
+  },
+  {
+    name: "Page C",
+    uv: 2000,
+    pv: 9800,
+    amt: 2290
+  },
+  {
+    name: "Page D",
+    uv: 2780,
+    pv: 3908,
+    amt: 2000
+  },
+  {
+    name: "Page E",
+    uv: 1890,
+    pv: 4800,
+    amt: 2181
+  },
+  {
+    name: "Page F",
+    uv: 2390,
+    pv: 3800,
+    amt: 2500
+  },
+  {
+    name: "Page G",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100
+  }
+];
 
-
-export default MostRentCarChart;
+export default function MostRentCarChart() {
+  return (
+    <div style={{ width: "100%", height: 280 }}>
+      <ResponsiveContainer>
+        <AreaChart
+          data={data}
+          margin={{
+            top: 10,
+            right: 30,
+            left: 0,
+            bottom: 0
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#E91E63" />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}

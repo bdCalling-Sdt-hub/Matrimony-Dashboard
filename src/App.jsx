@@ -7,7 +7,6 @@ import HostInfo from "./Pages/Dashboard/HostInfo/HostInfo";
 import HostRequest from "./Pages/Dashboard/HostInfo/HostRequest";
 import KycForm from "./Pages/Dashboard/Kyc/KycForm";
 import Notification from "./Pages/Dashboard/Notification/Notification";
-import RentInformation from "./Pages/Dashboard/RentInformation/RentInformation";
 import UserInfo from "./Pages/Dashboard/UserInfo/UserInfo";
 import Wallet from "./Pages/Dashboard/Wallet/Wallet";
 import Email from "./Pages/Email/Email";
@@ -27,6 +26,7 @@ import SettingPage from "./Pages/Dashboard/Setting/SettingPage/SettingPage";
 import StripeBills from "./Pages/Dashboard/StripeBills/StripeBills";
 import UserKyc from "./Pages/Dashboard/UserKyc/UserKyc";
 import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
+import MembersInformation from "./Pages/Dashboard/Members/MembersInformation";
 
 function App() {
   return (
@@ -52,7 +52,7 @@ function App() {
               <Route path="/wallet" element={<Wallet />} />
 
               <Route path="/user-info" element={<UserInfo />} />
-              <Route path="/rent-info" element={<RentInformation />} />
+              <Route path="/rent-info" element={<MembersInformation />} />
               <Route path="/car-info" element={<CarInformation />} />
               <Route path="/user-payment" element={<UserPayment />} />
               <Route path="/renti-income" element={<RentisIncome />} />

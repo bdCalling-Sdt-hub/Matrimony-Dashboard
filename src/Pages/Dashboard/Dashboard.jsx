@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 import { Link, Outlet } from "react-router-dom";
-import rentiLogo from "../../Images/renti-logo.png";
+import logo from "../../Images/Logo.png";
 import Styles from "./Dashboard.module.css";
 
 const { Header, Sider, Content } = Layout;
@@ -201,7 +201,7 @@ const Dashboard = () => {
           position: "fixed",
           height: "100vh",
           zIndex: 2,
-          backgroundColor: "white",
+          backgroundColor: "black",
         }}
       >
         <div className="demo-logo-vertical" />
@@ -216,14 +216,14 @@ const Dashboard = () => {
           }}
         >
           <img
-            src={rentiLogo}
+            src={logo}
             height={collapsed ? "40px" : "150px"}
             width={collapsed ? "40px" : "150px"}
           />
         </div>
 
         <Menu
-          style={{ padding: collapsed ? "0px" : "20px", border: "none" }}
+          style={{ padding: collapsed ? "0px" : "20px", border: "none", background: "black", color: "white" }}
           mode="inline"
           defaultSelectedKeys={["1"]}
         >
@@ -233,6 +233,15 @@ const Dashboard = () => {
           >
             <Link to="/" style={{ fontSize: "16px" }}>
               {t("dashboard")}
+            </Link>
+          </Menu.Item>
+
+          <Menu.Item
+            key="6"
+            icon={<MdCarRental style={{ fontSize: "14px" }} />}
+          >
+            <Link to="/rent-info" style={{ fontSize: "16px" }}>
+              {t("members")}
             </Link>
           </Menu.Item>
 
@@ -301,15 +310,6 @@ const Dashboard = () => {
           </Menu.Item>
 
           <Menu.Item
-            key="6"
-            icon={<MdCarRental style={{ fontSize: "14px" }} />}
-          >
-            <Link to="/rent-info" style={{ fontSize: "16px" }}>
-              {t("rentInfo")}
-            </Link>
-          </Menu.Item>
-
-          <Menu.Item
             key="7"
             icon={<CarOutlined style={{ fontSize: "14px" }} />}
           >
@@ -358,7 +358,7 @@ const Dashboard = () => {
             height: "80px",
             zIndex: 1,
             padding: 0,
-            background: colorBgContainer,
+            backgroundColor: colorBgContainer,
             display: "flex",
             justifyContent: "space-between",
             paddingRight: "60px",
@@ -455,8 +455,7 @@ const Dashboard = () => {
             marginBottom: "50px",
             marginLeft: collapsed ? "130px" : "360px",
             marginRight: "60px",
-            background: "#e6e7f4",
-
+            background: "#ECECEC",
             padding: 50,
             minHeight: 280,
             overflow: "auto",

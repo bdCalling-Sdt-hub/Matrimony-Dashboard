@@ -1,6 +1,7 @@
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
+import { BsInfoCircle } from "react-icons/bs";
 import { LiaSaveSolid } from "react-icons/lia";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
@@ -14,7 +15,7 @@ import {
 const data = [
   {
     key: "1",
-    invoiceNo: "1",
+    invoiceNo: "10",
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -24,7 +25,7 @@ const data = [
   },
   {
     key: "2",
-    invoiceNo: "2",
+    invoiceNo: "11",
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -34,7 +35,7 @@ const data = [
   },
   {
     key: "3",
-    invoiceNo: "3",
+    invoiceNo: "12",
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -42,10 +43,149 @@ const data = [
     status: "complete",
     printView: "Button",
   },
-
+  {
+    key: "4",
+    invoiceNo: "13",
+    time: "18 Jul, 2023  4:30pm",
+    username: "Tushar",
+    method: "Credit Card",
+    amount: "$850.00",
+    status: "complete",
+    printView: "Button",
+  },
+  {
+    key: "5",
+    invoiceNo: "14",
+    time: "18 Jul, 2023  4:30pm",
+    username: "Tushar",
+    method: "Credit Card",
+    amount: "$850.00",
+    status: "complete",
+    printView: "Button",
+  },
+  {
+    key: "6",
+    invoiceNo: "15",
+    time: "18 Jul, 2023  4:30pm",
+    username: "Tushar",
+    method: "Credit Card",
+    amount: "$850.00",
+    status: "complete",
+    printView: "Button",
+  },
+  {
+    key: "7",
+    invoiceNo: "16",
+    time: "18 Jul, 2023  4:30pm",
+    username: "Tushar",
+    method: "Credit Card",
+    amount: "$850.00",
+    status: "complete",
+    printView: "Button",
+  },
+  {
+    key: "8",
+    invoiceNo: "17",
+    time: "18 Jul, 2023  4:30pm",
+    username: "Tushar",
+    method: "Credit Card",
+    amount: "$850.00",
+    status: "complete",
+    printView: "Button",
+  },
+  {
+    key: "9",
+    invoiceNo: "15",
+    time: "18 Jul, 2023  4:30pm",
+    username: "Tushar",
+    method: "Credit Card",
+    amount: "$850.00",
+    status: "complete",
+    printView: "Button",
+  },
+  {
+    key: "10",
+    invoiceNo: "16",
+    time: "18 Jul, 2023  4:30pm",
+    username: "Tushar",
+    method: "Credit Card",
+    amount: "$850.00",
+    status: "complete",
+    printView: "Button",
+  },
+  {
+    key: "11",
+    invoiceNo: "17",
+    time: "18 Jul, 2023  4:30pm",
+    username: "Tushar",
+    method: "Credit Card",
+    amount: "$850.00",
+    status: "complete",
+    printView: "Button",
+  },
+  {
+    key: "12",
+    invoiceNo: "15",
+    time: "18 Jul, 2023  4:30pm",
+    username: "Tushar",
+    method: "Credit Card",
+    amount: "$850.00",
+    status: "complete",
+    printView: "Button",
+  },
+  {
+    key: "13",
+    invoiceNo: "16",
+    time: "18 Jul, 2023  4:30pm",
+    username: "Tushar",
+    method: "Credit Card",
+    amount: "$850.00",
+    status: "complete",
+    printView: "Button",
+  },
+  {
+    key: "14",
+    invoiceNo: "17",
+    time: "18 Jul, 2023  4:30pm",
+    username: "Tushar",
+    method: "Credit Card",
+    amount: "$850.00",
+    status: "complete",
+    printView: "Button",
+  },
+  {
+    key: "15",
+    invoiceNo: "15",
+    time: "18 Jul, 2023  4:30pm",
+    username: "Tushar",
+    method: "Credit Card",
+    amount: "$850.00",
+    status: "complete",
+    printView: "Button",
+  },
+  {
+    key: "16",
+    invoiceNo: "16",
+    time: "18 Jul, 2023  4:30pm",
+    username: "Tushar",
+    method: "Credit Card",
+    amount: "$850.00",
+    status: "complete",
+    printView: "Button",
+  },
+  {
+    key: "17",
+    invoiceNo: "17",
+    time: "18 Jul, 2023  4:30pm",
+    username: "Tushar",
+    method: "Credit Card",
+    amount: "$850.00",
+    status: "complete",
+    printView: "Button",
+  }
 ];
 
-const InvoiceTable = () => {
+const MembersInformationTable = () => {
   const [rentData, setRentData] = useState([]); // Data fetched from the server
   const [totalItems, setTotalItems] = useState(0); // Total number of items
   const [currentPage, setCurrentPage] = useState(1); // Current page number
@@ -68,51 +208,56 @@ const InvoiceTable = () => {
 
   const columns = [
     {
-      title: "Invoice",
+      title: "Image",
       dataIndex: "invoiceNo",
       key: "invoiceNo",
     },
     {
-      title: "TIME",
+      title: "Name",
       dataIndex: "time",
       key: "time",
       responsive: ["md"],
     },
     {
-      title: "USER NAME",
+      title: "Age",
       dataIndex: "username",
       key: "username",
       responsive: ["lg"],
     },
     {
-      title: "METHOD",
+      title: "Religion",
       dataIndex: "method",
       key: "method",
     },
     {
-      title: "AMOUNT",
+      title: "Status",
       dataIndex: "amount",
       key: "amount",
       responsive: ["md"],
     },
     {
-      title: "STATUS",
+      title: "Country",
       dataIndex: "status",
       key: "status",
     },
     {
-      title: "PRINT/VIEW",
+      title: "Language",
+      dataIndex: "status",
+      key: "status",
+    },
+    {
+      title: "Action",
       dataIndex: "printView",
       key: "printView",
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{}}>
           <Button type="text" style={{ marginRight: "10px", paddingBottom: "35px" }}>
-            <AiOutlinePrinter style={{ fontSize: "30px", color: "#999999" }} />
+            <BsInfoCircle style={{ fontSize: "20px", color: "#2BA24C" }} />
           </Button>
-          <Button onClick={() => showDrawer(record)} type="text" style={{ paddingBottom: "35px" }}>
+          {/* <Button onClick={() => showDrawer(record)} type="text" style={{ paddingBottom: "35px" }}>
             <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
-          </Button>
+          </Button> */}
         </div>
       ),
     },
@@ -145,7 +290,13 @@ const InvoiceTable = () => {
 
   return (
     <>
-      <Table columns={columns} dataSource={data} pagination={false} />
+      <Table columns={columns} dataSource={data} pagination={{
+        pageSize,
+        showSizeChanger: false,
+        total: 5000,
+        current: currentPage,
+        onChange: handlePageChange,
+      }} />
       <Drawer
 
         title={
@@ -178,4 +329,4 @@ const InvoiceTable = () => {
   )
 
 };
-export default InvoiceTable;
+export default MembersInformationTable;

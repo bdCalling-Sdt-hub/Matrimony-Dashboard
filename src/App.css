@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-:where(.css-dev-only-do-not-override-17a39f8).ant-dropdown
-  .ant-dropdown-menu
-  .ant-dropdown-menu-item {
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item {
   margin-bottom: 10px;
   padding: 20px 10px;
   line-height: 20px;
@@ -15,23 +14,75 @@
 }
 
 .ant-layout-sider-children .ant-menu-item-selected {
-  color: #000b90;
+  color: white;
+  background-color: #E91E63;
   font-weight: bold;
 }
 
-:where(.css-dev-only-do-not-override-17a39f8).ant-table-wrapper
-  .ant-table-thead
-  > tr
-  > th,
-:where(.css-dev-only-do-not-override-17a39f8).ant-table-wrapper
-  .ant-table-thead
-  > tr
-  > td {
-  background: #000b90;
+.ant-layout-sider-children .ant-menu-item:hover {
+  color: white !important;
+}
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-pagination .ant-pagination-item-active a {
+  background-color: #E91E63 !important;
   color: white;
+}
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-pagination .ant-pagination-item-active {
+  font-weight: 600;
+  background-color: #ffffff;
+  /* border-color: #1677ff; */
+}
+
+.ant-layout-sider-children .ant-menu-item-selected:hover {
+  color: white !important;
+}
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-table-wrapper .ant-table-thead>tr>th,
+:where(.css-dev-only-do-not-override-17a39f8).ant-table-wrapper .ant-table-thead>tr>td {
+  background: white;
+  color: black;
   border: 0;
 }
 
 
+.ant-layout-sider-children {
+  background: linear-gradient(180deg, #787878 0%, #434343 0.01%, #000 100%);
+  /* width: 320px; */
+}
 
+:where(.css-dev-only-do-not-override-17a39f8).ant-menu-inline .ant-menu-item {
+  width: calc(100% - 0px) !important;
+}
 
+.ant-layout-sider-children ul {
+  background-color: transparent !important;
+  padding: 0px !important;
+}
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-divider-horizontal {
+  background-color: #5A5A5A;
+}
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-menu-light .ant-menu-item-selected {
+  background: linear-gradient(180deg, #787878 0%, #E91E63 0.01%, #E91E63 100%);
+  color: white;
+}
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-divider-horizontal.ant-divider-with-text-left::before {
+  background: linear-gradient(180deg, #787878 0%, #E91E63 0.01%, #E91E63 100%);
+  color: white;
+}
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-menu-light .ant-menu-submenu-selected>.ant-menu-submenu-title {
+  color: white;
+}
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-menu .ant-menu-item {
+  border-radius: 0px !important;
+}
+
+li.ant-menu-item.ant-menu-item-selected {
+  margin: 0px !important;
+  border-left: 4px solid white !important;
+}
