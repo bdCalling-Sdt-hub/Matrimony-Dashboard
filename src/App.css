@@ -86,3 +86,17 @@ li.ant-menu-item.ant-menu-item-selected {
   margin: 0px !important;
   border-left: 4px solid white !important;
 }
+
+.sub-card{
+  overflow: hidden;
+}
+.sub-card::before{
+  content: '';
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  background-color: #E91E63;
+  left: -100px;
+  top: -100px;
+  border-radius:50%;
+}

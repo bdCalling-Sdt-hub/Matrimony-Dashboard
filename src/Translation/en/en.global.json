@@ -17,9 +17,9 @@
   "members": "Members",
   "userInfo": "User Information",
   "hostInfo": {
-    "title": "Host Information",
-    "subTitle1": "All Host",
-    "subTitle2": "Host Request"
+    "title": "Subscription",
+    "subTitle1": "Additional Match Requests",
+    "subTitle2": "Subscription Plans"
   },
   "payment": {
     "title": "Payments",
