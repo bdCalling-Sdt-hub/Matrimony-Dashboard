@@ -201,20 +201,6 @@ const ReportAccountTable = () => {
   const pageSize = 12;
 
 
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [invoiceData, setInvoiceData] = useState(null);
-
-  const showDrawer = (record) => {
-    setIsDrawerVisible(true);
-    setInvoiceData(record);
-  };
-
-  const closeDrawer = () => {
-    setIsDrawerVisible(false);
-    setInvoiceData(null);
-  };
-
-
   const columns = [
     {
       title: "Image",
@@ -303,33 +289,6 @@ const ReportAccountTable = () => {
         current: currentPage,
         onChange: handlePageChange,
       }} />
-      <Drawer
-
-        title={
-          <div>
-            <Typography>
-              <Title level={5} strong>
-                Invoice# Trip No.{invoiceData?.invoiceNo}
-              </Title>
-              <Text>See all information about the trip no. 68656</Text>
-            </Typography>
-          </div>
-        }
-        placement="right"
-        onClose={closeDrawer}
-        open={isDrawerVisible}
-        width={500}
-        closable={false}
-        extra={
-          <Space>
-            <Button style={{ borderRadius: "100%", backgroundColor: "white", color: "red", height: "50px", width: "50px", textAlign: "center" }} onClick={closeDrawer}><CloseOutlined /></Button>
-
-          </Space>
-        }
-
-      >
-        {invoiceData && <DrawerPage invoiceData={invoiceData} />}
-      </Drawer>
 
       <ReportDetails
         modalVisible={modalVisible}

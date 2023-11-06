@@ -81,6 +81,7 @@ function DashboardHome() {
             </div>
           </div>
         </Col>
+
         <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 6 }}>
           <div className='income-card'>
             <div>
@@ -201,7 +202,7 @@ function DashboardHome() {
 
 
       <Row style={{ marginTop: "20px" }} gutter={24}>
-        <Col lg={{ span: 16 }}>
+        <Col className='shadow-design' lg={{ span: 16 }}>
           <div
             className=""
             style={{
@@ -216,7 +217,7 @@ function DashboardHome() {
           </div>
         </Col>
         <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 4 }}>
-          <div style={{ marginBottom: "25px", background: "white", padding: "20px", borderRadius: "10px" }}>
+          <div className='shadow-design' style={{ marginBottom: "25px", background: "white", padding: "20px", borderRadius: "10px" }}>
             <div >
               <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
                 <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Earnings</h1>
@@ -229,7 +230,7 @@ function DashboardHome() {
             </div>
           </div>
 
-          <div style={{ marginBottom: "10px", background: "white", padding: "20px", borderRadius: "10px" }}>
+          <div className='shadow-design' style={{ marginBottom: "10px", background: "white", padding: "20px", borderRadius: "10px" }}>
             <div >
               <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
                 <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Earnings</h1>
@@ -244,7 +245,7 @@ function DashboardHome() {
 
         </Col>
         <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 4 }}>
-          <div style={{ marginBottom: "25px", background: "white", padding: "20px", borderRadius: "10px" }}>
+          <div className='shadow-design' style={{ marginBottom: "25px", background: "white", padding: "20px", borderRadius: "10px" }}>
             <div >
               <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
                 <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Earnings</h1>
@@ -257,7 +258,7 @@ function DashboardHome() {
             </div>
           </div>
 
-          <div style={{ marginBottom: "10px", background: "white", padding: "20px", borderRadius: "10px" }}>
+          <div className='shadow-design' style={{ marginBottom: "10px", background: "white", padding: "20px", borderRadius: "10px" }}>
             <div >
               <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
                 <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Earnings</h1>
@@ -274,7 +275,7 @@ function DashboardHome() {
       </Row>
 
       <Row style={{ marginTop: "20px" }} gutter={24}>
-        <Col lg={{ span: 16 }}>
+        <Col className='shadow-design' lg={{ span: 16 }}>
           <div
             className=""
             style={{
@@ -293,10 +294,10 @@ function DashboardHome() {
         </Col>
 
         <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
-          <div style={{ marginBottom: "25px", background: "white", padding: "20px", borderRadius: "10px" }}>
+          <div className='shadow-design' style={{ marginBottom: "25px", background: "white", padding: "20px", borderRadius: "10px" }}>
             <div >
               <div style={{ display: 'flex', alignItems: "center", gap: "10px", borderBottom: "2px solid #D3D3D3" }}>
-                {/* <h3 style={{ fontSize: "1.0rem", fontWeight: "500", marginTop: "10px", marginBottom: "15px", color: "black", }}>Visitors</h3> */}
+
                 <h3 style={{ color: "black", marginTop: "10px", marginBottom: "15px", }}>Visitors</h3>
               </div>
 

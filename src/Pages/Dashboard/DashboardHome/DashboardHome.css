@@ -7,6 +7,9 @@
     padding-top: 30px;
     cursor: pointer;
     transition: .5s;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+    color: black;
+    background-color: white;
 }
 
 .income-card {
@@ -20,10 +23,19 @@
     margin-bottom: 20px;
     cursor: pointer;
     transition: .5s;
-
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+    color: black;
+    background-color: white;
 }
 
 .income-card:hover {
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
+    color: black;
+    background-color: white;
+}
+
+.shadow-design {
+    border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
     color: black;
     background-color: white;

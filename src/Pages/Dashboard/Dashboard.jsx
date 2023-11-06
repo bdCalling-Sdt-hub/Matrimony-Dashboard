@@ -245,13 +245,22 @@ const Dashboard = () => {
             </Link>
           </Menu.Item>
 
-          <SubMenu
+          <Menu.Item
+            key="3"
+            icon={<GiReceiveMoney style={{ fontSize: "14px" }} />}
+          >
+            <Link to="/earning/today-income" style={{ fontSize: "16px" }}>
+              {t("earning.title")}
+            </Link>
+          </Menu.Item>
+
+          {/* <SubMenu
             style={{ fontSize: "16px" }}
             key="2"
             icon={<GiReceiveMoney style={{ fontSize: "14px" }} />}
             title={t("earning.title")}
-          >
-            <Menu.Item key="31">
+          > */}
+          {/* <Menu.Item key="31">
               <Link to="/earning/today-income">{t("earning.subTitle1")}</Link>
             </Menu.Item>
             <Menu.Item key="32">
@@ -259,8 +268,8 @@ const Dashboard = () => {
             </Menu.Item>
             <Menu.Item key="33">
               <Link to="/earning/monthly-income">{t("earning.subTitle3")}</Link>
-            </Menu.Item>
-          </SubMenu>
+            </Menu.Item> */}
+          {/* </SubMenu> */}
 
           <SubMenu
             style={{ fontSize: "16px" }}

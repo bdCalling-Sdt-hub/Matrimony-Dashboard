@@ -4,6 +4,7 @@ import { AiOutlinePrinter } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 import { LiaSaveSolid } from "react-icons/lia";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
+import EarnInvoice from "./EarnInvoice";
 const { Title, Text } = Typography;
 
 const data = [
@@ -170,42 +171,39 @@ const data = [
 ];
 
 const EarnHistoryTable = () => {
+
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const showModal = () => {
+    setModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setModalVisible(false);
+  };
+
   const columns = [
     {
-      title: "TRIP NO.",
+      title: "Month No.",
       dataIndex: "tripNo",
       key: "tripNO",
     },
     {
-      title: "TIME",
+      title: "Total Users",
       dataIndex: "time",
       key: "time",
       responsive: ["md"],
     },
     {
-      title: "USER NAME",
+      title: "Amount",
       dataIndex: "username",
       key: "username",
       responsive: ["lg"],
     },
+
     {
-      title: "METHOD",
-      dataIndex: "method",
-      key: "method",
-    },
-    {
-      title: "AMOUNT",
-      dataIndex: "amount",
-      key: "amount",
-      responsive: ["md"],
-    },
-    {
-      title: "STATUS",
-      dataIndex: "status",
-      key: "status",
-    },
-    {
-      title: "PRINT/VIEW",
+      title: "Action",
       dataIndex: "printView",
       key: "printView",
       responsive: ["lg"],
@@ -213,11 +211,11 @@ const EarnHistoryTable = () => {
         _,
         record // Use the second parameter 'record'
       ) => (
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "left" }}>
           <Button type="text" style={{ marginRight: "10px" }}>
             <AiOutlinePrinter style={{ fontSize: "30px", color: "#999999" }} />
           </Button>
-          <Button onClick={() => showDrawer(record)} type="text">
+          <Button onClick={() => showModal(record)} type="text">
             <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
           </Button>
         </div>
@@ -225,50 +223,16 @@ const EarnHistoryTable = () => {
     },
   ];
 
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [earningData, setEarningData] = useState(null);
-
-  const showDrawer = (record) => {
-    setIsDrawerVisible(true);
-    setEarningData(record);
-  };
-
-  const closeDrawer = () => {
-    setIsDrawerVisible(false);
-    setEarningData(null);
-  };
 
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
-      <Drawer
-        title={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography>
-              <Title level={5} strong>
-                Invoice# Trip No.{earningData?.tripNo}
-              </Title>
-              <Text>See all information about the trip no. 68656</Text>
-            </Typography>
-            <Button type="text" onClick={closeDrawer}>
-              <IoMdClose fontSize={25} />
-            </Button>
-          </div>
-        }
-        closable={false}
-        placement="right"
-        onClose={closeDrawer}
-        open={isDrawerVisible}
-        width={500}
-      >
-        {earningData && <DrawerPage earningData={earningData} />}
-      </Drawer>
+      <Table style={{ boxShadow: "rgba(0, 0, 0, 0.2) 0px 18px 50px -10px" }} columns={columns} dataSource={data} />
+
+      <EarnInvoice
+        modalVisible={modalVisible}
+        handleCancel={handleCancel}
+        setModalVisible={setModalVisible}
+      />
     </div>
   );
 };
