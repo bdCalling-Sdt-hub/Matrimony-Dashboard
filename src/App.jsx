@@ -3,11 +3,10 @@ import "./App.css";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
 import Earning from "./Pages/Dashboard/Earning/Earning";
-import MatchRequest from "./Pages/Dashboard/HostInfo/MatchRequest";
-import Subscription from "./Pages/Dashboard/HostInfo/HostRequest";
+import MatchRequest from "./Pages/Dashboard/Subscription/MatchRequest";
+import Subscription from "./Pages/Dashboard/Subscription/Subscription";
 import KycForm from "./Pages/Dashboard/Kyc/KycForm";
 import Notification from "./Pages/Dashboard/Notification/Notification";
-import UserInfo from "./Pages/Dashboard/UserInfo/UserInfo";
 import Wallet from "./Pages/Dashboard/Wallet/Wallet";
 import Email from "./Pages/Email/Email";
 import Otp from "./Pages/Otp/Otp";
@@ -27,6 +26,8 @@ import StripeBills from "./Pages/Dashboard/StripeBills/StripeBills";
 import UserKyc from "./Pages/Dashboard/UserKyc/UserKyc";
 import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
 import MembersInformation from "./Pages/Dashboard/Members/MembersInformation";
+import PersonalDetails from "./Pages/Dashboard/Members/PersonalDetails";
+import ReportAccountInfo from "./Pages/Dashboard/ReportAccount/ReportAccountInfo";
 
 function App() {
   return (
@@ -51,8 +52,9 @@ function App() {
               <Route path="/kyc-form" element={<KycForm />} />
               <Route path="/wallet" element={<Wallet />} />
 
-              <Route path="/user-info" element={<UserInfo />} />
+              <Route path="/report-account" element={<ReportAccountInfo />} />
               <Route path="/rent-info" element={<MembersInformation />} />
+              <Route path="/pesonal-details/:id" element={<PersonalDetails />} />
               <Route path="/car-info" element={<CarInformation />} />
               <Route path="/user-payment" element={<UserPayment />} />
               <Route path="/renti-income" element={<RentisIncome />} />
@@ -64,6 +66,7 @@ function App() {
               <Route path="/setting" element={<Setting />}></Route>
               <Route path="/setting/:dynamic" element={<SettingPage />} />
             </Route>
+
 
             <Route path="/signin" element={<Signin />} />
             <Route path="/email" element={<Email />} />

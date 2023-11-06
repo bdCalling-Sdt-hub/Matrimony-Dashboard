@@ -304,8 +304,8 @@ const Dashboard = () => {
             key="5"
             icon={<MdPeopleOutline style={{ fontSize: "14px" }} />}
           >
-            <Link to="/user-info" style={{ fontSize: "16px" }}>
-              {t("userInfo")}
+            <Link to="/report-account" style={{ fontSize: "16px" }}>
+              {t("reportAccount")}
             </Link>
           </Menu.Item>
 
@@ -455,7 +455,8 @@ const Dashboard = () => {
             marginBottom: "50px",
             marginLeft: collapsed ? "130px" : "360px",
             marginRight: "60px",
-            background: "#ECECEC",
+            background: "#FFF",
+            borderRadius: "10px",
             padding: 50,
             minHeight: 280,
             overflow: "auto",

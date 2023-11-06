@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { AiOutlineCheckCircle, AiOutlinePlus } from 'react-icons/ai';
 import { FaCrown } from 'react-icons/fa';
 import AddSubscription from "./AddSubscription";
+import EditMatchRequest from "./EditMatchRequest";
 
 const MatchRequest = () => {
   const style = {
@@ -55,7 +56,7 @@ const MatchRequest = () => {
                   </div>
                   <div style={{ position: "absolute", bottom: "20px", left: "0", width: "100%" }}>
                     <div style={{ display: "flex", gap: "9px", justifyContent: "center" }}>
-                      <Button style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
+                      <Button onClick={showModal} style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
                         Edit
                       </Button>
                       <Button style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
@@ -69,7 +70,7 @@ const MatchRequest = () => {
           })}
         </Row>
       </div>
-      <AddSubscription
+      <EditMatchRequest
         modalVisible={modalVisible}
         handleCancel={handleCancel}
         setModalVisible={setModalVisible}

@@ -1,8 +1,5 @@
 import { Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useEffect, useState } from "react";
-import { AiOutlinePrinter } from "react-icons/ai";
-import { BsInfoCircle } from "react-icons/bs";
-import { LiaSaveSolid } from "react-icons/lia";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 import {
@@ -10,7 +7,7 @@ import {
   CloseOutlined,
 
 } from '@ant-design/icons';
-import { Link } from "react-router-dom";
+import ReportDetails from "./ReportDetails";
 
 
 const data = [
@@ -186,7 +183,18 @@ const data = [
   }
 ];
 
-const MembersInformationTable = () => {
+const ReportAccountTable = () => {
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const showModal = () => {
+    setModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setModalVisible(false);
+  };
+
   const [rentData, setRentData] = useState([]); // Data fetched from the server
   const [totalItems, setTotalItems] = useState(0); // Total number of items
   const [currentPage, setCurrentPage] = useState(1); // Current page number
@@ -253,12 +261,9 @@ const MembersInformationTable = () => {
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{}}>
-          <Button type="text" style={{ marginRight: "10px", paddingBottom: "35px" }}>
-            <Link to="/pesonal-details/:id"><BsInfoCircle style={{ fontSize: "20px", color: "#2BA24C" }} /></Link>
+          <Button onClick={showModal} style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
+            Details
           </Button>
-          {/* <Button onClick={() => showDrawer(record)} type="text" style={{ paddingBottom: "35px" }}>
-            <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
-          </Button> */}
         </div>
       ),
     },
@@ -326,8 +331,14 @@ const MembersInformationTable = () => {
         {invoiceData && <DrawerPage invoiceData={invoiceData} />}
       </Drawer>
 
+      <ReportDetails
+        modalVisible={modalVisible}
+        handleCancel={handleCancel}
+        setModalVisible={setModalVisible}
+      />
+
     </>
   )
 
 };
-export default MembersInformationTable;
+export default ReportAccountTable;

@@ -116,9 +116,9 @@ const Subscription = () => {
           })}
         </Row>
       </div>
-      <AddSubscription 
-        modalVisible={modalVisible} 
-        handleCancel={handleCancel} 
+      <AddSubscription
+        modalVisible={modalVisible}
+        handleCancel={handleCancel}
         setModalVisible={setModalVisible}
       />
     </div>

@@ -34,6 +34,11 @@
   /* border-color: #1677ff; */
 }
 
+:where(.css-dev-only-do-not-override-17a39f8).ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+  border-color: #E91E63;
+  background-color: #E91E63;
+}
+
 .ant-layout-sider-children .ant-menu-item-selected:hover {
   color: white !important;
 }
@@ -87,10 +92,11 @@ li.ant-menu-item.ant-menu-item-selected {
   border-left: 4px solid white !important;
 }
 
-.sub-card{
+.sub-card {
   overflow: hidden;
 }
-.sub-card::before{
+
+.sub-card::before {
   content: '';
   width: 200px;
   height: 200px;
@@ -98,5 +104,5 @@ li.ant-menu-item.ant-menu-item-selected {
   background-color: #E91E63;
   left: -100px;
   top: -100px;
-  border-radius:50%;
+  border-radius: 50%;
 }
