@@ -1,274 +1,223 @@
 import { Pie } from "@ant-design/plots";
-import { Button, Col, Drawer, Modal, Progress, Row, Typography } from "antd";
+import { Button, Col, Drawer, Dropdown, Modal, Progress, Row, Space, Typography } from "antd";
 import React, { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineArrowUp } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
-import WalletCard from "./WalletCard";
+import { AiOutlineDollarCircle } from "react-icons/ai";
+import { AiOutlineAreaChart } from "react-icons/ai";
+import { TbChartArea } from "react-icons/tb";
+import { TbChartInfographic } from "react-icons/tb";
+import WalletCard from "./WalletTable";
+import MembersUpChart from "../DashboardHome/MembersUpChart";
+import WalletOverView from "./WalletOverview";
 const { Title, Text } = Typography;
+import { DownOutlined } from '@ant-design/icons';
+import { DatePicker } from 'antd';
+import WalletTable from "./WalletTable";
 
 const Wallet = () => {
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [cardTitle, setCardTitle] = useState(null);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-  const showDrawer = (value) => {
-    setIsDrawerVisible(true);
-    setCardTitle(value);
-  };
-
-  const closeDrawer = () => {
-    setIsDrawerVisible(false);
-    setCardTitle(null);
-  };
-
-  const cardData = [
+  const items = [
     {
-      id: "1",
-      validDate: "12/23",
-      cardHolder: "Sanchez Haro Manuel",
-      cardNumber: "**********4584",
+      label: <a href="">Monthly</a>,
+      key: '0',
     },
     {
-      id: "2",
-      validDate: "14/28",
-      cardHolder: "Captain Jack Sparrow",
-      cardNumber: "**********4670",
-    },
-    {
-      id: "3",
-      validDate: "12/24",
-      cardHolder: "Pirates of Caribbean",
-      cardNumber: "**********3658",
-    },
-    {
-      id: "4",
-      validDate: "15/25",
-      cardHolder: "Kate Winslate",
-      cardNumber: "**********8989",
-    },
+      label: <a href="">Yearly</a>,
+      key: '1',
+    }
   ];
 
-  const style = {
-    progContainer: {
-      backgroundColor: "#fff",
-      padding: "40px",
-      borderRadius: "15px",
-      height: "300px",
-      border: "2px solid #000B90",
-    },
-    cardContainer: {
-      backgroundColor: "#fff",
-      padding: "40px",
-      borderRadius: "15px",
-      marginTop: "40px",
-    },
-    addCardBtn: {
-      display: "flex",
-      alignItems: "center",
-      gap: "4px",
-      background: "#000B90",
-      color: "white",
-      height: "40px",
-    },
-
-    title: {
-      color: "#8d8d8d",
-      marginBottom: "8px",
-      fontWeight: "normal",
-    },
-    cardBtn: {
-      width: "100%",
-      border: "1px solid #dfdfdf",
-      height: "35px",
-    },
+  const { RangePicker } = DatePicker;
+  const onChange = (value, dateString) => {
+    console.log('Selected Time: ', value);
+    console.log('Formatted Selected Time: ', dateString);
   };
-  const data = [
-    {
-      type: "Total Income",
-      value: 500000,
-    },
-    {
-      type: "Total Cost",
-      value: 451500,
-    },
-  ];
-  const config = {
-    appendPadding: 10,
-    data,
-    angleField: "value",
-    colorField: "type",
-    radius: 0.9,
-    label: {
-      type: "inner",
-      offset: "-30%",
-      content: ({ percent }) => `${(percent * 100).toFixed(0)}%`,
-      style: {
-        fontSize: 18,
-        textAlign: "center",
-      },
-    },
-    interactions: [
-      {
-        type: "element-active",
-      },
-    ],
-    legend: {
-      position: "bottom",
-      layout: "horizontal",
-    },
-    style: {
-      height: "240px",
-    },
+  const onOk = (value) => {
+    console.log('onOk: ', value);
   };
-  const colors = ["#FF7426", "#1EAAE7", "#2BC155", "#6418C3"];
 
   return (
     <div style={{ padding: "0 60px" }}>
       <h2
         style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "normal" }}
       >
-        Renti's Wallet
+        Wallet Summary
       </h2>
 
-      <Row style={{ marginTop: "20px" }} gutter={24}>
-        <Col lg={{ span: 12 }}>
-          <div style={style.progContainer}>
-            <h4 style={{ marginBottom: "20px" }}>Main Balance</h4>
-            <h3 style={{ marginBottom: "20px" }}>$567,856.00</h3>
-            <Progress
-              percent={50}
-              size={["100%", 20]}
-              showInfo={false}
-              status="active"
-              strokeColor={"#000B90"}
-            />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: "50px",
-              }}
-            >
-              <div>
-                <h3 style={style.title}>Valid Date</h3>
-                <h3 style={{ fontWeight: "normal" }}>12/23</h3>
+      <Row gutter={16} style={{ marginBottom: "20px" }}>
+
+        <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 6 }}>
+          <div className='income-card'>
+
+            <div>
+              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
+                <div style={{ width: "24px", height: "24px", backgroundColor: "#D7263D", borderRadius: "5px", display: 'flex', justifyContent: "center", alignItems: "center" }}>
+                  <AiOutlineDollarCircle fontSize={16} color="white"></AiOutlineDollarCircle>
+                </div>
+                <h1 style={{ fontSize: "1.2rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Income</h1>
               </div>
-              <div>
-                <h3 style={style.title}>Card Holder</h3>
-                <h3 style={{ fontWeight: "normal" }}>Sanchez Haro Manuel</h3>
-              </div>
-              <div>
-                <h3 style={style.title}>Card Number</h3>
-                <h3 style={{ fontWeight: "normal" }}>**********1234</h3>
+              <h3 style={{ fontSize: "2.5rem", letterSpacing: "1px", marginBottom: "15px" }}>$120.12k</h3>
+            </div>
+
+            <div style={{ marginTop: "20px" }}>
+              <MembersUpChart></MembersUpChart>
+              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
+                <h1 style={{ fontSize: "1.5rem", fontWeight: "300" }}>+10%</h1>
+                <AiOutlineArrowUp fontSize={20}></AiOutlineArrowUp>
               </div>
             </div>
           </div>
         </Col>
-        <Col lg={{ span: 12 }}>
-          <div
-            className=""
-            style={{
-              padding: "30px",
-              borderRadius: "15px",
-              backgroundColor: "#fff",
-              border: "2px solid #000B90",
-            }}
-          >
-            <Pie {...config} />
+
+        <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 6 }}>
+          <div className='income-card'>
+            <div>
+              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
+                <div style={{ width: "24px", height: "24px", backgroundColor: "#E91E63", borderRadius: "5px", display: 'flex', justifyContent: "center", alignItems: "center" }}>
+                  <TbChartArea fontSize={16} color="white"></TbChartArea>
+                </div>
+                <h1 style={{ fontSize: "1.2rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>This Month</h1>
+              </div>
+
+              <h3 style={{ fontSize: "2.5rem", letterSpacing: "1px", marginBottom: "15px" }}>5.0K</h3>
+            </div>
+            <div style={{ marginTop: "20px" }}>
+              <MembersUpChart></MembersUpChart>
+              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
+                <h1 style={{ fontSize: "1.5rem", fontWeight: "300" }}>+10%</h1>
+                <AiOutlineArrowUp fontSize={20}></AiOutlineArrowUp>
+              </div>
+            </div>
+          </div>
+        </Col>
+
+        <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 6 }}>
+          <div className='income-card'>
+            <div>
+              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
+                <div style={{ width: "24px", height: "24px", backgroundColor: "#2BA24C", borderRadius: "5px", display: 'flex', justifyContent: "center", alignItems: "center" }}>
+                  <TbChartInfographic fontSize={16} color="white"></TbChartInfographic>
+                </div>
+                <h1 style={{ fontSize: "1.2rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>This 6 Month</h1>
+              </div>
+
+              <h3 style={{ fontSize: "2.5rem", letterSpacing: "1px", marginBottom: "15px" }}>5.0K</h3>
+            </div>
+            <div style={{ marginTop: "20px" }}>
+              <MembersUpChart></MembersUpChart>
+              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
+                <h1 style={{ fontSize: "1.5rem", fontWeight: "300" }}>+10%</h1>
+                <AiOutlineArrowUp fontSize={20}></AiOutlineArrowUp>
+              </div>
+            </div>
+          </div>
+        </Col>
+
+        <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 6 }}>
+          <div className='income-card'>
+            <div>
+              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
+                <div style={{ width: "24px", height: "24px", backgroundColor: "#FFC60B", borderRadius: "5px", display: 'flex', justifyContent: "center", alignItems: "center" }}>
+                  <AiOutlineAreaChart fontSize={16} color="white"></AiOutlineAreaChart>
+                </div>
+                <h1 style={{ fontSize: "1.2rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>This Years</h1>
+              </div>
+
+              <h3 style={{ fontSize: "2.5rem", letterSpacing: "1px", marginBottom: "15px" }}>$15.03k</h3>
+            </div>
+            <div style={{ marginTop: "20px" }}>
+              <MembersUpChart></MembersUpChart>
+              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
+                <h1 style={{ fontSize: "1.5rem", fontWeight: "300" }}>+10%</h1>
+                <AiOutlineArrowUp fontSize={20}></AiOutlineArrowUp>
+              </div>
+            </div>
           </div>
         </Col>
       </Row>
-      <div style={style.cardContainer}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginBottom: "30px",
-          }}
-        >
-          <Title level={3} style={{ color: "#000B90" }}>
-            Card List
-          </Title>
-          <Button style={style.addCardBtn} onClick={() => showModal()}>
-            <AiOutlinePlus style={{ fontSize: "15px" }} /> Add Card
-          </Button>
-        </div>
-        {cardData.map((data, index) => (
-          <WalletCard key={data.id} cardBg={colors[index]} data={data} />
-        ))}
-      </div>
-      <Modal
-        title={
-          <h3
-            style={{
-              textAlign: "center",
-              fontWeight: "normal",
-              marginBottom: "30px",
-            }}
-          >
-            Payment Method
-          </h3>
-        }
-        open={isModalOpen}
-        onCancel={handleCancel}
-        footer={[]}
-      >
-        <Button
-          type="text"
-          style={style.cardBtn}
-          onClick={() => {
-            showDrawer("credit");
-            handleCancel();
-          }}
-        >
-          Credit Card
-        </Button>
-        <Button
-          type="text"
-          style={{ ...style.cardBtn, marginTop: "8px" }}
-          onClick={() => {
-            showDrawer("debit");
-            handleCancel();
-          }}
-        >
-          Debit Card
-        </Button>
-      </Modal>
-      <Drawer
-        title={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography>
-              <Text>{cardTitle}</Text>
-            </Typography>
-            <Button type="text" onClick={closeDrawer}>
-              <IoMdClose fontSize={25} />
-            </Button>
+
+      <Row gutter={16}>
+        <Col span={14}>
+          <div style={{ boxShadow: "rgba(0, 0, 0, 0.2) 0px 18px 50px -10px", padding: "10px", borderRadius: '10px', marginBottom: "20px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <p style={{ fontWeight: 600, fontSize: "18px", marginBottom: "20px", padding: "10px" }}>Overview Balance</p>
+              <div>
+                <Button
+                  onClick={() => setEarn("weeklyEarn")}
+                  style={{
+                    height: "40px",
+                    background: "#F4F4F4",
+                    color: "black",
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "10px 30px",
+                    gap: "10px",
+                    borderRadius: "60px",
+                  }}
+                >
+                  {/* <span>  Weekly Earning </span> */}
+                  <Dropdown
+                    menu={{
+                      items,
+                    }}
+                    trigger={['click']}
+                  >
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        Monthly
+                        <DownOutlined />
+                      </Space>
+                    </a>
+                  </Dropdown>
+                </Button>
+
+              </div>
+            </div>
+            <p style={{ fontWeight: 600, fontSize: "30px", marginBottom: "20px", padding: "10px", color: "#2BA24C" }}>$432,415</p>
+            <div style={{ marginBottom: "20px" }}>
+              <WalletOverView></WalletOverView>
+            </div>
           </div>
-        }
-        closable={false}
-        placement="right"
-        onClose={closeDrawer}
-        open={isDrawerVisible}
-        width={500}
-      >
-        {cardTitle === "credit" && <h2>Credit Card</h2>}
-        {cardTitle === "debit" && <h2>Debit Card</h2>}
-      </Drawer>
+        </Col>
+
+        <Col span={10}>
+          <div style={{ boxShadow: "rgba(0, 0, 0, 0.2) 0px 18px 50px -10px", padding: "10px", borderRadius: '10px', marginBottom: "20px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <p style={{ fontWeight: 600, fontSize: "18px", marginBottom: "20px", padding: "10px" }}>Wallet Activity</p>
+              <div>
+                <Button
+                  style={{
+                    height: "40px",
+                    background: "#F4F4F4",
+                    color: "black",
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "10px 10px",
+                    gap: "10px",
+                  }}
+                >
+                  <span> Date Range </span>
+                  <RangePicker
+                    style={{ width: "200px" }}
+                    showTime={{
+                      // format: 'mm:DD',
+                    }}
+                    format="YYYY-MM-DD"
+                    onChange={onChange}
+                    onOk={onOk}
+                  />
+                  {/* <MdKeyboardArrowDown fontSize={16}></MdKeyboardArrowDown> */}
+                </Button>
+              </div>
+            </div>
+            <div style={{ marginBottom: "20px" }}>
+              <WalletTable></WalletTable>
+            </div>
+          </div>
+        </Col>
+      </Row>
     </div>
   );
 };

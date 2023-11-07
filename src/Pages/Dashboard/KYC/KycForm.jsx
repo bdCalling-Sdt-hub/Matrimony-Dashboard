@@ -48,7 +48,7 @@ const KycForm = () => {
   const style = {
     formContainer: {
       background: "white",
-      padding: "30px",
+      padding: "10px",
       borderRadius: "10px",
     },
     formNavigateBtn: {
@@ -75,9 +75,9 @@ const KycForm = () => {
 
   return (
     <div style={{ padding: "0 60px" }}>
-      <h2 style={{ marginBottom: "10px", fontWeight: "normal" }}>Kyc Form</h2>
+      <h2 style={{ marginBottom: "10px", fontWeight: "normal", fontWeight: "600" }}>User KYC From</h2>
       <div style={style.formContainer}>
-        <div
+        {/* <div
           style={{
             display: "flex",
             borderBottom: "1px solid #cbcbcb",
@@ -112,9 +112,9 @@ const KycForm = () => {
           >
             Car
           </Button>
-        </div>
+        </div> */}
 
-        <div style={{ margin: "50px 0" }}>
+        <div style={{ margin: "10px 0", boxShadow : "" }}>
           <Form>
             <Row gutter={16}>
               <Col span={12}>

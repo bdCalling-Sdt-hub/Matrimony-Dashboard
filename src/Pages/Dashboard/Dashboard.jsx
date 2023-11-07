@@ -245,6 +245,20 @@ const Dashboard = () => {
             </Link>
           </Menu.Item>
 
+          <SubMenu
+            style={{ fontSize: "16px" }}
+            key="4"
+            icon={<GoPeople style={{ fontSize: "14px" }} />}
+            title={t("hostInfo.title")}
+          >
+            <Menu.Item key="39">
+              <Link to="/subscription">{t("hostInfo.subTitle2")}</Link>
+            </Menu.Item>
+            <Menu.Item key="40">
+              <Link to="/match-request">{t("hostInfo.subTitle1")}</Link>
+            </Menu.Item>
+          </SubMenu>
+
           <Menu.Item
             key="3"
             icon={<GiReceiveMoney style={{ fontSize: "14px" }} />}
@@ -271,7 +285,7 @@ const Dashboard = () => {
             </Menu.Item> */}
           {/* </SubMenu> */}
 
-          <SubMenu
+          {/* <SubMenu
             style={{ fontSize: "16px" }}
             key="3"
             icon={<MdPayment style={{ fontSize: "14px" }} />}
@@ -292,44 +306,38 @@ const Dashboard = () => {
             <Menu.Item key="38">
               <Link to="/wallet">{t("payment.subTitle5")}</Link>
             </Menu.Item>
-          </SubMenu>
-          <Divider />
-
-          <SubMenu
-            style={{ fontSize: "16px" }}
-            key="4"
-            icon={<GoPeople style={{ fontSize: "14px" }} />}
-            title={t("hostInfo.title")}
-          >
-            <Menu.Item key="39">
-              <Link to="/subscription">{t("hostInfo.subTitle2")}</Link>
-            </Menu.Item>
-            <Menu.Item key="40">
-              <Link to="/match-request">{t("hostInfo.subTitle1")}</Link>
-            </Menu.Item>
-          </SubMenu>
+          </SubMenu> */}
+          {/* <Divider /> */}
 
           <Menu.Item
-            key="5"
-            icon={<MdPeopleOutline style={{ fontSize: "14px" }} />}
+            key="7"
+            icon={<CarOutlined style={{ fontSize: "14px" }} />}
           >
-            <Link to="/report-account" style={{ fontSize: "16px" }}>
-              {t("reportAccount")}
+            <Link to="/wallet" style={{ fontSize: "16px" }}>
+              {t("wallet")}
             </Link>
           </Menu.Item>
 
-          <Menu.Item
+
+          {/* <Menu.Item
             key="7"
             icon={<CarOutlined style={{ fontSize: "14px" }} />}
           >
             <Link to="/car-info" style={{ fontSize: "16px" }}>
               {t("carInfo")}
             </Link>
+          </Menu.Item> */}
+
+          <Menu.Item
+            key="8"
+            icon={<CarOutlined style={{ fontSize: "14px" }} />}
+          >
+            <Link to="/kyc-form" style={{ fontSize: "16px" }}>
+              {t("kyc.title")}
+            </Link>
           </Menu.Item>
 
-          <Divider />
-
-          <SubMenu
+          {/* <SubMenu
             style={{ fontSize: "16px" }}
             key="8"
             icon={<RiUserSearchLine style={{ fontSize: "14px" }} />}
@@ -347,7 +355,21 @@ const Dashboard = () => {
             <Menu.Item key="44">
               <Link to="/kyc-form">{t("kyc.subTitle4")}</Link>
             </Menu.Item>
-          </SubMenu>
+          </SubMenu> */}
+
+          <Menu.Item
+            key="5"
+            icon={<MdPeopleOutline style={{ fontSize: "14px" }} />}
+          >
+            <Link to="/report-account" style={{ fontSize: "16px" }}>
+              {t("reportAccount")}
+            </Link>
+          </Menu.Item>
+
+
+          {/* <Divider /> */}
+
+
 
           <Menu.Item
             key="9"
