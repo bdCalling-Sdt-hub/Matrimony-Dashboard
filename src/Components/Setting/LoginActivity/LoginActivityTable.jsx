@@ -2,10 +2,10 @@ import { Button, Drawer, Table, Typography } from "antd";
 import React, { useState } from "react";
 import { BsEye } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
-import { RiDeleteBin5Line} from "react-icons/ri";
+import { RiDeleteBin5Line } from "react-icons/ri";
 import {
-    UndoOutlined,DeleteOutlined 
-  } from '@ant-design/icons';
+  UndoOutlined, DeleteOutlined
+} from '@ant-design/icons';
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import LoginActivity from './LoginActivity';
 const { Title, Text } = Typography;
@@ -109,7 +109,7 @@ const data = [
     joiningDate: "22/05/2023",
     ine: 20,
   }
- 
+
 ];
 
 const LoginActivityTable = () => {
@@ -150,15 +150,15 @@ const LoginActivityTable = () => {
       render: (_, record) => (
         <div style={{ textAlign: "center" }}>
           <Button
-           
             type="text"
-            style={{ marginRight: "10px" }}
+            style={{ marginRight: "10px", background: "#E91E63", color: "white" }}
           >
-            <DeleteOutlined style={{ fontSize: "25px", color: "#999999" }} />
+            Sign Out
+            {/* <DeleteOutlined style={{ fontSize: "25px", color: "#999999" }} /> */}
           </Button>
-          <Button type="text">
+          {/* <Button type="text">
             <UndoOutlined style={{ fontSize: "25px", color: "#999999"}} />
-          </Button>
+          </Button> */}
         </div>
       ),
     },

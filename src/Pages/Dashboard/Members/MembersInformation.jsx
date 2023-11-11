@@ -39,10 +39,17 @@ function MembersInformation() {
   };
 
   return (
-    <div style={{ padding: "0 60px" }}>
+    <div style={{}}>
       <Row>
         <Col lg={{ span: 24 }}>
-          <Tabs style={{ backgroundColor: "#F4F4F4", padding: "10px" }} defaultActiveKey={activeKey} items={items} onChange={handleTabChange} />
+          <Tabs
+            className="tabcolor"
+            defaultActiveKey={activeKey}
+            items={items}
+            type="card"
+           
+            onChange={handleTabChange}
+          />
         </Col>
         <Col lg={{ span: 24 }}>
           <MembersInformationTable activeKey={activeKey} />

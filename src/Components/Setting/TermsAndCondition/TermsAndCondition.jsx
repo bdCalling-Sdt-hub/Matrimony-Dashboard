@@ -13,7 +13,7 @@ const TermsAndCondition = () => {
   }
   return (
     <div>
-      
+
       <Row>
         <Col lg={{ span: 24 }}>
 
@@ -24,10 +24,10 @@ const TermsAndCondition = () => {
             onChange={newContent => { setContent(newContent) }}
           />
 
-          <Button onClick={aboutDataSave} block style={{ marginTop: "30px", backgroundColor: "#000b90", color: "#fff", height: "50px" }}>save</Button>
+          <Button onClick={aboutDataSave} block style={{ marginTop: "30px", backgroundColor: "#E91E63", color: "#fff", height: "50px" }}>save</Button>
 
         </Col>
-         
+
       </Row>
     </div>
   );

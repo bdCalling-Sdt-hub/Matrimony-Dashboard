@@ -61,26 +61,26 @@ const Setting = () => {
       title: "Login Activity",
       link: "login-activity",
     },
-    {
-      key: "4",
-      title: "Block List",
-      link: "block-list",
-    },
-    {
-      key: "5",
-      title: "Renti Percentage",
-      link: "renti-percentage",
-    },
-    {
-      key: "6",
-      title: "Host Payment Time",
-      link: "host-payment-time",
-    },
-    {
-      key: "7",
-      title: "Trash",
-      link: "trash",
-    },
+    // {
+    //   key: "4",
+    //   title: "Block List",
+    //   link: "block-list",
+    // },
+    // {
+    //   key: "5",
+    //   title: "Renti Percentage",
+    //   link: "renti-percentage",
+    // },
+    // {
+    //   key: "6",
+    //   title: "Host Payment Time",
+    //   link: "host-payment-time",
+    // },
+    // {
+    //   key: "7",
+    //   title: "Trash",
+    //   link: "trash",
+    // },
     {
       key: "8",
       title: "Privacy Policy",
@@ -173,6 +173,7 @@ const Setting = () => {
         <div style={style.notification}>
           <span>Notification</span>
           <Switch
+            style={{ background: "#E91E63" }}
             onChange={(e) => handleNotification(e)}
             checkedChildren="ON"
             unCheckedChildren="OFF"
@@ -259,7 +260,7 @@ const Setting = () => {
               <Button
                 type="text"
                 className="login-form-forgot"
-                style={{ color: "#000B90" }}
+                style={{ color: "#222" }}
                 onClick={() => (setVerify(true), setOpenChangePassModel(false))}
               >
                 Forgot password
@@ -276,7 +277,7 @@ const Setting = () => {
                   height: "45px",
                   fontWeight: "400px",
                   fontSize: "18px",
-                  background: "#000B90",
+                  background: "#E91E63",
                   marginTop: "60px",
                 }}
               >

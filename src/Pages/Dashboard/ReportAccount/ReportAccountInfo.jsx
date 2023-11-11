@@ -17,7 +17,9 @@ function ReportAccountInfo() {
 
       <Row>
         <Col lg={{ span: 24 }}>
-          <ReportAccountTable />
+          <div style={{ boxShadow: "rgba(0, 0, 0, 0.2) 0px 18px 50px -10px", borderRadius: "10px" }}>
+            <ReportAccountTable />
+          </div>
         </Col>
       </Row>
     </div>

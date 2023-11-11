@@ -6,6 +6,8 @@ import { Divider } from "antd";
 import { GiReceiveMoney } from "react-icons/gi";
 import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
+import { MdSubscriptions } from "react-icons/md";
+import { BsWindowPlus } from "react-icons/bs";
 import { GoPeople } from "./../../../node_modules/react-icons/go/index.esm";
 
 import { RiUserSearchLine } from "react-icons/ri";
@@ -150,13 +152,13 @@ const Dashboard = () => {
       <Menu.Item disabled>
         <h2
           style={{
-            color: "#000b90",
+            color: "#333",
             fontWeight: "500",
             borderBottom: "1px solid #e6e7f4",
             paddingBottom: "20px",
           }}
         >
-          Notifications
+          Recent Notification
         </h2>
         {/* <span style={{ fontWeight: 'bold', color: '#000' }}>Notifications</span> */}
       </Menu.Item>
@@ -177,13 +179,13 @@ const Dashboard = () => {
           block
           style={{
             height: "50px",
-            backgroundColor: "#e6e7f4",
-            color: "#000b90",
+            backgroundColor: "#E91E63",
+            color: "white",
             fontSize: "18px",
             fontWeight: "bold",
           }}
         >
-          <Link to="/notification">See All</Link>
+          <Link to="/notification">View All</Link>
         </Button>
       </div>
     </Menu>
@@ -238,7 +240,7 @@ const Dashboard = () => {
 
           <Menu.Item
             key="6"
-            icon={<MdCarRental style={{ fontSize: "14px" }} />}
+            icon={<GoPeople style={{ fontSize: "14px" }} />}
           >
             <Link to="/rent-info" style={{ fontSize: "16px" }}>
               {t("members")}
@@ -248,7 +250,7 @@ const Dashboard = () => {
           <SubMenu
             style={{ fontSize: "16px" }}
             key="4"
-            icon={<GoPeople style={{ fontSize: "14px" }} />}
+            icon={<MdSubscriptions style={{ fontSize: "14px" }} />}
             title={t("hostInfo.title")}
           >
             <Menu.Item key="39">
@@ -311,7 +313,7 @@ const Dashboard = () => {
 
           <Menu.Item
             key="7"
-            icon={<CarOutlined style={{ fontSize: "14px" }} />}
+            icon={<MdPayment style={{ fontSize: "14px" }} />}
           >
             <Link to="/wallet" style={{ fontSize: "16px" }}>
               {t("wallet")}
@@ -330,7 +332,7 @@ const Dashboard = () => {
 
           <Menu.Item
             key="8"
-            icon={<CarOutlined style={{ fontSize: "14px" }} />}
+            icon={<BsWindowPlus style={{ fontSize: "14px" }} />}
           >
             <Link to="/kyc-form" style={{ fontSize: "16px" }}>
               {t("kyc.title")}
