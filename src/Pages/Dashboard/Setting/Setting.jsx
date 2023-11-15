@@ -292,7 +292,7 @@ const Setting = () => {
             <Title
               level={2}
               style={{
-                color: "#000B90",
+                color: "black",
                 fontWeight: "normal",
                 marginBottom: "30px",
                 textShadow: "#bfbfbf 2px 2px 4px",
@@ -349,13 +349,13 @@ const Setting = () => {
                 height: "45px",
                 fontWeight: "400px",
                 fontSize: "18px",
-                background: "#000B90",
+                background: "#E91E63",
                 color: "#fff",
                 alignSelf: "bottom",
                 marginTop: "130px",
               }}
             >
-              Continue
+              Verify
             </Button>
           </div>
         </Modal>
@@ -365,10 +365,9 @@ const Setting = () => {
             <Title
               level={2}
               style={{
-                color: "#000B90",
+                color: "black",
                 fontWeight: "normal",
                 marginBottom: "30px",
-                textShadow: "#bfbfbf 2px 2px 4px",
               }}
             >
               Update Password
@@ -437,7 +436,7 @@ const Setting = () => {
                   height: "45px",
                   fontWeight: "400px",
                   fontSize: "18px",
-                  background: "#000B90",
+                  background: "#E91E63",
                   marginTop: "100px",
                 }}
               >

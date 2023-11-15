@@ -40,8 +40,7 @@ const Email = () => {
           </Title>
         </div>
         <Paragraph style={{ marginBottom: "30px" }}>
-          We'll send a verification code to your email. Check your inbox and
-          enter the code here.
+          Enter the email address associated with your account. We'll send you an OTP to your email.
         </Paragraph>
 
         <Form>
@@ -81,7 +80,7 @@ const Email = () => {
                 marginTop: "20px",
               }}
             >
-              Verify
+              Send OTP
             </Button>
           </Form.Item>
         </Form>

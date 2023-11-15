@@ -28,7 +28,7 @@ const Earning = () => {
   };
 
   return (
-    <div style={{ padding: "0px 50px" }}>
+    <div style={{ padding: "10px 10px" }}>
       {/* <h2 style={{ fontSize: "25px", fontWeight: "normal" }}>Earnings</h2> */}
       {
         !earn &&
@@ -87,7 +87,7 @@ const Earning = () => {
         earn === "weeklyEarn" &&
         <div>
           <p style={{ fontWeight: 600, fontSize: "30px", marginBottom: "20px", padding: "10px" }}>Last Week Earnings</p>
-          <div style={{ boxShadow: "rgba(0, 0, 0, 0.2) 0px 18px 50px -10px", padding: "10px", borderRadius: '10px', marginBottom: "20px" }}>
+          <div style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px", padding: "10px", borderRadius: '10px', marginBottom: "20px" }}>
             <p style={{ fontWeight: 600, fontSize: "18px", marginBottom: "20px", padding: "10px" }}>Week Earning Revenue</p>
             <div style={{ marginBottom: "20px" }}>
               <WeeklyEarn />
@@ -99,9 +99,9 @@ const Earning = () => {
       {
         earn === "monthlyEarn" &&
         <div>
-            <p style={{ fontWeight: 600, fontSize: "30px", marginBottom: "20px", padding: "10px" }}>Last Years Earnings</p>
-          <div style={{ boxShadow: "rgba(0, 0, 0, 0.2) 0px 18px 50px -10px", padding: "10px", borderRadius: '10px', marginBottom: "20px" }}>
-              <p style={{ fontWeight: 600, fontSize: "18px", marginBottom: "20px", padding: "10px" }}>Years Earning Revenue</p>
+          <p style={{ fontWeight: 600, fontSize: "30px", marginBottom: "20px", padding: "10px" }}>Last Years Earnings</p>
+          <div style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px", padding: "10px", borderRadius: '10px', marginBottom: "20px" }}>
+            <p style={{ fontWeight: 600, fontSize: "18px", marginBottom: "20px", padding: "10px" }}>Years Earning Revenue</p>
             <div style={{ marginBottom: "20px" }}>
               <WeeklyEarn />
             </div>

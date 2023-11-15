@@ -1,4 +1,4 @@
-import { Button, Drawer, Space, Table, Typography } from "antd";
+import { Avatar, Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { AiOutlinePrinter } from "react-icons/ai";
 import { LiaSaveSolid } from "react-icons/lia";
@@ -14,7 +14,7 @@ import {
 const data = [
   {
     key: "1",
-    invoiceNo: "1",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -24,7 +24,7 @@ const data = [
   },
   {
     key: "2",
-    invoiceNo: "2",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -34,7 +34,7 @@ const data = [
   },
   {
     key: "3",
-    invoiceNo: "3",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -68,50 +68,45 @@ const InvoiceTable = () => {
 
   const columns = [
     {
-      title: "Invoice",
+      title: "Image",
       dataIndex: "invoiceNo",
       key: "invoiceNo",
     },
     {
-      title: "TIME",
+      title: "Name",
       dataIndex: "time",
       key: "time",
       responsive: ["md"],
     },
     {
-      title: "USER NAME",
+      title: "Religion",
       dataIndex: "username",
       key: "username",
       responsive: ["lg"],
     },
     {
-      title: "METHOD",
+      title: "Country",
       dataIndex: "method",
       key: "method",
     },
     {
-      title: "AMOUNT",
+      title: "Language",
       dataIndex: "amount",
       key: "amount",
       responsive: ["md"],
     },
     {
-      title: "STATUS",
-      dataIndex: "status",
-      key: "status",
-    },
-    {
-      title: "PRINT/VIEW",
+      title: "Details",
       dataIndex: "printView",
       key: "printView",
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{}}>
-          <Button type="text" style={{ marginRight: "10px", paddingBottom: "35px" }}>
+          {/* <Button type="text" style={{ marginRight: "10px", paddingBottom: "35px" }}>
             <AiOutlinePrinter style={{ fontSize: "30px", color: "#999999" }} />
-          </Button>
-          <Button onClick={() => showDrawer(record)} type="text" style={{ paddingBottom: "35px" }}>
-            <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
+          </Button> */}
+          <Button style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
+            Details
           </Button>
         </div>
       ),

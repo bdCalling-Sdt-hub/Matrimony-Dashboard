@@ -39,15 +39,12 @@ const Subscription = () => {
   return (
     <div style={{ padding: "0px 60px" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", marginBottom: "40px" }}>
-        <h2
-        >
-          Subscriptions
-        </h2>
+        <h2>Subscriptions</h2>
         <div style={{ display: "flex", alignItems: "center" }}>
           <Button
             onClick={showModal}
             style={{
-              background: "#000B90",
+              background: "rgba(236, 236, 236, 1)",
               color: "#ffffff",
               backgroundColor: "#E91E63",
               height: 45,
@@ -63,9 +60,9 @@ const Subscription = () => {
           </Button>
         </div>
       </div>
-      <div
-        style={{ background: "white", padding: "30px", borderRadius: "10px" }}
-      >
+
+
+      <div style={{ background: "#F5F5F5", padding: "30px", borderRadius: "10px" }}>
         <Row gutter={[30, 30]}>
           {[...Array(6).keys()].map((item) => {
             return (

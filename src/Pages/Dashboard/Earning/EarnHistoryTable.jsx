@@ -226,7 +226,7 @@ const EarnHistoryTable = () => {
 
   return (
     <div>
-      <Table style={{ boxShadow: "rgba(0, 0, 0, 0.2) 0px 18px 50px -10px" }} columns={columns} dataSource={data} />
+      <Table style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;", borderRadius: "15px" }} columns={columns} dataSource={data} />
 
       <EarnInvoice
         modalVisible={modalVisible}

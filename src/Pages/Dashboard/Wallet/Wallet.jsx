@@ -39,7 +39,7 @@ const Wallet = () => {
   };
 
   return (
-    <div style={{ padding: "0 60px" }}>
+    <div style={{ padding: "0 10px" }}>
       <h2
         style={{ fontSize: "25px", marginBottom: "10px", fontWeight: "normal" }}
       >
@@ -140,7 +140,7 @@ const Wallet = () => {
 
       <Row gutter={16}>
         <Col span={14}>
-          <div style={{ boxShadow: "rgba(0, 0, 0, 0.2) 0px 18px 50px -10px", padding: "10px", borderRadius: '10px', marginBottom: "20px" }}>
+          <div style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px", padding: "10px", borderRadius: '10px', marginBottom: "20px" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <p style={{ fontWeight: 600, fontSize: "18px", marginBottom: "20px", padding: "10px" }}>Overview Balance</p>
               <div>
@@ -176,14 +176,14 @@ const Wallet = () => {
               </div>
             </div>
             <p style={{ fontWeight: 600, fontSize: "30px", marginBottom: "20px", padding: "10px", color: "#2BA24C" }}>$432,415</p>
-            <div style={{ marginBottom: "20px" }}>
+            <div style={{ marginBottom: "20px", }}>
               <WalletOverView></WalletOverView>
             </div>
           </div>
         </Col>
 
         <Col span={10}>
-          <div style={{ boxShadow: "rgba(0, 0, 0, 0.2) 0px 18px 50px -10px", padding: "10px", borderRadius: '10px', marginBottom: "20px" }}>
+          <div style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px", padding: "10px", borderRadius: '10px', marginBottom: "20px" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <p style={{ fontWeight: 600, fontSize: "18px", marginBottom: "20px", padding: "10px" }}>Wallet Activity</p>
               <div>

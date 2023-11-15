@@ -7,9 +7,7 @@
     padding-top: 30px;
     cursor: pointer;
     transition: .5s;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
-    color: black;
-    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .income-card {
@@ -23,22 +21,18 @@
     margin-bottom: 20px;
     cursor: pointer;
     transition: .5s;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
-    color: black;
-    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .income-card:hover {
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
-    color: black;
-    background-color: white;
+
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .shadow-design {
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
-    color: black;
-    background-color: white;
+    text-align: left;
+    border-radius: 15px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .rent-status {
@@ -53,7 +47,7 @@
 }
 
 .rent-status:hover {
-    box-shadow: rgba(75, 28, 204, 0.1) 0px 10px 50px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .single-status {

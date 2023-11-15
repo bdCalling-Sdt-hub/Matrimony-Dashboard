@@ -5,7 +5,7 @@ import ReportAccountTable from "./ReportAccountTable";
 
 function ReportAccountInfo() {
   return (
-    <div style={{ padding: "0 60px" }}>
+    <div style={{ padding: "10px 10px" }}>
 
       <Row style={{ background: "#FBD2E0", height: "67px", width: "240px", display: "flex", justifyContent: "center", alignItems: "center" }}>
         <h2
@@ -17,7 +17,7 @@ function ReportAccountInfo() {
 
       <Row>
         <Col lg={{ span: 24 }}>
-          <div style={{ boxShadow: "rgba(0, 0, 0, 0.2) 0px 18px 50px -10px", borderRadius: "10px" }}>
+          <div style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px", borderRadius: "15px" }}>
             <ReportAccountTable />
           </div>
         </Col>

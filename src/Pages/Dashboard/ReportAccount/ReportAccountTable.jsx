@@ -1,4 +1,4 @@
-import { Button, Drawer, Space, Table, Typography } from "antd";
+import { Avatar, Button, Drawer, Space, Table, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
@@ -13,7 +13,7 @@ import ReportDetails from "./ReportDetails";
 const data = [
   {
     key: "1",
-    invoiceNo: "10",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -23,7 +23,7 @@ const data = [
   },
   {
     key: "2",
-    invoiceNo: "11",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -33,7 +33,7 @@ const data = [
   },
   {
     key: "3",
-    invoiceNo: "12",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -43,7 +43,7 @@ const data = [
   },
   {
     key: "4",
-    invoiceNo: "13",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -53,7 +53,7 @@ const data = [
   },
   {
     key: "5",
-    invoiceNo: "14",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -63,7 +63,7 @@ const data = [
   },
   {
     key: "6",
-    invoiceNo: "15",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -73,7 +73,7 @@ const data = [
   },
   {
     key: "7",
-    invoiceNo: "16",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -83,7 +83,7 @@ const data = [
   },
   {
     key: "8",
-    invoiceNo: "17",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -93,7 +93,7 @@ const data = [
   },
   {
     key: "9",
-    invoiceNo: "15",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -103,7 +103,7 @@ const data = [
   },
   {
     key: "10",
-    invoiceNo: "16",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -113,7 +113,7 @@ const data = [
   },
   {
     key: "11",
-    invoiceNo: "17",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -123,7 +123,7 @@ const data = [
   },
   {
     key: "12",
-    invoiceNo: "15",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -133,7 +133,7 @@ const data = [
   },
   {
     key: "13",
-    invoiceNo: "16",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -143,7 +143,7 @@ const data = [
   },
   {
     key: "14",
-    invoiceNo: "17",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -153,7 +153,7 @@ const data = [
   },
   {
     key: "15",
-    invoiceNo: "15",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -163,7 +163,7 @@ const data = [
   },
   {
     key: "16",
-    invoiceNo: "16",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -173,7 +173,7 @@ const data = [
   },
   {
     key: "17",
-    invoiceNo: "17",
+    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
     time: "18 Jul, 2023  4:30pm",
     username: "Tushar",
     method: "Credit Card",
@@ -204,8 +204,7 @@ const ReportAccountTable = () => {
   const columns = [
     {
       title: "Image",
-      dataIndex: "invoiceNo",
-      key: "invoiceNo",
+      dataIndex: "invoiceNo", key: "invoiceNo",
     },
     {
       title: "Name",

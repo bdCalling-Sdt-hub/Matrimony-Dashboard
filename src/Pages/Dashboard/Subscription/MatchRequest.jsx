@@ -39,7 +39,7 @@ const MatchRequest = () => {
           Additional Match Requests
         </h2>
       </div>
-      <div style={{ background: "white", padding: "30px", borderRadius: "10px" }}>
+      <div style={{ background: "#F5F5F5", padding: "30px", borderRadius: "10px" }}>
         <Row gutter={[30, 30]}>
           {[...Array(3).keys()].map((item) => {
             return (

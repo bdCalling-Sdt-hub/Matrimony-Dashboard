@@ -25,7 +25,7 @@ function DashboardHome() {
 
   return (
     <div>
-      <h1 style={{ fontSize: "30px", marginBottom: "20px" }}>Dashboard overview</h1>
+      <h1 style={{ fontSize: "30px", marginBottom: "20px" }}>Overview</h1>
       <Row gutter={16} style={{ marginBottom: "20px" }}>
         <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 6 }}>
           <div className='free-members'>
@@ -42,6 +42,7 @@ function DashboardHome() {
                 </div>
               </div>
             </div>
+
             <FreeMembersChart></FreeMembersChart>
           </div>
         </Col>
@@ -156,133 +157,95 @@ function DashboardHome() {
         </Col>
       </Row>
 
-      {/* <Row gutter={16}>
-        <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 6 }}>
-          <div className='rent-status' style={{ backgroundColor: "#fff" }}>
-            <MdCarRental style={{ fontSize: "1.5rem", color: "#000b90" }} />
-            <div className='single-status'>
-              <h2 style={{ fontSize: "1.5rem", fontWeight: "600", marginTop: "10px", marginBottom: "10px", color: "#000b90" }}>Today's Rent</h2>
-              <h3 style={{ fontSize: "1.5rem", letterSpacing: "1px", color: "gray" }}>32</h3>
-            </div>
-
-          </div>
-        </Col>
-        <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 6 }}>
-          <div className='rent-status' style={{ backgroundColor: "#fff" }}>
-            <GrHistory style={{ fontSize: "1.5rem", color: "#000b90" }} />
-            <div className='single-status'>
-              <h2 style={{ fontSize: "1.5rem", fontWeight: "600", marginTop: "10px", marginBottom: "10px", color: "#000b90" }}>Pendings</h2>
-              <h3 style={{ fontSize: "1.5rem", letterSpacing: "1px", color: "gray" }}>40</h3>
-            </div>
-
-          </div>
-        </Col>
-        <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 6 }}>
-          <div className='rent-status' style={{ backgroundColor: "#fff" }}>
-            <SlRefresh style={{ fontSize: "1.5rem", color: "#000b90" }} />
-            <div className='single-status'>
-              <h2 style={{ fontSize: "1.5rem", fontWeight: "600", marginTop: "10px", marginBottom: "10px", color: "#000b90" }}>Ongoing</h2>
-              <h3 style={{ fontSize: "1.5rem", letterSpacing: "1px", color: "gray" }}>103</h3>
-            </div>
-
-          </div>
-        </Col>
-        <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 6 }}>
-          <div className='rent-status' style={{ backgroundColor: "#fff" }}>
-            <BsFillCheckCircleFill style={{ fontSize: "1.5rem", color: "#000b90" }} />
-            <div className='single-status'>
-              <h2 style={{ fontSize: "1.5rem", fontWeight: "600", marginTop: "10px", marginBottom: "10px", color: "#000b90" }}>Complete</h2>
-              <h3 style={{ fontSize: "1.5rem", letterSpacing: "1px", color: "gray" }}>562</h3>
-            </div>
-
-          </div>
-        </Col>
-      </Row> */}
 
 
-
-      <Row style={{ marginTop: "20px" }} gutter={24}>
-        <Col className='shadow-design' lg={{ span: 16 }}>
+      <Row gutter={24}>
+        <Col lg={{ span: 16 }}>
           <div
             className=""
             style={{
-              // border: "3px solid #000b90",
-              padding: "30px",
+              padding: "30px 30px",
               borderRadius: "15px",
-              backgroundColor: "#fff",
+              boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+              background: "white"
             }}
           >
             <h3 style={{ color: "black", paddingBottom: "8px", marginBottom: "8px", borderBottom: "2px solid #D3D3D3" }}>Earning Revenue</h3>
             <MostRentCarChart />
           </div>
         </Col>
-        <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 4 }}>
-          <div className='shadow-design' style={{ marginBottom: "25px", background: "white", padding: "20px", borderRadius: "10px" }}>
-            <div >
-              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
-                <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Earnings</h1>
+
+        <Col lg={{ span: 8 }}>
+          <Row gutter={24}>
+            <Col span={12}>
+              <div className='shadow-design' style={{ marginBottom: "25px", background: "white", padding: "20px", borderRadius: "10px" }}>
+                <div >
+                  <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
+                    <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Earnings</h1>
+                  </div>
+
+                  <h3 style={{ fontSize: "2.0rem", letterSpacing: "1px", marginBottom: "15px", color: "#2BA24C" }}>$ 3,235</h3>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <FiTrendingUp fontSize={20} color="#E91E63"></FiTrendingUp>
+                </div>
               </div>
 
-              <h3 style={{ fontSize: "2.0rem", letterSpacing: "1px", marginBottom: "15px", color: "#2BA24C" }}>$ 3,235</h3>
-            </div>
-            <div style={{ textAlign: "right" }}>
-              <FiTrendingUp fontSize={20} color="#E91E63"></FiTrendingUp>
-            </div>
-          </div>
+              <div className='shadow-design' style={{ marginBottom: "10px", background: "white", padding: "20px", borderRadius: "10px" }}>
+                <div >
+                  <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
+                    <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Earnings</h1>
+                  </div>
 
-          <div className='shadow-design' style={{ marginBottom: "10px", background: "white", padding: "20px", borderRadius: "10px" }}>
-            <div >
-              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
-                <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Earnings</h1>
+                  <h3 style={{ fontSize: "2.0rem", letterSpacing: "1px", marginBottom: "15px", color: "#2BA24C" }}>$ 3,235</h3>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <FiTrendingUp fontSize={20} color="#E91E63"></FiTrendingUp>
+                </div>
               </div>
 
-              <h3 style={{ fontSize: "2.0rem", letterSpacing: "1px", marginBottom: "15px", color: "#2BA24C" }}>$ 3,235</h3>
-            </div>
-            <div style={{ textAlign: "right" }}>
-              <FiTrendingUp fontSize={20} color="#E91E63"></FiTrendingUp>
-            </div>
-          </div>
+            </Col>
+            <Col span={12}>
+              <div className='shadow-design' style={{ marginBottom: "25px", background: "white", padding: "20px", borderRadius: "10px" }}>
+                <div >
+                  <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
+                    <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Earnings</h1>
+                  </div>
 
-        </Col>
-        <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 4 }}>
-          <div className='shadow-design' style={{ marginBottom: "25px", background: "white", padding: "20px", borderRadius: "10px" }}>
-            <div >
-              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
-                <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Earnings</h1>
+                  <h3 style={{ fontSize: "2.0rem", letterSpacing: "1px", marginBottom: "15px", color: "#2BA24C" }}>$ 3,235</h3>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <FiTrendingUp fontSize={20} color="#E91E63"></FiTrendingUp>
+                </div>
               </div>
 
-              <h3 style={{ fontSize: "2.0rem", letterSpacing: "1px", marginBottom: "15px", color: "#2BA24C" }}>$ 3,235</h3>
-            </div>
-            <div style={{ textAlign: "right" }}>
-              <FiTrendingUp fontSize={20} color="#E91E63"></FiTrendingUp>
-            </div>
-          </div>
+              <div className='shadow-design' style={{ marginBottom: "10px", background: "white", padding: "20px", borderRadius: "10px" }}>
+                <div >
+                  <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
+                    <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Earnings</h1>
+                  </div>
 
-          <div className='shadow-design' style={{ marginBottom: "10px", background: "white", padding: "20px", borderRadius: "10px" }}>
-            <div >
-              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
-                <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Earnings</h1>
+                  <h3 style={{ fontSize: "2.0rem", letterSpacing: "1px", marginBottom: "15px", color: "#2BA24C" }}>$ 3,235</h3>
+                </div>
+                <div style={{ textAlign: "right" }}>
+                  <FiTrendingUp fontSize={20} color="#E91E63"></FiTrendingUp>
+                </div>
               </div>
 
-              <h3 style={{ fontSize: "2.0rem", letterSpacing: "1px", marginBottom: "15px", color: "#2BA24C" }}>$ 3,235</h3>
-            </div>
-            <div style={{ textAlign: "right" }}>
-              <FiTrendingUp fontSize={20} color="#E91E63"></FiTrendingUp>
-            </div>
-          </div>
-
+            </Col>
+          </Row>
         </Col>
       </Row>
 
       <Row style={{ marginTop: "20px" }} gutter={24}>
-        <Col className='shadow-design' lg={{ span: 16 }}>
+        <Col lg={{ span: 16 }}>
           <div
             className=""
             style={{
-              // border: "3px solid #000b90",
-              padding: "30px",
+              padding: "30px 30px",
               borderRadius: "15px",
-              backgroundColor: "#fff",
+              boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+              background: "white"
             }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "2px solid #D3D3D3" }}>
@@ -304,20 +267,20 @@ function DashboardHome() {
               <div>
                 <VisitorsChart
                   width={400}
-                  height={150}></VisitorsChart>
+                  height={180}></VisitorsChart>
               </div>
             </div>
 
             <div style={{ display: "flex", background: "white", borderRadius: "10px" }}>
 
-              <div style={{ backgroundColor: "#2BA24C", padding: "20px", margin: "10px", borderRadius: "20px", width: "100%", textAlign: "center", height: "120px" }}>
-                <h3 style={{ fontSize: "2.0rem", letterSpacing: "1px", marginBottom: "10px", color: "white" }}>2,124</h3>
-                <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "10px", color: "white" }}>Last Month</h1>
+              <div style={{ backgroundColor: "#2BA24C", padding: "5px 20px", margin: "10px", borderRadius: "8px", width: "100%", textAlign: "center", height: "90px" }}>
+                <h3 style={{ fontSize: "2.0rem", fontWeight: "200", letterSpacing: "1px", marginBottom: "0px", color: "white" }}>2,124</h3>
+                <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "0px", marginBottom: "10px", color: "white" }}>Last Month</h1>
               </div>
 
-              <div style={{ backgroundColor: "#E91E63", padding: "20px", margin: "10px", borderRadius: "20px", width: "100%", textAlign: "center", height: "120px" }}>
-                <h3 style={{ fontSize: "2.0rem", letterSpacing: "1px", marginBottom: "10px", color: "white" }}>7,124</h3>
-                <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "10px", color: "white" }}>Last 1 Years</h1>
+              <div style={{ backgroundColor: "#E91E63", padding: "5px 20px", margin: "10px", borderRadius: "8px", width: "100%", textAlign: "center", height: "90px" }}>
+                <h3 style={{ fontSize: "2.0rem", fontWeight: "200", letterSpacing: "1px", marginBottom: "0px", color: "white" }}>7,124</h3>
+                <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "0px", marginBottom: "10px", color: "white" }}>Last 1 Years</h1>
               </div>
             </div>
 

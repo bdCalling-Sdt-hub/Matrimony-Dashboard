@@ -4,7 +4,7 @@ import { RadialBarChart, RadialBar, Legend } from "recharts";
 
 const data = [
     {
-        name: `Male Members`,
+        name: 'Male Members\n10k',
         uv: 31.47,
         pv: 2400,
         fill: "#2BA24C"

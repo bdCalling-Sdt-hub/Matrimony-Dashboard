@@ -57,9 +57,12 @@
 
 
 .ant-layout-sider-children {
-  background: linear-gradient(180deg, #787878 0%, #434343 0.01%, #000 100%);
-  /* width: 320px; */
+  background: "#171726";
+  /* background: linear-gradient(180deg, #787878 0%, #434343 0.01%, #000 100%); */
+  /* width: 260px; */
+
 }
+
 
 :where(.css-dev-only-do-not-override-17a39f8).ant-menu-inline .ant-menu-item {
   width: calc(100% - 0px) !important;
@@ -122,4 +125,14 @@ li.ant-menu-item.ant-menu-item-selected {
 
 :where(.css-dev-only-do-not-override-17a39f8).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
   color: #fff;
+}
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #E91E63;
+  border-color: #E91E63;
+}
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-checkbox-wrapper:not(.ant-checkbox-wrapper-disabled):hover .ant-checkbox-checked:not(.ant-checkbox-disabled) .ant-checkbox-inner {
+  background-color: #E91E63;
+  border-color: #E91E63;
 }

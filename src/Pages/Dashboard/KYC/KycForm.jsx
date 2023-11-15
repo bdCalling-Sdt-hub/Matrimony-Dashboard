@@ -3,13 +3,14 @@ import {
   Col,
   Form,
   Input,
-  Radio,
+  Dropdown,
   Row,
   Select,
   Upload,
   message,
   Button,
 } from "antd";
+import { DownOutlined } from '@ant-design/icons';
 const { Search } = Input;
 import React, { useState } from "react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
@@ -18,6 +19,21 @@ import { AiOutlineCloudDownload } from "react-icons/ai";
 import styleForm from "./KycForm.module.css";
 const { Option } = Select;
 const { Dragger } = Upload;
+
+const items = [
+  {
+    label: "Male",
+    key: '0',
+  },
+  {
+    label: "FeMale",
+    key: '1',
+  },
+  {
+    label: 'Others',
+    key: '3',
+  },
+];
 
 const props = {
   name: "file",
@@ -59,6 +75,7 @@ const KycForm = () => {
     },
     input: {
       height: "45px",
+      background: "#F6F6F6",
     },
   };
 
@@ -77,11 +94,11 @@ const KycForm = () => {
   );
 
   return (
-    <div style={{ padding: "0 60px" }}>
+    <div style={{ padding: "10px 10px" }}>
       <h2 style={{ marginBottom: "10px", fontWeight: "600" }}>User KYC From</h2>
       <div style={style.formContainer}>
 
-        <div style={{ padding: "20px 20px", boxShadow: "rgba(0, 0, 0, 0.2) 0px 18px 50px -10px", borderRadius: "10px" }}>
+        <div style={{ padding: "20px 20px", boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px", borderRadius: "10px" }}>
           <Form>
             <Row gutter={16}>
               <Col span={8}>
@@ -98,13 +115,13 @@ const KycForm = () => {
                 <div style={{ margin: "15px 0", fontWeight: "bold" }}>
                   <label htmlFor="">Date of Birth</label>
                   <div style={{ display: "flex", gap: "15px" }}>
-                    <Input style={{ height: "40px" }} format="DD" />
+                    <Input style={{ height: "40px", background: "#F6F6F6" }} format="DD" />
                     <Input
-                      style={{ height: "40px" }}
+                      style={{ height: "40px", background: "#F6F6F6" }}
                       format="MM"
                       onlyMonthPicker
                     />
-                    <Input style={{ height: "40px" }} onlyYearPicker />
+                    <Input style={{ height: "40px", background: "#F6F6F6" }} onlyYearPicker />
                   </div>
                 </div>
 
@@ -187,15 +204,19 @@ const KycForm = () => {
                 <div style={{ fontWeight: "bold" }}>
                   <label
                     htmlFor=""
-                    style={{ display: "block", height: "45px" }}
+                    style={{ display: "block", }}
                   >
                     Gender
                   </label>
-                  <Radio.Group>
-                    <Radio value={1}>Male</Radio>
-                    <Radio value={2}>Female</Radio>
-                    <Radio value={3}>Others</Radio>
-                  </Radio.Group>
+                  <Dropdown menu={{ items }} trigger={['click']}>
+                    <a onClick={(e) => e.preventDefault()}>
+                      <Button style={{
+                        display: "flex", justifyContent: "space-between", justifyItems: "center", alignItems: "center", width: "100%", height: "45px", background: "#F6F6F6"
+                      }}> Enter your gender
+                        <DownOutlined />
+                      </Button>
+                    </a>
+                  </Dropdown>
                 </div>
 
 
@@ -234,17 +255,19 @@ const KycForm = () => {
 
                 <div>
                   <label htmlFor="" style={{ marginTop: "10px", fontWeight: "bold" }}>Phone Number</label>
-                  <Space.Compact>
+                  <Space.Compact style={{ width: "100%" }}>
                     <Input
                       style={{
                         width: '20%',
+                        background: "#F6F6F6"
                       }}
                       defaultValue="+1"
                     />
                     <Input
                       style={{
                         width: '80%',
-                        height: '45px'
+                        height: '45px',
+                        background: "#F6F6F6",
                       }}
                       defaultValue="26888888"
                     />
@@ -308,13 +331,13 @@ const KycForm = () => {
                 <div style={{ margin: "15px 0", fontWeight: "bold" }}>
                   <label htmlFor="">Date of Birth</label>
                   <div style={{ display: "flex", gap: "15px" }}>
-                    <Input style={{ height: "40px" }} format="DD" />
+                    <Input style={{ height: "40px", background: "#F6F6F6" }} format="DD" />
                     <Input
-                      style={{ height: "40px" }}
+                      style={{ height: "40px", background: "#F6F6F6" }}
                       format="MM"
                       onlyMonthPicker
                     />
-                    <Input style={{ height: "40px" }} onlyYearPicker />
+                    <Input style={{ height: "40px", background: "#F6F6F6" }} onlyYearPicker />
                   </div>
                 </div>
 

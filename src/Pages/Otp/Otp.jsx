@@ -1,7 +1,7 @@
 import { Button, Form, Input, Typography } from "antd";
 import React from "react";
 import otp from "../../Images/otp.png";
-import logo from "../../Images/Logo.png";
+import logo from "../../Images/icon.png";
 import style from "./Otp.module.css";
 import { IoIosArrowBack } from 'react-icons/io';
 
@@ -57,7 +57,7 @@ const Otp = () => {
           </Input.Group>
 
           <div className={style.rememberAndPass}>
-            <Text>Don't received code?</Text>
+            <Text>Didn’t receive code?</Text>
 
             <a
               className="login-form-forgot"
@@ -83,7 +83,7 @@ const Otp = () => {
                 marginTop: "20px",
               }}
             >
-              Continue
+              Verify
             </Button>
           </Form.Item>
         </Form>

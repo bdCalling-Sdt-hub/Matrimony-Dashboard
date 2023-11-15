@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { CarOutlined, MenuOutlined, SettingOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Layout, Menu, Select, theme } from "antd";
-
+import { CarOutlined, MenuOutlined, SettingOutlined, SearchOutlined } from "@ant-design/icons";
+import { Button, Dropdown, Input, Layout, Menu, Select, Space, theme } from "antd";
 import { Divider } from "antd";
 import { GiReceiveMoney } from "react-icons/gi";
 import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
@@ -46,28 +45,28 @@ const profileItems = [
       </Link>
     ),
   },
-  {
-    key: 2,
-    label: (
-      <Link to="/notification" style={{}} rel="noreferrer">
-        <div
-          className={Styles.everyNotify}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <img
-            style={{ marginRight: "20px" }}
-            width="30"
-            height="30"
-            src="https://img.icons8.com/ios/50/appointment-reminders--v1.png"
-            alt="appointment-reminders--v1"
-          />
-          <div className="" style={{ marginTop: "" }}>
-            <p>Notification</p>
-          </div>
-        </div>
-      </Link>
-    ),
-  },
+  // {
+  //   key: 2,
+  //   label: (
+  //     <Link to="/notification" style={{}} rel="noreferrer">
+  //       <div
+  //         className={Styles.everyNotify}
+  //         style={{ display: "flex", alignItems: "center" }}
+  //       >
+  //         <img
+  //           style={{ marginRight: "20px" }}
+  //           width="30"
+  //           height="30"
+  //           src="https://img.icons8.com/ios/50/appointment-reminders--v1.png"
+  //           alt="appointment-reminders--v1"
+  //         />
+  //         <div className="" style={{ marginTop: "" }}>
+  //           <p>Notification</p>
+  //         </div>
+  //       </div>
+  //     </Link>
+  //   ),
+  // },
   {
     key: 3,
     label: (
@@ -194,7 +193,7 @@ const Dashboard = () => {
   return (
     <Layout style={{ height: "100vh", width: "100vw" }}>
       <Sider
-        width="313px"
+        width="260px"
         trigger={null}
         collapsible
         collapsed={collapsed}
@@ -210,22 +209,27 @@ const Dashboard = () => {
         <div
           className="logo"
           style={{
+            background: "#222222",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            marginTop: "30px",
-            marginBottom: "30px",
+            // marginTop: "30px",
+            marginBottom: "45px",
           }}
         >
           <img
+            style={{
+              marginTop: "20px",
+              marginBottom: "20px",
+            }}
             src={logo}
-            height={collapsed ? "40px" : "150px"}
-            width={collapsed ? "40px" : "150px"}
+          // height={collapsed ? "40px" : "40px"}
+          // width={collapsed ? "40px" : "40px"}
           />
         </div>
 
         <Menu
-          style={{ padding: collapsed ? "0px" : "20px", border: "none", background: "black", color: "white" }}
+          style={{ padding: collapsed ? "0px" : "10px", border: "none", background: "#171726", color: "white" }}
           mode="inline"
           defaultSelectedKeys={["1"]}
         >
@@ -253,10 +257,10 @@ const Dashboard = () => {
             icon={<MdSubscriptions style={{ fontSize: "14px" }} />}
             title={t("hostInfo.title")}
           >
-            <Menu.Item key="39">
+            <Menu.Item key="39" style={{ fontSize: "14px" }} >
               <Link to="/subscription">{t("hostInfo.subTitle2")}</Link>
             </Menu.Item>
-            <Menu.Item key="40">
+            <Menu.Item key="40" style={{ fontSize: "14px" }}>
               <Link to="/match-request">{t("hostInfo.subTitle1")}</Link>
             </Menu.Item>
           </SubMenu>
@@ -270,47 +274,6 @@ const Dashboard = () => {
             </Link>
           </Menu.Item>
 
-          {/* <SubMenu
-            style={{ fontSize: "16px" }}
-            key="2"
-            icon={<GiReceiveMoney style={{ fontSize: "14px" }} />}
-            title={t("earning.title")}
-          > */}
-          {/* <Menu.Item key="31">
-              <Link to="/earning/today-income">{t("earning.subTitle1")}</Link>
-            </Menu.Item>
-            <Menu.Item key="32">
-              <Link to="/earning/weekly-income">{t("earning.subTitle2")}</Link>
-            </Menu.Item>
-            <Menu.Item key="33">
-              <Link to="/earning/monthly-income">{t("earning.subTitle3")}</Link>
-            </Menu.Item> */}
-          {/* </SubMenu> */}
-
-          {/* <SubMenu
-            style={{ fontSize: "16px" }}
-            key="3"
-            icon={<MdPayment style={{ fontSize: "14px" }} />}
-            title={t("payment.title")}
-          >
-            <Menu.Item key="34">
-              <Link to="/user-payment">{t("payment.subTitle1")}</Link>
-            </Menu.Item>
-            <Menu.Item key="35">
-              <Link to="/host-payment">{t("payment.subTitle2")}</Link>
-            </Menu.Item>
-            <Menu.Item key="36">
-              <Link to="/stripe-bills">{t("payment.subTitle3")}</Link>
-            </Menu.Item>
-            <Menu.Item key="37">
-              <Link to="/renti-income">{t("payment.subTitle4")}</Link>
-            </Menu.Item>
-            <Menu.Item key="38">
-              <Link to="/wallet">{t("payment.subTitle5")}</Link>
-            </Menu.Item>
-          </SubMenu> */}
-          {/* <Divider /> */}
-
           <Menu.Item
             key="7"
             icon={<MdPayment style={{ fontSize: "14px" }} />}
@@ -320,16 +283,6 @@ const Dashboard = () => {
             </Link>
           </Menu.Item>
 
-
-          {/* <Menu.Item
-            key="7"
-            icon={<CarOutlined style={{ fontSize: "14px" }} />}
-          >
-            <Link to="/car-info" style={{ fontSize: "16px" }}>
-              {t("carInfo")}
-            </Link>
-          </Menu.Item> */}
-
           <Menu.Item
             key="8"
             icon={<BsWindowPlus style={{ fontSize: "14px" }} />}
@@ -338,26 +291,6 @@ const Dashboard = () => {
               {t("kyc.title")}
             </Link>
           </Menu.Item>
-
-          {/* <SubMenu
-            style={{ fontSize: "16px" }}
-            key="8"
-            icon={<RiUserSearchLine style={{ fontSize: "14px" }} />}
-            title={t("kyc.title")}
-          >
-            <Menu.Item key="41">
-              <Link to="/host-kyc">{t("kyc.subTitle1")}</Link>
-            </Menu.Item>
-            <Menu.Item key="42">
-              <Link to="/user-kyc">{t("kyc.subTitle2")}</Link>
-            </Menu.Item>
-            <Menu.Item key="43">
-              <Link to="/car-kyc">{t("kyc.subTitle3")}</Link>
-            </Menu.Item>
-            <Menu.Item key="44">
-              <Link to="/kyc-form">{t("kyc.subTitle4")}</Link>
-            </Menu.Item>
-          </SubMenu> */}
 
           <Menu.Item
             key="5"
@@ -383,12 +316,14 @@ const Dashboard = () => {
           </Menu.Item>
         </Menu>
       </Sider>
-      <Layout>
+      <Layout
+      // style={{ background: "white" }}
+      >
         <Header
           style={{
             position: "fixed",
             width: "100vw",
-            height: "80px",
+            height: "100px",
             zIndex: 1,
             padding: 0,
             backgroundColor: colorBgContainer,
@@ -410,7 +345,9 @@ const Dashboard = () => {
                 marginRight: "10px",
               }}
             />
-            <h2>{t("header.title")}</h2>
+            <Space.Compact size="large" style={{ width: "416px", padding: " 10px" }}>
+              <Input addonBefore={<SearchOutlined />} placeholder="Search User" />
+            </Space.Compact>
           </div>
 
           <div
@@ -480,7 +417,13 @@ const Dashboard = () => {
                 />
               </Dropdown>
             </div>
+
+            <div style={{ lineHeight: "1.2" }}>
+              <h1 style={{ fontSize: "16px" }}>Mr. John Doe</h1>
+              <p style={{ fontSize: "14px" }}>Admin</p>
+            </div>
           </div>
+
         </Header>
         <Content
           style={{
@@ -488,9 +431,9 @@ const Dashboard = () => {
             marginBottom: "50px",
             marginLeft: collapsed ? "130px" : "360px",
             marginRight: "60px",
-            background: "#FFF",
+            // background: "#FFF",
             borderRadius: "10px",
-            padding: 50,
+            // padding: 50,
             minHeight: 280,
             overflow: "auto",
           }}
@@ -498,7 +441,7 @@ const Dashboard = () => {
           <Outlet />
         </Content>
       </Layout>
-    </Layout>
+    </Layout >
   );
 };
 export default Dashboard;

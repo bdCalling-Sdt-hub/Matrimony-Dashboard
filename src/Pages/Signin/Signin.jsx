@@ -2,7 +2,7 @@ import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 import React from "react";
 import { useNavigate } from "react-router";
-import logo from "../../Images/Logo.png";
+import logo from "../../Images/icon.png";
 import isometric from "../../Images/isometric.png";
 import style from "./Signin.module.css";
 
@@ -69,7 +69,7 @@ const Signin = () => {
             >
               <Input
                 prefix={<MailOutlined className="site-form-item-icon" />}
-                placeholder="Enter your email address"
+                placeholder=" Enter your email address"
                 type="email"
                 className={style.input}
               />
@@ -92,7 +92,7 @@ const Signin = () => {
               <Input
                 prefix={<LockOutlined className="site-form-item-icon" />}
                 type="password"
-                placeholder="Enter your password"
+                placeholder=" Enter your password"
                 className={style.input}
               />
             </Form.Item>
