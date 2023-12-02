@@ -1,17 +1,36 @@
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router";
 import logo from "../../Images/icon.png";
 import isometric from "../../Images/isometric.png";
 import style from "./Signin.module.css";
+import { useLoginMutation } from "../../redux/features/auth/authAPI";
 
 const Signin = () => {
+  const [login, { data, isLoading, error }] = useLoginMutation();
+  const navigate = useNavigate();
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+    const email = values.email;
+    const password = values.password;
+    const data = {
+      email: email,
+      password: password,
+    }
+    login(data);
   };
 
-  const navigate = useNavigate();
+  useEffect(()=>{
+    console.log(data, error)
+    if(data){
+      alert("Login Successfull")
+      navigate("/")
+    }
+    if(error){
+      alert(error.data.message)
+    }
+  },[data, error])
+  
 
   const handleForget = () => {
     navigate("/forget-password");
