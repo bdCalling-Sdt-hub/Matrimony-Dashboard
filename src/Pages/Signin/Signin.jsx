@@ -5,35 +5,65 @@ import { useNavigate } from "react-router";
 import logo from "../../Images/icon.png";
 import isometric from "../../Images/isometric.png";
 import style from "./Signin.module.css";
-import { useLoginMutation } from "../../redux/features/auth/authAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { UserData, reset } from "../../ReduxSlices/SigninSlice";
+import Swal from "sweetalert2";
+import Cookies from "js-cookie"; // Import js-cookie
 
 const Signin = () => {
-  const [login, { data, isLoading, error }] = useLoginMutation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const onFinish = (values) => {
-    const email = values.email;
-    const password = values.password;
-    const data = {
-      email: email,
-      password: password,
+  const [form] = Form.useForm(); // Ant Design form instance
+  const { isLoading, isError, isSuccess, userData, accessToken, message } = useSelector((state) => state.UserData);
+
+  useEffect(() => {
+    if (isError) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: message,
+      });
     }
-    login(data);
+    if (isSuccess) {
+      localStorage.setItem("yourInfo", JSON.stringify(userData));
+      localStorage.setItem("token", accessToken);
+      if (userData.role === "admin") {
+        window.location.href = "/";
+      }
+    }
+  }, [isLoading, isError, isSuccess, dispatch, navigate]);
+
+  useEffect(() => {
+    const rememberedEmail = Cookies.get("rememberedEmail");
+    const rememberedPassword = Cookies.get("rememberedPassword");
+
+    if (rememberedEmail) {
+      form.setFieldsValue({
+        email: rememberedEmail,
+        password: rememberedPassword || "",
+        remember: true,
+      });
+    }
+  }, []);
+
+  const onFinish = (values) => {
+    const data = {
+      email: values.email,
+      password: values.password,
+    };
+    dispatch(UserData(data));
+
+    if (values.remember) {
+      Cookies.set("rememberedEmail", values.email, { expires: 30 });
+      Cookies.set("rememberedPassword", values.password, { expires: 30 });
+    } else {
+      Cookies.remove("rememberedEmail");
+      Cookies.remove("rememberedPassword");
+    }
   };
 
-  useEffect(()=>{
-    console.log(data, error)
-    if(data){
-      alert("Login Successfull")
-      navigate("/")
-    }
-    if(error){
-      alert(error.data.message)
-    }
-  },[data, error])
-  
-
   const handleForget = () => {
-    navigate("/forget-password");
+    navigate("/email");
   };
 
   return (
@@ -54,21 +84,13 @@ const Signin = () => {
         >
           Hello, Welcome!
         </h2>
-
-        <h4
-          style={{
-            color: "black",
-            fontWeight: "normal",
-            marginBottom: "30px",
-          }}
-        >
-          Please Enter Your Details Below to Continue
-        </h4>
+        {/* Rest of your JSX content */}
         <Form
+          form={form}
           name="normal_login"
           className="login-form"
           initialValues={{
-            remember: true,
+            remember: false,
           }}
           onFinish={onFinish}
         >
@@ -121,14 +143,13 @@ const Signin = () => {
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
 
-            <a
+            <div
               className="login-form-forgot"
-              style={{ color: "black" }}
-              href=""
+              style={{ color: "black", cursor: "pointer" }}
               onClick={handleForget}
             >
               Forgot password
-            </a>
+            </div>
           </div>
 
           <Form.Item>

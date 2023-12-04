@@ -1,20 +1,53 @@
 import { Button, Form, Input, Typography } from "antd";
-import React from "react";
-import otp from "../../Images/otp.png";
+import React, { useState } from "react";
+import otpImg from "../../Images/otp.png";
 import logo from "../../Images/icon.png";
 import style from "./Otp.module.css";
 import { IoIosArrowBack } from 'react-icons/io';
+import { useNavigate, useParams } from "react-router-dom";
+import baseAxios from "../../../Config";
+import Swal from "sweetalert2";
+import OTPInput from "react-otp-input";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
 const Otp = () => {
+  let { email } = useParams();
+  const [otp, setOtp] = useState("");
+
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
+  };
+
+  const navigate = useNavigate();
+
+  const handelOtp = () => {
+    baseAxios
+      .post("/auth/verify-email", { email, oneTimeCode: otp })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        // sweet alert for success and error set
+        Swal.fire({
+          icon: "success",
+          title: "OTP Verified Successfully",
+          // text: "Please Check Your Email!",
+        });
+        navigate(`/update-password/${email}`);
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "OTP is not verified",
+        });
+      });
   };
   return (
     <div className={style.otpContainer}>
       <div>
-        <img src={otp} alt="" />
+        <img src={otpImg} alt="" />
       </div>
       <div className={style.formContainer}>
         <div>
@@ -45,46 +78,26 @@ const Otp = () => {
         </Paragraph>
 
         <Form>
-          <Input.Group
-            style={{ display: "flex", gap: "10px", marginBottom: "10px" }}
-          >
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-            <Input className={style.otpInput} />
-          </Input.Group>
-
-          <div className={style.rememberAndPass}>
-            <Text>Didn’t receive code?</Text>
-
-            <a
-              className="login-form-forgot"
-              style={{ color: "#000000" }}
-              href=""
-            >
-              Resend
-            </a>
-          </div>
+          <OTPInput
+            value={otp}
+            onChange={setOtp}
+            numInputs={6}
+            containerStyle={style.otpFormContainer}
+            inputStyle={style.otpInputFild}
+            renderSeparator={<span style={{ width: "20px" }}></span>}
+            renderInput={(props) => <input {...props} />}
+          />
 
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-              block
-              style={{
-                height: "45px",
-                fontWeight: "400px",
-                fontSize: "18px",
-                background: "#E91E63",
-                alignSelf: "bottom",
-                marginTop: "20px",
-              }}
-            >
-              Verify
-            </Button>
+            <div className={style.buttonContainer}>
+              <Button
+                onClick={handelOtp}
+                htmlType="submit"
+                className={style.verifyButton}
+              >
+                Verify
+              </Button>
+            </div>
           </Form.Item>
         </Form>
       </div>
