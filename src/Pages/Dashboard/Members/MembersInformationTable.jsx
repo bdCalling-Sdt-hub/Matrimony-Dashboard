@@ -275,26 +275,6 @@ const MembersInformationTable = () => {
     },
   ];
 
-
-
-  useEffect(() => {
-    // Fetch data from the server when the current page changes
-    fetchData();
-  }, [currentPage]);
-
-  const fetchData = async () => {
-    // Replace this with your actual API request to fetch data based on pagination
-    try {
-      const response = await fetch(`/api/data?page=${currentPage}&pageSize=${pageSize}`);
-      const result = await response.json();
-
-      setData(result.data);
-      setTotalItems(result.totalItems);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
     console.log(currentPage)

@@ -16,7 +16,7 @@ export const UserInformationData = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       let response = await baseAxios.get(
-        `/api/users?limit=5&page=${value.page}&search=${value.search}`,
+        `/users?limit=10&page=${value.page}&name=${value?.name}&gender=${value?.gender}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -26,6 +26,7 @@ export const UserInformationData = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
+      console.log(error);
       if (
         "You are not authorised to sign in now" === error.response.data.message || "Error authorization" === error.response.data.message
       ) {

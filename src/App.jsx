@@ -53,7 +53,7 @@ function App() {
               <Route path="/wallet" element={<Wallet />} />
 
               <Route path="/report-account" element={<ReportAccountInfo />} />
-              <Route path="/rent-info" element={<MembersInformation />} />
+              <Route path="/user-info" element={<MembersInformation />} />
               <Route path="/pesonal-details/:id" element={<PersonalDetails />} />
               <Route path="/car-info" element={<CarInformation />} />
               <Route path="/user-payment" element={<UserPayment />} />

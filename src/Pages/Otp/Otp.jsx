@@ -54,13 +54,13 @@ const Otp = () => {
           <img src={logo} alt="" />
         </div>
         <div style={{ display: "flex" }}>
-          <a
+          <div
             className="login-form-forgot"
-            style={{ color: "#000000" }}
-            href=""
+            style={{ color: "#000000", cursor: "pointer" }}
+            onClick={()=>navigate('/signin')}
           >
             <IoIosArrowBack style={{ width: "40px", fontSize: 40 }}></IoIosArrowBack>
-          </a>
+          </div>
           <Title
             level={2}
             style={{

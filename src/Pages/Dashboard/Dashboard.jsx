@@ -246,7 +246,7 @@ const Dashboard = () => {
             key="6"
             icon={<GoPeople style={{ fontSize: "14px" }} />}
           >
-            <Link to="/rent-info" style={{ fontSize: "16px" }}>
+            <Link to="/user-info" style={{ fontSize: "16px" }}>
               {t("members")}
             </Link>
           </Menu.Item>
