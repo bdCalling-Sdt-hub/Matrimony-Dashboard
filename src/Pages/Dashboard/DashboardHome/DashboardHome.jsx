@@ -2,7 +2,6 @@ import { Col, Divider, Row } from "antd";
 import React from "react";
 import { LiaHandHoldingUsdSolid } from "react-icons/lia";
 import "./DashboardHome.css";
-
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { GrHistory } from "react-icons/gr";
 import { MdCarRental } from "react-icons/md";
