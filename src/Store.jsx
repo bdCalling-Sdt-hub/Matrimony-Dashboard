@@ -13,7 +13,7 @@ export const Store = configureStore({
     UserData: SigninReducer,
     // BookingData: BookingDataReducer,
     // DashboardHomeData: DashboardHomeDataReducer,
-    // UserInformationData: UserInformationReducer,
+    UserInformationData: UserInformationReducer,
     // HostInformationData: HostInformationReducer,
     // ResidenceInformationData: ResidenceInformationReducer,
     // NotificationsData: NotificationsSlice,

@@ -3,6 +3,8 @@ import React from "react";
 import "./MembersInformation";
 import MembersInformationTable from "./MembersInformationTable";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { UserInformationData } from "../../../ReduxSlices/UserInformationSlice";
 
 // const onChange = (key) => {
 //   // console.log(key);
@@ -10,6 +12,7 @@ import { useState } from "react";
 
 
 function MembersInformation() {
+  const dispatch = useDispatch();
 
   const items = [
     {
@@ -32,9 +35,23 @@ function MembersInformation() {
 
   const [activeKey, setActiveKey] = useState('1');
   console.log(activeKey)
-
+  let page = 1;
   const handleTabChange = (key) => {
     setActiveKey(key);
+    let gender = "";
+    if (key === '2') {
+      gender = "Male";
+    } else if (key === '3') {
+      gender = "Female";
+    } else if (key === '4') {
+      gender = "Others";
+    }
+    const data = {
+      gender: gender,
+      page: page,
+    }
+    dispatch(UserInformationData(data));
+
     // You can perform other actions here based on the tab change if needed
   };
 
@@ -47,7 +64,7 @@ function MembersInformation() {
             defaultActiveKey={activeKey}
             items={items}
             type="card"
-           
+
             onChange={handleTabChange}
           />
         </Col>
