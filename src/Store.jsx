@@ -7,6 +7,8 @@ import HostInformationReducer from "./ReduxSlices/HostInformationSlice";
 import ResidenceInformationReducer from "./ReduxSlices/ResidenceInformationSlice";
 import NotificationsSlice from "./ReduxSlices/NotificationsSlice";
 import LoginActivitySlice from "./ReduxSlices/LoginActivitySlice";
+import AdditionalMatchRequestSlice from "./ReduxSlices/AdditionalMatchRequestSlice";
+import SubscriptionSlice from "./ReduxSlices/SubscriptionSlice";
 
 export const Store = configureStore({
   reducer: {
@@ -14,6 +16,8 @@ export const Store = configureStore({
     // BookingData: BookingDataReducer,
     // DashboardHomeData: DashboardHomeDataReducer,
     UserInformationData: UserInformationReducer,
+    AdditionalMatchRequestData: AdditionalMatchRequestSlice,
+    SubscriptionData: SubscriptionSlice,
     // HostInformationData: HostInformationReducer,
     // ResidenceInformationData: ResidenceInformationReducer,
     // NotificationsData: NotificationsSlice,

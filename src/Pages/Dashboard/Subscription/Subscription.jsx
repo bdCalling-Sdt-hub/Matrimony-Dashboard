@@ -1,12 +1,17 @@
 import { Button, Col, Input, Row } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { AiOutlineCheckCircle, AiOutlinePlus } from 'react-icons/ai';
 import { FaCrown } from 'react-icons/fa';
 import AddSubscription from "./AddSubscription";
 import { useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
+import { SubscriptionData } from "../../../ReduxSlices/SubscriptionSlice";
+import EditSubscription from "./EditSubscription";
 
 const Subscription = () => {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.SubscriptionData.SubscriptionList);
+  console.log(data);
   const style = {
     cardStyle: {
       background: "#FFFFFF",
@@ -22,10 +27,15 @@ const Subscription = () => {
       color: "white",
     },
   };
-
+  const [reload, setReload] = useState(1);
   const [modalVisible, setModalVisible] = useState(false);
+  const [editModelVisible, setEditModelVisible] = useState(false);
+  const [dataItem, setDataItem] = useState(null);
 
-
+  useEffect(() => {
+    const page = 1;
+    dispatch(SubscriptionData(page));
+  }, [reload]);
 
   const showModal = () => {
     setModalVisible(true);
@@ -33,6 +43,16 @@ const Subscription = () => {
 
   const handleCancel = () => {
     setModalVisible(false);
+  };
+
+  const showEditModal = (item) => {
+    setDataItem(item);
+    setEditModelVisible(true);
+  };
+
+  const handleEditCancel = () => {
+    setDataItem({});
+    setEditModelVisible(false);
   };
 
 
@@ -64,26 +84,30 @@ const Subscription = () => {
 
       <div style={{ background: "#F5F5F5", padding: "30px", borderRadius: "10px" }}>
         <Row gutter={[30, 30]}>
-          {[...Array(6).keys()].map((item) => {
+          {data.map((item) => {
             return (
               <>
                 <Col span={8}>
                   <div style={style.cardStyle} className="sub-card">
-                    <p style={{ position: "absolute", top: "33px", left: "15px", color: "white", fontWeight: "bold" }}>1 month</p>
+                    <p style={{ position: "absolute", top: "33px", left: "15px", color: "white", fontWeight: "bold" }}>{item.duration} month</p>
                     <h2 style={{ color: "#000000", marginBottom: "5px", marginTop: "30px", fontSize: "" }}>
-                      Silver
+                      {item.name}
                     </h2>
                     <h2 style={{ color: "#E91E63", marginTop: "5px", fontSize: "30px", fontWeight: "bold" }}>
-                      $ 100
+                      $ {item.price}
                     </h2>
                     <div style={{ marginTop: "30px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                         <AiOutlineCheckCircle style={{ color: "#000B90", fontSize: "20px" }} />
-                        <p>Send 80 match requests</p>
+                        <p>{!item.isMatchRequestsNoLimit ? "Send " + item.matchRequests + " match requests" : "Send unlimited match requests"}</p>
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "5px 0" }}>
                         <AiOutlineCheckCircle style={{ color: "#000B90", fontSize: "20px" }} />
-                        <p>Send reminder to up to 10 membersc</p>
+                        <p>{!item.isMessageNoLimit ? "Send " + item.message + " messages" : "Send unlimited messages"}</p>
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "10px", margin: "5px 0" }}>
+                        <AiOutlineCheckCircle style={{ color: "#000B90", fontSize: "20px" }} />
+                        <p>{!item.isRemindersNoLimit ? "Send reminder to up to " + item.reminders : "Send unlimited reminders"}</p>
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                         <FaCrown style={{ color: "#FFC60B", fontSize: "20px" }} />
@@ -97,7 +121,7 @@ const Subscription = () => {
                       width: "100%",
                     }}>
                       <div style={{ display: "flex", gap: "9px", justifyContent: "center" }}>
-                        <Button style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
+                        <Button style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }} onClick={() => showEditModal(item)}>
                           Edit
                         </Button>
                         <Button style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
@@ -117,6 +141,13 @@ const Subscription = () => {
         modalVisible={modalVisible}
         handleCancel={handleCancel}
         setModalVisible={setModalVisible}
+      />
+      <EditSubscription
+        modalVisible={editModelVisible}
+        handleCancel={handleEditCancel}
+        setModalVisible={setEditModelVisible}
+        requestData={dataItem}
+        setReload={setReload}
       />
     </div>
   );

@@ -5,19 +5,19 @@ const initialState = {
   Error: false,
   Success: false,
   Loading: false,
-  UserInfoList: [],
+  SubscriptionList: [],
   pagination: {},
 };
 
 let token = localStorage.getItem("token");
 
-export const UserInformationData = createAsyncThunk(
-  "UserInfo",
+export const SubscriptionData = createAsyncThunk(
+  "SubscriptionInfo",
   async (value, thunkAPI) => {
     console.log(value.gender)
     try {
       let response = await baseAxios.get(
-        `/users?limit=5&page=${value.page}&gender=${!value.gender?"":value.gender}`,
+        `/subscription`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -47,38 +47,38 @@ export const UserInformationData = createAsyncThunk(
   }
 );
 
-export const UserInformationSlice = createSlice({
-  name: "userinfo",
+export const SubscriptionSlice = createSlice({
+  name: "subscriptioninfo",
   initialState,
   reducers: {
     reset: (state) => {
       state.Loading = false;
       state.Success = false;
       state.Error = false;
-      (state.UserInfoList = []), (state.pagination = {});
+      (state.SubscriptionList = []), (state.pagination = {});
     },
   },
   extraReducers: {
-    [UserInformationData.pending]: (state, action) => {
+    [SubscriptionData.pending]: (state, action) => {
       state.Loading = true;
     },
-    [UserInformationData.fulfilled]: (state, action) => {
+    [SubscriptionData.fulfilled]: (state, action) => {
       state.Loading = false;
       state.Success = true;
       state.Error = false;
-      state.UserInfoList = action.payload.data.attributes.results;
+      state.SubscriptionList = action.payload.data.attributes.results;
       state.pagination = {"page":action.payload.data.attributes.page, "totalPages": action.payload.data.attributes.totalPages, "limit": action.payload.data.attributes.limit, "totalResults": action.payload.data.attributes.totalResults};
     },
-    [UserInformationData.rejected]: (state, action) => {
+    [SubscriptionData.rejected]: (state, action) => {
       state.Loading = false;
       state.Success = false;
       state.Error = true;
-      (state.UserInfoList = []), (state.pagination = {});
+      (state.SubscriptionList = []), (state.pagination = {});
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { reset } = UserInformationSlice.actions;
+export const { reset } = SubscriptionSlice.actions;
 
-export default UserInformationSlice.reducer;
+export default SubscriptionSlice.reducer;

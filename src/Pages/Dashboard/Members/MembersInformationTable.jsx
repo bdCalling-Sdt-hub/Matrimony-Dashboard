@@ -67,7 +67,7 @@ const MembersInformationTable = ({ activeKey }) => {
     }
     dispatch(UserInformationData(data));
   }
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  var [currentPage, setCurrentPage] = useState(0); // Current page number
   const userDataGetBySearch = (currentPage) => {
     let data = {
       search: searchData,
@@ -163,7 +163,7 @@ const MembersInformationTable = ({ activeKey }) => {
     },
   ];
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page=1) => {
     let gender = "";
     if (activeKey === '2') {
       gender = "Male";
@@ -173,17 +173,17 @@ const MembersInformationTable = ({ activeKey }) => {
       gender = "Others";
     }
     setCurrentPage(page);
-    console.log(currentPage)
-    userDataGetByPagination(currentPage, gender);
+    userDataGetByPagination(page, gender);
   }
+  console.log("pages", dataPagination.page, dataPagination.totalPages)
 
   return (
     <>
       <Table columns={columns} dataSource={data} pagination={{
-        pageSize,
+        pageSize: dataPagination.limit,
         showSizeChanger: false,
-        total: 5000,
-        current: currentPage,
+        total: dataPagination.totalResults,
+        current: dataPagination.page,
         onChange: handlePageChange,
       }} />
       <Drawer

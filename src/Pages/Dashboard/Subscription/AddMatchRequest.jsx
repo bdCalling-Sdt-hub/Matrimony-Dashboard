@@ -1,50 +1,43 @@
 import { useEffect, useState } from 'react';
 import { Modal, Card, Form, Input, Button, Row, Col } from 'antd';
-import { AiOutlineCheckCircle } from 'react-icons/ai';
 import baseAxios from '../../../../Config';
-import { useDispatch } from 'react-redux';
 import { AdditionalMatchRequestData } from '../../../ReduxSlices/AdditionalMatchRequestSlice';
 
-const EditMatchRequest = ({ modalVisible, handleCancel, setModalVisible, requestData, setReload }) => {
-  const token = localStorage.getItem("token");
+const AddMatchRequest = ({ modalVisible, handleCancel, setModalVisible, setReload }) => {
+  const token = localStorage.getItem('token');
 
   const onFinish = (values) => {
     console.log('Received values:', values);
-    if (requestData) {
-      baseAxios.patch(`/additional-match-requests?id=${requestData.id}`, values, {
+    baseAxios
+      .post(`/additional-match-requests`, values, {
         headers: {
           authorization: `Bearer ${token}`,
-        }
+        },
       })
-        .then((res) => {
-          console.log(res.data);
-          setReload(reload => reload + 1);
-          setModalVisible(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          setModalVisible(true);
-        });
-    }
+      .then((res) => {
+        console.log(res.data);
+        setReload(reload => reload + 1);
+        setModalVisible(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setModalVisible(true);
+      });
   };
 
   return (
-    <Modal
-      title="Edit Additional Match Request"
-      visible={modalVisible}
-      onCancel={handleCancel}
-      footer={null}
-      style={{ width: 600, height: 800 }}
-    >
-      {requestData ? (
+    <>
+      <Modal
+        title="Add Additional Match Request"
+        visible={modalVisible}
+        onCancel={handleCancel}
+        footer={null}
+        style={{ width: 600, height: 800 }}
+      >
         <Card>
           <Form
             name="subscriptionForm"
             onFinish={onFinish}
-            initialValues={{
-              price: requestData.price,
-              matchRequests: requestData.matchRequests,
-            }}
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
             layout="vertical"
@@ -56,6 +49,7 @@ const EditMatchRequest = ({ modalVisible, handleCancel, setModalVisible, request
                   name="price"
                   rules={[
                     {
+                      required: true,
                       message: 'Please enter a Plan Amount!',
                     },
                   ]}
@@ -69,6 +63,7 @@ const EditMatchRequest = ({ modalVisible, handleCancel, setModalVisible, request
               name="matchRequests"
               rules={[
                 {
+                  required: true,
                   message: 'Please enter Match Requests!',
                 },
               ]}
@@ -78,16 +73,14 @@ const EditMatchRequest = ({ modalVisible, handleCancel, setModalVisible, request
 
             <Form.Item style={{ textAlign: "center" }}>
               <Button type="primary" htmlType="submit">
-                Edit
+                Add
               </Button>
             </Form.Item>
           </Form>
         </Card>
-      ) : (
-        <div>No data found...</div>
-      )}
-    </Modal>
+      </Modal>
+    </>
   );
 };
 
-export default EditMatchRequest;
+export default AddMatchRequest;
