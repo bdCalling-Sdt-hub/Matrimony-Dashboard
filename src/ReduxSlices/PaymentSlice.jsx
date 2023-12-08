@@ -5,20 +5,18 @@ const initialState = {
   Error: false,
   Success: false,
   Loading: false,
-  UserInfoList: [],
+  PaymentList: [],
   pagination: {},
 };
 
 let token = localStorage.getItem("token");
 
-export const UserInformationData = createAsyncThunk(
-  "UserInfo",
+export const PaymentData = createAsyncThunk(
+  "PaymentInfo",
   async (value, thunkAPI) => {
     try {
-      const limit = value.limit ? value.limit : 10;
-      console.log("value",value)
       let response = await baseAxios.get(
-        `/users?limit=${limit}&page=${value.page}&gender=${!value.gender?"":value.gender}`,
+        `/payment/total`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -48,38 +46,38 @@ export const UserInformationData = createAsyncThunk(
   }
 );
 
-export const UserInformationSlice = createSlice({
-  name: "userinfo",
+export const PaymentSlice = createSlice({
+  name: "paymentinfo",
   initialState,
   reducers: {
     reset: (state) => {
       state.Loading = false;
       state.Success = false;
       state.Error = false;
-      (state.UserInfoList = []), (state.pagination = {});
+      (state.PaymentList = {}), (state.pagination = {});
     },
   },
   extraReducers: {
-    [UserInformationData.pending]: (state, action) => {
+    [PaymentData.pending]: (state, action) => {
       state.Loading = true;
     },
-    [UserInformationData.fulfilled]: (state, action) => {
+    [PaymentData.fulfilled]: (state, action) => {
       state.Loading = false;
       state.Success = true;
       state.Error = false;
-      state.UserInfoList = action.payload.data.attributes.results;
-      state.pagination = {"page":action.payload.data.attributes.page, "totalPages": action.payload.data.attributes.totalPages, "limit": action.payload.data.attributes.limit, "totalResults": action.payload.data.attributes.totalResults};
+      state.PaymentList = action.payload.data.attributes;
+      state.pagination = {"page":action.payload.data.attributes.allPayments.page, "totalPages": action.payload.data.attributes.allPayments.totalPages, "limit": action.payload.data.attributes.allPayments.limit, "totalResults": action.payload.data.attributes.allPayments.totalResults};
     },
-    [UserInformationData.rejected]: (state, action) => {
+    [PaymentData.rejected]: (state, action) => {
       state.Loading = false;
       state.Success = false;
       state.Error = true;
-      (state.UserInfoList = []), (state.pagination = {});
+      (state.PaymentList = {}), (state.pagination = {});
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { reset } = UserInformationSlice.actions;
+export const { reset } = PaymentSlice.actions;
 
-export default UserInformationSlice.reducer;
+export default PaymentSlice.reducer;

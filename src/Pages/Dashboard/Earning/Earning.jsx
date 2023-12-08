@@ -8,15 +8,25 @@ import EarnHistoryTable from "./EarnHistoryTable";
 import style from "./Earning.module.css";
 import MembersUpChart from "../DashboardHome/MembersUpChart";
 import { DatePicker, Space } from 'antd';
+import { PaymentData } from "../../../ReduxSlices/PaymentSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 
-
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import WeeklyEarn from "./WeeklyEarn";
 
 const Earning = () => {
 
   const [earn, setEarn] = useState("");
+  const dispatch = useDispatch();
+  const paymentData = useSelector((state) => state.PaymentData.PaymentList)
+
+  useEffect(()=>{
+    const page = 1;
+    dispatch(PaymentData(page));
+  },[])
+
+  console.log("payment Data",paymentData)
 
   const { RangePicker } = DatePicker;
   const onChange = (value, dateString) => {
@@ -38,7 +48,7 @@ const Earning = () => {
             <div className='income-card'>
               <div>
                 <h1 style={{ fontSize: "1.2rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Earnings</h1>
-                <h3 style={{ fontSize: "2.2rem", letterSpacing: "1px", marginBottom: "15px", color: "#E91E63" }}>$ 10,235</h3>
+                <h3 style={{ fontSize: "2.2rem", letterSpacing: "1px", marginBottom: "15px", color: "#E91E63" }}>$ {paymentData.total}</h3>
               </div>
               <div style={{ marginTop: "20px" }}>
                 <MembersUpChart></MembersUpChart>
@@ -50,7 +60,7 @@ const Earning = () => {
             <div className='income-card'>
               <div>
                 <h1 style={{ fontSize: "1.2rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Last Week  Earnings</h1>
-                <h3 style={{ fontSize: "2.2rem", letterSpacing: "1px", marginBottom: "15px", color: "#E91E63" }}>$ 10,235</h3>
+                <h3 style={{ fontSize: "2.2rem", letterSpacing: "1px", marginBottom: "15px", color: "#E91E63" }}>$ {paymentData.weekly}</h3>
               </div>
               <div style={{ marginTop: "20px" }}>
                 <MembersUpChart></MembersUpChart>
@@ -62,7 +72,7 @@ const Earning = () => {
             <div className='income-card'>
               <div>
                 <h1 style={{ fontSize: "1.2rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Last Month Earnings</h1>
-                <h3 style={{ fontSize: "2.2rem", letterSpacing: "1px", marginBottom: "15px", color: "#E91E63" }}>$ 10,235</h3>
+                <h3 style={{ fontSize: "2.2rem", letterSpacing: "1px", marginBottom: "15px", color: "#E91E63" }}>$ {paymentData.monthly}</h3>
               </div>
               <div style={{ marginTop: "20px" }}>
                 <MembersUpChart></MembersUpChart>
@@ -74,7 +84,7 @@ const Earning = () => {
             <div className='income-card'>
               <div>
                 <h1 style={{ fontSize: "1.2rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Yearly earnings</h1>
-                <h3 style={{ fontSize: "2.2rem", letterSpacing: "1px", marginBottom: "15px", color: "#E91E63" }}>$ 10,235</h3>
+                <h3 style={{ fontSize: "2.2rem", letterSpacing: "1px", marginBottom: "15px", color: "#E91E63" }}>$ {paymentData.yearly}</h3>
               </div>
               <div style={{ marginTop: "20px" }}>
                 <MembersUpChart></MembersUpChart>
@@ -90,7 +100,7 @@ const Earning = () => {
           <div style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px", padding: "10px", borderRadius: '10px', marginBottom: "20px" }}>
             <p style={{ fontWeight: 600, fontSize: "18px", marginBottom: "20px", padding: "10px" }}>Week Earning Revenue</p>
             <div style={{ marginBottom: "20px" }}>
-              <WeeklyEarn />
+              <WeeklyEarn data={paymentData.weeklyCounts} />
             </div>
           </div>
         </div>
@@ -103,7 +113,7 @@ const Earning = () => {
           <div style={{ boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px", padding: "10px", borderRadius: '10px', marginBottom: "20px" }}>
             <p style={{ fontWeight: 600, fontSize: "18px", marginBottom: "20px", padding: "10px" }}>Years Earning Revenue</p>
             <div style={{ marginBottom: "20px" }}>
-              <WeeklyEarn />
+            <WeeklyEarn data={paymentData.monthlyCounts} />
             </div>
           </div>
         </div>
@@ -176,11 +186,11 @@ const Earning = () => {
         </Col>
       </Row>
 
-      <h2 style={{ fontSize: "16px", margin: "30px 0px", fontWeight: "normal" }}>
+      {/* <h2 style={{ fontSize: "16px", margin: "30px 0px", fontWeight: "normal" }}>
         Showing results 1-25 of 25
-      </h2>
+      </h2> */}
 
-      <EarnHistoryTable />
+      <EarnHistoryTable data = {paymentData.monthlyCounts} />
     </div>
   );
 };

@@ -5,20 +5,18 @@ const initialState = {
   Error: false,
   Success: false,
   Loading: false,
-  UserInfoList: [],
+  ReportedUserList: [],
   pagination: {},
 };
 
 let token = localStorage.getItem("token");
 
-export const UserInformationData = createAsyncThunk(
-  "UserInfo",
+export const ReportedUserData = createAsyncThunk(
+  "ReportedUserInfo",
   async (value, thunkAPI) => {
     try {
-      const limit = value.limit ? value.limit : 10;
-      console.log("value",value)
       let response = await baseAxios.get(
-        `/users?limit=${limit}&page=${value.page}&gender=${!value.gender?"":value.gender}`,
+        `/report`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -48,38 +46,38 @@ export const UserInformationData = createAsyncThunk(
   }
 );
 
-export const UserInformationSlice = createSlice({
-  name: "userinfo",
+export const ReportedUserSlice = createSlice({
+  name: "reportedUserinfo",
   initialState,
   reducers: {
     reset: (state) => {
       state.Loading = false;
       state.Success = false;
       state.Error = false;
-      (state.UserInfoList = []), (state.pagination = {});
+      (state.ReportedUserList = {}), (state.pagination = {});
     },
   },
   extraReducers: {
-    [UserInformationData.pending]: (state, action) => {
+    [ReportedUserData.pending]: (state, action) => {
       state.Loading = true;
     },
-    [UserInformationData.fulfilled]: (state, action) => {
+    [ReportedUserData.fulfilled]: (state, action) => {
       state.Loading = false;
       state.Success = true;
       state.Error = false;
-      state.UserInfoList = action.payload.data.attributes.results;
+      state.ReportedUserList = action.payload.data.attributes.data;
       state.pagination = {"page":action.payload.data.attributes.page, "totalPages": action.payload.data.attributes.totalPages, "limit": action.payload.data.attributes.limit, "totalResults": action.payload.data.attributes.totalResults};
     },
-    [UserInformationData.rejected]: (state, action) => {
+    [ReportedUserData.rejected]: (state, action) => {
       state.Loading = false;
       state.Success = false;
       state.Error = true;
-      (state.UserInfoList = []), (state.pagination = {});
+      (state.ReportedUserList = {}), (state.pagination = {});
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { reset } = UserInformationSlice.actions;
+export const { reset } = ReportedUserSlice.actions;
 
-export default UserInformationSlice.reducer;
+export default ReportedUserSlice.reducer;
