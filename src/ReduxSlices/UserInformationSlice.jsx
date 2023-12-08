@@ -17,7 +17,7 @@ export const UserInformationData = createAsyncThunk(
     console.log(value.gender)
     try {
       let response = await baseAxios.get(
-        `/users?limit=5&page=${value.page}&gender=${!value.gender?"":value.gender}`,
+        `/users?limit=10&page=${value.page}&gender=${!value.gender?"":value.gender}`,
         {
           headers: {
             "Content-Type": "application/json",
