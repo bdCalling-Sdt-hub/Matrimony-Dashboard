@@ -7,187 +7,76 @@ import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
 import { CloseOutlined, } from '@ant-design/icons';
 import { Link } from "react-router-dom";
+import { UserInformationData } from "../../../ReduxSlices/UserInformationSlice";
+import ShowingPegination from "../../../Components/ShowingPegination/ShowingPegination";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
+const MembersInformationTable = ({ activeKey }) => {
+  const [searchData, setSearchData] = useState("");
+  const [reload, setReload] = useState(1);
+  const pageSize = 10;
+  const data = useSelector((state) => state.UserInformationData.UserInfoList);
+  const dataPagination = useSelector(
+    (state) => state.UserInformationData.pagination
+  );
+  const isLoading = useSelector((state) => state.UserInformationData.Loading);
 
-const data = [
-  {
-    key: "1",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "2",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "Free",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "3",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "4",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "5",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "6",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "7",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "8",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "9",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "10",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "11",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "12",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "13",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "14",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "15",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "16",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "17",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
+  // console.log(dataPagination);
+
+  const dispatch = useDispatch();
+
+  const [t, i18n] = useTranslation("global");
+
+  useEffect(() => {
+    let data = {
+      search: searchData,
+      page: 1,
+    };
+    if (searchData === "") {
+      dispatch(UserInformationData(data));
+    }
+  }, [searchData, reload]);
+
+  const userDataGetByPagination = (page, gender) => {
+    let data = {
+      search: searchData,
+      page: page,
+      gender: gender
+    };
+    dispatch(UserInformationData(data));
+  };
+
+  const searchByGender = (gender) => {
+    var gender;
+    if (activeKey !== 1) {
+      if (activeKey == 2) {
+        gender = "Male"
+      }
+      else if (activeKey == 2) {
+        gender = "Female"
+      }
+      else {
+        gender = "Others"
+      }
+    };
+    const data = {
+      gender: gender,
+      search: searchData,
+      page: page,
+    }
+    dispatch(UserInformationData(data));
   }
-];
+  var [currentPage, setCurrentPage] = useState(0); // Current page number
+  const userDataGetBySearch = (currentPage) => {
+    let data = {
+      search: searchData,
+      page: currentPage,
+    };
 
-const MembersInformationTable = () => {
-  const [rentData, setRentData] = useState([]); // Data fetched from the server
-  const [totalItems, setTotalItems] = useState(0); // Total number of items
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const pageSize = 12;
-
+    dispatch(UserInformationData(data));
+    // console.log("with search");
+  };
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [invoiceData, setInvoiceData] = useState(null);
@@ -206,25 +95,30 @@ const MembersInformationTable = () => {
   const columns = [
     {
       title: "Image",
-      dataIndex: "invoiceNo",
-      key: "invoiceNo",
+      dataIndex: "photo",
+      key: "photo",
+      render: (_, record) => (
+        <div >
+          <img style={{ borderRadius: "100%" }} src={record.photo[0].publicFileUrl} height={50} width={50} />
+        </div>
+      ),
     },
     {
       title: "Name",
-      dataIndex: "time",
-      key: "time",
+      dataIndex: "name",
+      key: "name",
       responsive: ["md"],
     },
     {
       title: "Age",
-      dataIndex: "username",
-      key: "username",
+      dataIndex: "age",
+      key: "age",
       responsive: ["lg"],
     },
     {
       title: "Religion",
-      dataIndex: "method",
-      key: "method",
+      dataIndex: "religion",
+      key: "religion",
     },
     // {
     //   title: "Status",
@@ -234,8 +128,8 @@ const MembersInformationTable = () => {
     // },
     {
       title: "Status",
-      dataIndex: "amount",
-      key: "amount",
+      dataIndex: "status",
+      key: "status",
       responsive: ["md"],
       render: (_, record) => (
         <div style={{}}>
@@ -248,14 +142,8 @@ const MembersInformationTable = () => {
 
     {
       title: "Country",
-      dataIndex: "status",
-      key: "status",
-    },
-
-    {
-      title: "Language",
-      dataIndex: "status",
-      key: "status",
+      dataIndex: "country",
+      key: "country",
     },
     {
       title: "Action",
@@ -265,7 +153,7 @@ const MembersInformationTable = () => {
       render: (_, record) => (
         <div style={{}}>
           <Button type="text" style={{ marginRight: "10px", paddingBottom: "35px" }}>
-            <Link to="/pesonal-details/:id"><BsInfoCircle style={{ fontSize: "20px", color: "#2BA24C" }} /></Link>
+            <Link to={`/pesonal-details/${record.id}`}><BsInfoCircle style={{ fontSize: "20px", color: "#2BA24C" }} /></Link>
           </Button>
           {/* <Button onClick={() => showDrawer(record)} type="text" style={{ paddingBottom: "35px" }}>
             <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
@@ -275,38 +163,27 @@ const MembersInformationTable = () => {
     },
   ];
 
-
-
-  useEffect(() => {
-    // Fetch data from the server when the current page changes
-    fetchData();
-  }, [currentPage]);
-
-  const fetchData = async () => {
-    // Replace this with your actual API request to fetch data based on pagination
-    try {
-      const response = await fetch(`/api/data?page=${currentPage}&pageSize=${pageSize}`);
-      const result = await response.json();
-
-      setData(result.data);
-      setTotalItems(result.totalItems);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+  const handlePageChange = (page=1) => {
+    let gender = "";
+    if (activeKey === '2') {
+      gender = "Male";
+    } else if (activeKey === '3') {
+      gender = "Female";
+    } else if (activeKey === '4') {
+      gender = "Others";
     }
-  };
-
-  const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage)
+    userDataGetByPagination(page, gender);
   }
+  console.log("pages", dataPagination.page, dataPagination.totalPages)
 
   return (
     <>
       <Table columns={columns} dataSource={data} pagination={{
-        pageSize,
+        pageSize: dataPagination.limit,
         showSizeChanger: false,
-        total: 5000,
-        current: currentPage,
+        total: dataPagination.totalResults,
+        current: dataPagination.page,
         onChange: handlePageChange,
       }} />
       <Drawer

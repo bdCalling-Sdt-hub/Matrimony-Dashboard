@@ -78,10 +78,6 @@
     linear-gradient(180deg, #787878 0%, #434343 0.01%, #000 100%)
   );
 }
-
-.otpFormContainer{
-  
-}
 .otpInputFild{
   display: flex;
   justify-content: space-between;

@@ -3,7 +3,9 @@ import { Modal, Card, Form, Input, Radio, Checkbox, Button, Row, Col, Switch } f
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { FaCrown } from 'react-icons/fa';
 
-const AddSubscription = ({ modalVisible, handleCancel, setModalVisible }) => {
+const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, requestData, setReload }) => {
+  
+  console.log(requestData);
   const onFinish = (values) => {
     console.log('Received values:', values);
     setModalVisible(false);
@@ -11,7 +13,7 @@ const AddSubscription = ({ modalVisible, handleCancel, setModalVisible }) => {
   return (
     <>
       <Modal
-        title="Add Subscription"
+        title="Edit Subscription"
         visible={modalVisible}
         onCancel={handleCancel}
         footer={null}
@@ -38,7 +40,7 @@ const AddSubscription = ({ modalVisible, handleCancel, setModalVisible }) => {
                 },
               ]}
             >
-              <Input placeholder="Type full name here" />
+              <Input defaultValue={requestData?.name} placeholder="Type full name here" />
             </Form.Item>
             <Row gutter={18}>
               <Col span={12}>
@@ -70,8 +72,8 @@ const AddSubscription = ({ modalVisible, handleCancel, setModalVisible }) => {
                 </Form.Item>
               </Col>
             </Row>
-            <Form.Item label="Plan Types" name="duration">
-              <Input placeholder="Ex. 3 months" />
+            <Form.Item label="Plan Types" name="plan-types">
+              <Input defaultValue={requestData?.duration} placeholder="Ex. 3 months" />
             </Form.Item>
 
             {/* <Form.Item name="active" valuePropName="checked">
@@ -93,49 +95,49 @@ const AddSubscription = ({ modalVisible, handleCancel, setModalVisible }) => {
               </style>
             </Form.Item> */}
 
-            <Form.Item label="Messages" name="message">
+            <Form.Item label="Messages" name="messages">
               <Row justify="space-between" align="middle">
                 <Col span={18}>
                   <Input
+                  defaultValue={requestData?.message}
                     placeholder="Send unlimited message and check online"
-                    prefix={<AiOutlineCheckCircle style={{ color: '#000000' }} />}
                   />
                 </Col>
                 <Col span={4} style={{ marginRight: "20px" }}>
-                  <Form.Item name="isMessageNoLimit" valuePropName="checked" style={{ marginBottom: 0 }}>
-                    <Checkbox style={{ color: '#E91E63' }}>Unlimited</Checkbox>
+                  <Form.Item name="unlimitedMessages" valuePropName="checked" style={{ marginBottom: 0 }}>
+                    <Checkbox checked={requestData?.isMessageNoLimit}  style={{ color: '#E91E63' }}>Unlimited</Checkbox>
                   </Form.Item>
                 </Col>
               </Row>
             </Form.Item>
 
-            <Form.Item label="Reminder" name="reminders">
+            <Form.Item label="Reminder" name="reminder">
               <Row justify="space-between" align="middle">
                 <Col span={18} >
                   <Input
+                  defaultValue={requestData?.reminders}
                     placeholder="Send unlimited reminder and check online"
-                    prefix={<AiOutlineCheckCircle style={{ color: '#000000' }} />}
                   />
                 </Col>
                 <Col span={4} style={{ marginRight: "20px" }}>
-                  <Form.Item name="isRemindersNoLimit" valuePropName="checked" style={{ marginBottom: 0 }}>
-                    <Checkbox style={{ color: '#E91E63', }}>Unlimited</Checkbox>
+                  <Form.Item name="unlimitedReminder" valuePropName="checked" style={{ marginBottom: 0 }}>
+                    <Checkbox checked={requestData?.isRemindersNoLimit} style={{ color: '#E91E63', }}>Unlimited</Checkbox>
                   </Form.Item>
                 </Col>
               </Row>
             </Form.Item>
 
-            <Form.Item label="Match Request" name="matchRequests">
+            <Form.Item label="Match Request" name="match-request">
               <Row justify="space-between" align="middle">
                 <Col span={18}>
                   <Input
+                  defaultValue={requestData?.matchRequests}
                     placeholder="Send unlimited match request and check online"
-                    prefix={<FaCrown style={{ color: '#FFC60B' }} />}
                   />
                 </Col>
                 <Col span={4} style={{ marginRight: "20px" }}>
-                  <Form.Item name="isMatchRequestsNoLimit" valuePropName="checked" style={{ marginBottom: 0 }}>
-                    <Checkbox style={{ color: '#E91E63' }}>Unlimited</Checkbox>
+                  <Form.Item name="unlimitedMatchRequest" valuePropName="checked" style={{ marginBottom: 0 }}>
+                    <Checkbox checked={requestData?.isMatchRequestsNoLimit} style={{ color: '#E91E63' }}>Unlimited</Checkbox>
                   </Form.Item>
                 </Col>
               </Row>
@@ -162,4 +164,4 @@ const AddSubscription = ({ modalVisible, handleCancel, setModalVisible }) => {
   );
 };
 
-export default AddSubscription;
+export default EditSubscription;

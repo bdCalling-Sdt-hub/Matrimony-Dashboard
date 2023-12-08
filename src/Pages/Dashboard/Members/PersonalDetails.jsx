@@ -7,35 +7,57 @@ import { FaCrown } from 'react-icons/fa';
 const dateFormat = "YYYY-MM-DD";
 import { HiOutlineLocationMarker } from 'react-icons/hi';
 import { GoDownload } from 'react-icons/go';
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { UserInformationData } from "../../../ReduxSlices/UserInformationSlice";
+import baseAxios from "../../../../Config";
 
 const PersonalDetails = () => {
+  const { id }  = useParams()
+  const [data, setData] = useState({});
+  const [subscription, setSubscription] = useState("");
+  const token = localStorage.getItem("token");
+  
+  console.log(id)
+  useEffect(() => {
+    baseAxios.get(`/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      setData(res.data.data.attributes.user);
+      setSubscription(res.data.data.attributes.mySubscription);
+    });
+  }, []);
+  
+  console.log(data, subscription);
 
-
-  const [fileList, setFileList] = useState([
-    {
-      uid: "-1",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-  ]);
-  const onChange = ({ fileList: newFileList }) => {
-    setFileList(newFileList);
-  };
-  const onPreview = async (file) => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
-  };
+  // const [fileList, setFileList] = useState([
+  //   {
+  //     uid: "-1",
+  //     name: "image.png",
+  //     status: "done",
+  //     url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+  //   },
+  // ]);
+  // const onChange = ({ fileList: newFileList }) => {
+  //   setFileList(newFileList);
+  // };
+  // const onPreview = async (file) => {
+  //   let src = file.url;
+  //   if (!src) {
+  //     src = await new Promise((resolve) => {
+  //       const reader = new FileReader();
+  //       reader.readAsDataURL(file.originFileObj);
+  //       reader.onload = () => resolve(reader.result);
+  //     });
+  //   }
+  //   const image = new Image();
+  //   image.src = src;
+  //   const imgWindow = window.open(src);
+  //   imgWindow?.document.write(image.outerHTML);
+  // };
 
   return (
     <>
@@ -52,12 +74,12 @@ const PersonalDetails = () => {
               <Image
                 width={200}
                 style={{ borderRadius: "6px" }}
-                src="https://yt3.googleusercontent.com/Qy5Gk9hccQxiZdX8IxdK-mF2ktN17gap3ZkGQZkGz8NB4Yep3urmucp5990H2tjXIISgUoYssJE=s900-c-k-c0x00ffffff-no-rj"
+                src={data.photo && data.photo[0].publicFileUrl}
               />
-              <div>
-                <h2>Fahima</h2>
-                <p>Student , 24 years</p>
-                <p style={{ display: 'flex', alignItems: "center", gap: "2px" }}><HiOutlineLocationMarker></HiOutlineLocationMarker> Pakistan</p>
+              <div style={{marginTop:"60px"}}>
+                <h2>{data.name}</h2>
+                <p>{data.occupation + ',  ' +data.age+ " years"}</p>
+                <p style={{ display: 'flex', alignItems: "center", gap: "2px" }}><HiOutlineLocationMarker></HiOutlineLocationMarker> {data.country}</p>
               </div>
             </div>
             <div>
@@ -94,13 +116,13 @@ const PersonalDetails = () => {
               }}
             >
               <FaCrown fontSize={16} />
-              <span style={{ fontSize: "16px" }}> Diamond Mamber</span>
+              <span style={{ fontSize: "16px" }}> {subscription} Mamber</span>
             </Button>
           </div>
 
           <div style={{ marginTop: "20px" }}>
-            <h1 style={{ fontSize: "16px" }}>About Rida</h1>
-            <p style={{ marginTop: "20px", fontSize: "16px" }}>Hello there! I'm Rida, seeking a lifelong adventure partner. A blend of tradition and modernity, I find joy in the simple moments and cherish family values. With a heart that believes in love's magic, I'm looking for someone to share happiness.</p>
+            <h1 style={{ fontSize: "16px" }}>About {data.name}</h1>
+            <p style={{ marginTop: "20px", fontSize: "16px" }}>{data.aboutMe}</p>
           </div>
 
 
@@ -111,52 +133,52 @@ const PersonalDetails = () => {
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Name : </p>
-                  <p>Rida Anam</p>
+                  <p>{data.name}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Gender : </p>
-                  <p>Female</p>
+                  <p>{data.gender}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Marital Status :</p>
-                  <p>Unmarried</p>
+                  <p>{data.maritalStatus}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Age :</p>
-                  <p>24 years</p>
+                  <p>{data.age} years</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Height :</p>
-                  <p>5 Ft 3 In</p>
+                  <p>{data.height?'0':data.height} cm</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Religion :</p>
-                  <p>Islam</p>
+                  <p>{data.religion}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Mother tongue :</p>
-                  <p>Urdu</p>
+                  <p>{data.motherTongue}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>City :</p>
-                  <p>Karachi</p>
+                  <p>{data.city}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Country :</p>
-                  <p>Pakistan</p>
+                  <p>{data.country}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
-                  <p>Citizenship :</p>
-                  <p>Pakistan</p>
+                  <p>Residential Status :</p>
+                  <p>{data.residentialStatus}</p>
                 </div>
 
               </div>
@@ -166,22 +188,22 @@ const PersonalDetails = () => {
                 <p style={{ marginTop: "20px", fontSize: "16px", fontWeight: 'bold' }}>Career Details</p>
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Education :</p>
-                  <p>Software Engineering</p>
+                  <p>{data.education}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Work Experience :</p>
-                  <p>Govt Job</p>
+                  <p>{data.workExperience}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Occupation :</p>
-                  <p>Job Holder</p>
+                  <p>{data.occupation}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Annual Income :</p>
-                  <p>$3600</p>
+                  <p>{data.annualIncome}</p>
                 </div>
               </div>
             </Col>
@@ -190,32 +212,32 @@ const PersonalDetails = () => {
                 <p style={{ marginTop: "20px", fontSize: "16px", fontWeight: 'bold' }}>Lifestyle</p>
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Habits :</p>
-                  <p>5 times prayes</p>
+                  <p>{data?.habits}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Hobbies :</p>
-                  <p>Traveling</p>
+                  <p>{data?.hobbies}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Favorite music :</p>
-                  <p>Pop</p>
+                  <p>{data.favouriteMusic}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Favorite movies :</p>
-                  <p>Action</p>
+                  <p>{data.favouriteMovies}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Sports :</p>
-                  <p>Cricket</p>
+                  <p>{data.sports}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Tv shows :</p>
-                  <p>Thriller</p>
+                  <p>{data.tvShows}</p>
                 </div>
               </div>
             </Col>
@@ -224,12 +246,12 @@ const PersonalDetails = () => {
                 <p style={{ marginTop: "20px", fontSize: "16px", fontWeight: 'bold' }}>Contact Information</p>
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Contact No :</p>
-                  <p>(+44) 555-0103</p>
+                  <p>{data.phoneNumber}</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Mail Address :</p>
-                  <p>abc@gmail.com</p>
+                  <p>{data.email}</p>
                 </div>
               </div>
             </Col>
@@ -240,100 +262,100 @@ const PersonalDetails = () => {
               <div style={{ borderRight: "#A7A7A7 1px solid", marginRight: "10px", height: "340px" }}>
                 <p style={{ marginTop: "20px", fontSize: "16px", fontWeight: 'bold' }}>Family Information</p>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingTop:"10px" }}>
                   <p>Family status :</p>
-                  <p>Rida Anam</p>
+                  <p>{data.familyStatus}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px" }}>
                   <p>Family values :</p>
-                  <p>Female</p>
+                  <p>{data.familyValues}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px" }}>
                   <p>Family Type :</p>
-                  <p>Unmarried</p>
+                  <p>{data.familyType}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px" }}>
                   <p>Family income :</p>
-                  <p>24 years</p>
+                  <p>{data.familyIncome}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
-                  <p>Father’s occupation :</p>
-                  <p>5 Ft 3 In</p>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px" }}>
+                  <p>Father's occupation :</p>
+                  <p>{data.fathersOccupation}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
-                  <p>Mother’s occupation :</p>
-                  <p>Islam</p>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px" }}>
+                  <p>Mother's occupation :</p>
+                  <p>{data.mothersOccupation}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px" }}>
                   <p>No of brothers :</p>
-                  <p>Urdu</p>
+                  <p>{data.brothers}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px" }}>
                   <p>No of sisters :</p>
-                  <p>Karachi</p>
+                  <p>{data.sisters}</p>
                 </div>
 
               </div>
             </Col>
             <Col span={12}>
               <div style={{ marginRight: "10px", height: "340px" }}>
-                <p style={{ marginTop: "20px", fontSize: "16px", fontWeight: 'bold', paddingLeft: "100px" }}>Family Information</p>
+                <p style={{ marginTop: "20px", fontSize: "16px", fontWeight: 'bold', paddingLeft: "100px" }}>Partner Preferences</p>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px", paddingLeft: "100px" }}>
                   <p>Age :</p>
-                  <p>Rida Anam</p>
+                  <p>{data.age}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px", paddingLeft: "100px" }}>
                   <p>Height :</p>
-                  <p>Female</p>
+                  <p>{data.height}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px", paddingLeft: "100px" }}>
                   <p>City :</p>
-                  <p>Unmarried</p>
+                  <p>{data.city}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px", paddingLeft: "100px" }}>
                   <p>Country :</p>
-                  <p>24 years</p>
+                  <p>{data.country}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px", paddingLeft: "100px" }}>
                   <p>Marital status :</p>
-                  <p>5 Ft 3 In</p>
+                  <p>{data.maritalStatus}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px", paddingLeft: "100px" }}>
                   <p>Religion :</p>
-                  <p>Islam</p>
+                  <p>{data.religion}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px", paddingLeft: "100px" }}>
                   <p>Mother tongue :</p>
-                  <p>Urdu</p>
+                  <p>{data.motherTongue}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px", paddingLeft: "100px" }}>
                   <p>Education :</p>
-                  <p>Karachi</p>
+                  <p>{data.education}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px", paddingLeft: "100px" }}>
                   <p>Occupation :</p>
-                  <p>Urdu</p>
+                  <p>{data.occupation}</p>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingLeft: "100px", marginTop: "10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", marginTop: "10px", paddingLeft: "100px" }}>
                   <p>Income :</p>
-                  <p>Around $5000</p>
+                  <p>Around {data.income}</p>
                 </div>
 
               </div>
