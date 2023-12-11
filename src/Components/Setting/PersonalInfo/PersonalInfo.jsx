@@ -3,10 +3,43 @@ import ImgCrop from "antd-img-crop";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import { LiaEditSolid } from "react-icons/lia";
+import baseAxios from '../../../../Config';
+import Swal from "sweetalert2";
+
 const dateFormat = "YYYY-MM-DD";
 
 const PersonalInfo = () => {
   const [profileEdit, setProfileEdit] = useState(false);
+  const data = JSON.parse(localStorage.getItem("yourInfo"));
+  const [name, setName] = useState(data.name);
+  const [country, setCountry] = useState(data.country);
+  const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber);
+  const [photo, setPhoto] = useState(data.photo[0]);
+
+  const handleEdit = () => {
+    setProfileEdit(false);
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('country', country);
+    formData.append('phoneNumber', phoneNumber);
+    formData.append('photo', photo);
+
+    baseAxios.patch(`users/${data.id}`, formData, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }).then((res) => {
+      console.log(res);
+      Swal.fire({
+        icon: "success",
+        title: "Profile updated successfully",
+      });
+      localStorage.setItem(
+        "yourInfo",
+        JSON.stringify(res.data.data.attributes)
+      );
+      setProfileEdit(false);
+      window.location.reload();
+    }).catch((err) => {
+      console.log(err);
+    })
+  };
 
   const handleChange = () => {
     setProfileEdit(true);
@@ -17,7 +50,7 @@ const PersonalInfo = () => {
       uid: "-1",
       name: "image.png",
       status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
+      url: data?.photo[0]?.publicFileUrl,
     },
   ]);
   const onChange = ({ fileList: newFileList }) => {
@@ -68,9 +101,10 @@ const PersonalInfo = () => {
                 <div style={{ textAlign: "center", lineHeight: "40px" }}>
                   <h2 style={{ fontSize: "15px" }}>Profile</h2>
                   <Image
-                    width={"50%"}
+                    width={"180px"}
+                    height={"180px"}
                     style={{ borderRadius: "50%" }}
-                    src="https://yt3.googleusercontent.com/Qy5Gk9hccQxiZdX8IxdK-mF2ktN17gap3ZkGQZkGz8NB4Yep3urmucp5990H2tjXIISgUoYssJE=s900-c-k-c0x00ffffff-no-rj"
+                    src={data?.photo[0]?.publicFileUrl}
                   />
                   <h2 style={{}}>Admin</h2>
                 </div>
@@ -80,20 +114,11 @@ const PersonalInfo = () => {
 
             <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 16 }} lg={{ span: 16 }}>
               <Row gutter={15} style={{ marginBottom: "15px" }}>
-                <Col span={12}>
+                <Col span={24}>
                   <label htmlFor="">Full Name</label>
                   <Input
                     style={{ height: "45px" }}
-                    defaultValue={"Fahim"}
-                    readOnly
-                  />
-                </Col>
-
-                <Col span={12}>
-                  <label htmlFor="">Last Name</label>
-                  <Input
-                    style={{ height: "45px" }}
-                    defaultValue={"Fahim"}
+                    defaultValue={data.name}
                     readOnly
                   />
                 </Col>
@@ -103,8 +128,8 @@ const PersonalInfo = () => {
                   <label htmlFor="">Email</label>
                   <Input
                     style={{ height: "45px" }}
-                    defaultValue={"siffahim25@gmail.com"}
-                    readOnly
+                    defaultValue={data.email}
+                    disabled
                   />
                 </Col>
               </Row>
@@ -112,28 +137,21 @@ const PersonalInfo = () => {
                 <Col span={12}>
                   <div>
                     <label htmlFor="" style={{ marginTop: "10px", }}>Phone Number</label>
-                    <Space.Compact>
-                      <Input
-                        style={{
-                          width: '20%',
-                        }}
-                        defaultValue="+1"
-                      />
-                      <Input
-                        style={{
-                          width: '80%',
-                          height: '45px'
-                        }}
-                        defaultValue="26888888"
-                      />
-                    </Space.Compact>
+
+                    <Input
+                      style={{
+                        width: '100%',
+                        height: '45px'
+                      }}
+                      defaultValue={data.phoneNumber}
+                    />
                   </div>
                 </Col>
                 <Col span={12}>
                   <label htmlFor="">Date of Birth</label>
-                  <DatePicker
+                  <Input
                     style={{ height: "45px", width: "100%" }}
-                    defaultValue={dayjs("2023-08-27", dateFormat)}
+                    defaultValue={data.dataOfBirth} // Adjust format based on the actual date format
                     disabled
                   />
                 </Col>
@@ -143,7 +161,7 @@ const PersonalInfo = () => {
                   <label htmlFor="">Address</label>
                   <Input
                     style={{ height: "45px" }}
-                    defaultValue={"Mogbazer,Dhaka"}
+                    defaultValue={data.country}
                     readOnly
                   />
                 </Col>
@@ -163,10 +181,14 @@ const PersonalInfo = () => {
                       action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                       listType="picture-circle"
                       fileList={fileList}
-                      onChange={onChange}
+                      onChange={(e) => setPhoto(e.file)}
+                      beforeUpload={(file) => {
+                        setFileList([file]); // Restrict to one file
+                        return false; // Prevent upload here, handled in onChange
+                      }}
                       onPreview={onPreview}
                     >
-                      {fileList.length < 5 && "+ Upload"}
+                      {fileList.length === 0 && "+ Upload"} {/* Show upload button when no file is selected */}
                     </Upload>
                   </ImgCrop>
 
@@ -177,13 +199,9 @@ const PersonalInfo = () => {
 
             <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 16 }} lg={{ span: 16 }}>
               <Row gutter={15} style={{ marginBottom: "15px" }}>
-                <Col span={12}>
+                <Col span={24}>
                   <label htmlFor="">Full Name</label>
-                  <Input style={{ height: "45px" }} defaultValue={"Fahim"} />
-                </Col>
-                <Col span={12}>
-                  <label htmlFor="">Last Name</label>
-                  <Input style={{ height: "45px" }} defaultValue={"Fahim"} />
+                  <Input style={{ height: "45px" }} defaultValue={data.name} onChange={(e) => { setName(e.target.value) }} />
                 </Col>
               </Row>
               <Row gutter={15} style={{ marginBottom: "15px" }}>
@@ -191,7 +209,8 @@ const PersonalInfo = () => {
                   <label htmlFor="">Email</label>
                   <Input
                     style={{ height: "45px" }}
-                    defaultValue={"siffahim25@gmail.com"}
+                    defaultValue={data.email}
+                    disabled
                   />
                 </Col>
 
@@ -199,13 +218,14 @@ const PersonalInfo = () => {
               <Row gutter={15} style={{ marginBottom: "15px" }}>
                 <Col span={12}>
                   <label htmlFor="">Phone Number</label>
-                  <Input style={{ height: "45px" }} defaultValue={"01646524028"} />
+                  <Input style={{ height: "45px" }} defaultValue={data.phoneNumber} onChange={(e) => { setPhoneNumber(e.target.value) }} />
                 </Col>
                 <Col span={12}>
                   <label htmlFor="">Date of Birth</label>
-                  <DatePicker
+                  <Input
                     style={{ height: "45px", width: "100%" }}
-                    defaultValue={dayjs("2023-08-27", dateFormat)}
+                    defaultValue={data.dataOfBirth}
+                    disabled // Adjust format based on the actual date format
                   />
                 </Col>
               </Row>
@@ -214,7 +234,8 @@ const PersonalInfo = () => {
                   <label htmlFor="">Address</label>
                   <Input
                     style={{ height: "45px" }}
-                    defaultValue={"Mogbazer,Dhaka"}
+                    defaultValue={data.country}
+                    onChange={(e) => { setCountry(e.target.value) }}
                   />
                 </Col>
               </Row>
@@ -226,6 +247,7 @@ const PersonalInfo = () => {
                   marginTop: "20px",
                 }}
                 block
+                onClick={handleEdit}
               >
                 Save
               </Button>

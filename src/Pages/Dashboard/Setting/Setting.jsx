@@ -61,6 +61,11 @@ const Setting = () => {
       title: "Login Activity",
       link: "login-activity",
     },
+    {
+      key: "4",
+      title: "Suspend User List",
+      link: "suspend-list",
+    },
     // {
     //   key: "4",
     //   title: "Block List",
@@ -96,6 +101,7 @@ const Setting = () => {
       title: "About Us",
       link: "about-us",
     },
+    
   ];
 
   const [err, setErr] = useState("");

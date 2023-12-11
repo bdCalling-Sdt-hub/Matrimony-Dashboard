@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 const ReportAccountTable = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.ReportedUserData.ReportedUserList);
+  const [reportData, setReportData] = useState({});
   console.log(data);
   useEffect(() => {
     dispatch(ReportedUserData());
@@ -22,12 +23,15 @@ const ReportAccountTable = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const showModal = () => {
+  const showModal = (record) => {
+    console.log(record);
+    setReportData(record);
     setModalVisible(true);
   };
 
   const handleCancel = () => {
     setModalVisible(false);
+    window.location.reload();
   };
 
   const [rentData, setRentData] = useState([]); // Data fetched from the server
@@ -83,18 +87,18 @@ const ReportAccountTable = () => {
     },
     {
       title: "Language",
-      dataIndex: ["profileId", "motherToungue"],
-      key: "motherToungue",
+      dataIndex: ["profileId", "motherTongue"],
+      key: "motherTongue",
     },
     {
       title: "Action",
-      dataIndex: "profileId.id", // Assuming there's an 'id' field in profileId
+      dataIndex: "id", // Assuming there's an 'id' field in profileId
       key: "id",
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{}}>
           <Button type="text" style={{ marginRight: "10px", paddingBottom: "30px", color:"#00aa00" }}>
-            <Link to={`/pesonal-details/${record.id}`}>Details</Link>
+            <div onClick={() => showModal(record)}>Details</div>
           </Button>
         </div>
       ),
@@ -138,6 +142,7 @@ const ReportAccountTable = () => {
         modalVisible={modalVisible}
         handleCancel={handleCancel}
         setModalVisible={setModalVisible}
+        data = {reportData}
       />
 
     </>

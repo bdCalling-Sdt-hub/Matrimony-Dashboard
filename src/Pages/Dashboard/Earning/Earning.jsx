@@ -123,7 +123,7 @@ const Earning = () => {
 
       <Row gutter={16}>
         <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 12 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 12 }}>
-          <div>
+          {/* <div>
             <Button
               style={{
                 height: "45px",
@@ -145,9 +145,8 @@ const Earning = () => {
                 onChange={onChange}
                 onOk={onOk}
               />
-              {/* <MdKeyboardArrowDown fontSize={16}></MdKeyboardArrowDown> */}
             </Button>
-          </div>
+          </div> */}
         </Col>
         <Col className="gutter-row" style={{ display: "flex", gap: 10, marginBottom: "10px", justifyContent: "flex-end" }} xs={{ span: 12 }} sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 12 }}>
           <div>
