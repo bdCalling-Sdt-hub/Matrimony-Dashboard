@@ -1,6 +1,6 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Col, Input, Row } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import ReportAccountTable from "./ReportAccountTable";
 
 function ReportAccountInfo() {
@@ -11,7 +11,7 @@ function ReportAccountInfo() {
         <h2
           style={{ fontSize: "18px", margin: "0px 0px", fontWeight: "normal", color: "#E91E63" }}
         >
-          Users information
+          All Report List
         </h2>
       </Row>
 

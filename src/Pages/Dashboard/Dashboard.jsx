@@ -142,6 +142,10 @@ const Dashboard = () => {
     localStorage.setItem("lang", value);
   };
 
+  const handleSearch = (value) => {
+    console.log(value);
+  };
+
   useEffect(() => {
     i18n.changeLanguage(selectedLanguage);
   }, [selectedLanguage, i18n]);
@@ -346,7 +350,7 @@ const Dashboard = () => {
               }}
             />
             <Space.Compact size="large" style={{ width: "416px", padding: " 10px" }}>
-              <Input addonBefore={<SearchOutlined />} placeholder="Search User" />
+              <Input addonBefore={<SearchOutlined />} placeholder="Search User" onChange={(e) => handleSearch(e.target.value)}/>
             </Space.Compact>
           </div>
 

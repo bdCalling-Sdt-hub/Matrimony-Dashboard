@@ -2,29 +2,26 @@
 import React from "react";
 import { RadialBarChart, RadialBar, Legend } from "recharts";
 
-const data = [
-    {
-        name: 'Male Members\n10k',
-        uv: 31.47,
-        pv: 2400,
-        fill: "#2BA24C"
-    },
-    {
-        name: "Woman Members",
-        uv: 26.69,
-        pv: 4567,
-        fill: "#E91E63"
-    },
-
-];
-
 const style = {
     top: 20,
     left: 150,
     lineHeight: "50px"
 };
 
-export default function FreeMembersChart() {
+export default function FreeMembersChart({data}) {
+    const countData = [
+        {
+            name: "Male Members " +data?.male,
+            uv: data?.male,
+            fill: "#2BA24C"
+        },
+        {
+            name: "Woman Members "+data?.female,
+            uv: data?.female,
+            fill: "#E91E63"
+        },
+    
+    ];
     return (
         <div>
             <RadialBarChart
@@ -35,7 +32,7 @@ export default function FreeMembersChart() {
                 innerRadius={20}
                 outerRadius={60}
                 barSize={10}
-                data={data}
+                data={countData}
             >
                 <RadialBar
                     minAngle={15}

@@ -5,20 +5,18 @@ const initialState = {
   Error: false,
   Success: false,
   Loading: false,
-  UserInfoList: [],
+  SubscriptionCountList: [],
   pagination: {},
 };
 
 let token = localStorage.getItem("token");
 
-export const UserInformationData = createAsyncThunk(
-  "UserInfo",
+export const SubscriptionCountData = createAsyncThunk(
+  "SubscriptionCountInfo",
   async (value, thunkAPI) => {
     try {
-      const limit = value.limit ? value.limit : 10;
-      console.log("value",value)
       let response = await baseAxios.get(
-        `/users?limit=${limit}&page=${value.page}&gender=${!value.gender?"":value.gender}&role=user&name=${!value.name?"":value.name}`,
+        `/users/subscription-count`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -26,7 +24,6 @@ export const UserInformationData = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -48,38 +45,37 @@ export const UserInformationData = createAsyncThunk(
   }
 );
 
-export const UserInformationSlice = createSlice({
-  name: "userinfo",
+export const SubscriptionCountSlice = createSlice({
+  name: "subscriptionCountinfo",
   initialState,
   reducers: {
     reset: (state) => {
       state.Loading = false;
       state.Success = false;
       state.Error = false;
-      (state.UserInfoList = []), (state.pagination = {});
+      (state.SubscriptionCountList = {});
     },
   },
   extraReducers: {
-    [UserInformationData.pending]: (state, action) => {
+    [SubscriptionCountData.pending]: (state, action) => {
       state.Loading = true;
     },
-    [UserInformationData.fulfilled]: (state, action) => {
+    [SubscriptionCountData.fulfilled]: (state, action) => {
       state.Loading = false;
       state.Success = true;
       state.Error = false;
-      state.UserInfoList = action.payload.data.attributes.results;
-      state.pagination = {"page":action.payload.data.attributes.page, "totalPages": action.payload.data.attributes.totalPages, "limit": action.payload.data.attributes.limit, "totalResults": action.payload.data.attributes.totalResults};
+      state.SubscriptionCountList = action.payload.data.attributes;
     },
-    [UserInformationData.rejected]: (state, action) => {
+    [SubscriptionCountData.rejected]: (state, action) => {
       state.Loading = false;
       state.Success = false;
       state.Error = true;
-      (state.UserInfoList = []), (state.pagination = {});
+      (state.SubscriptionCountList = {});
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { reset } = UserInformationSlice.actions;
+export const { reset } = SubscriptionCountSlice.actions;
 
-export default UserInformationSlice.reducer;
+export default SubscriptionCountSlice.reducer;

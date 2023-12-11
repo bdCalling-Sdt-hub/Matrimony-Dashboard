@@ -7,170 +7,170 @@ import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import EarnInvoice from "./EarnInvoice";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    tripNo: "1373700510",
+// const data = [
+//   {
+//     tripNo: "1373700510",
 
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "2",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "3",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "1",
-    tripNo: "1373700510",
-    time: "18 Jul, 2023  4:30pm",
-    username: "Fahim",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "padding",
-    printView: "Button",
-  },
-];
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "complete",
+//     printView: "Button",
+//   },
+//   {
+//     key: "2",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "padding",
+//     printView: "Button",
+//   },
+//   {
+//     key: "3",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "padding",
+//     printView: "Button",
+//   },
+//   {
+//     key: "1",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "padding",
+//     printView: "Button",
+//   },
+//   {
+//     key: "1",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "complete",
+//     printView: "Button",
+//   },
+//   {
+//     key: "1",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "complete",
+//     printView: "Button",
+//   },
+//   {
+//     key: "1",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "padding",
+//     printView: "Button",
+//   },
+//   {
+//     key: "1",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "complete",
+//     printView: "Button",
+//   },
+//   {
+//     key: "1",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "complete",
+//     printView: "Button",
+//   },
+//   {
+//     key: "1",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "padding",
+//     printView: "Button",
+//   },
+//   {
+//     key: "1",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "complete",
+//     printView: "Button",
+//   },
+//   {
+//     key: "1",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "complete",
+//     printView: "Button",
+//   },
+//   {
+//     key: "1",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "padding",
+//     printView: "Button",
+//   },
+//   {
+//     key: "1",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "complete",
+//     printView: "Button",
+//   },
+//   {
+//     key: "1",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "complete",
+//     printView: "Button",
+//   },
+//   {
+//     key: "1",
+//     tripNo: "1373700510",
+//     time: "18 Jul, 2023  4:30pm",
+//     username: "Fahim",
+//     method: "Credit Card",
+//     amount: "$850.00",
+//     status: "padding",
+//     printView: "Button",
+//   },
+// ];
 
-const EarnHistoryTable = () => {
+const EarnHistoryTable = ({data}) => {
 
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -186,41 +186,41 @@ const EarnHistoryTable = () => {
   const columns = [
     {
       title: "Month No.",
-      dataIndex: "tripNo",
-      key: "tripNO",
+      dataIndex: "monthNo",
+      key: "monthNo",
     },
     {
       title: "Total Users",
-      dataIndex: "time",
-      key: "time",
+      dataIndex: "userCount",
+      key: "userCount",
       responsive: ["md"],
     },
     {
       title: "Amount",
-      dataIndex: "username",
-      key: "username",
+      dataIndex: "uv",
+      key: "uv",
       responsive: ["lg"],
     },
 
-    {
-      title: "Action",
-      dataIndex: "printView",
-      key: "printView",
-      responsive: ["lg"],
-      render: (
-        _,
-        record // Use the second parameter 'record'
-      ) => (
-        <div style={{ textAlign: "left" }}>
-          <Button type="text" style={{ marginRight: "10px" }}>
-            <AiOutlinePrinter style={{ fontSize: "30px", color: "#999999" }} />
-          </Button>
-          <Button onClick={() => showModal(record)} type="text">
-            <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
-          </Button>
-        </div>
-      ),
-    },
+    // {
+    //   title: "Action",
+    //   dataIndex: "printView",
+    //   key: "printView",
+    //   responsive: ["lg"],
+    //   render: (
+    //     _,
+    //     record // Use the second parameter 'record'
+    //   ) => (
+    //     <div style={{ textAlign: "left" }}>
+    //       <Button type="text" style={{ marginRight: "10px" }}>
+    //         <AiOutlinePrinter style={{ fontSize: "30px", color: "#999999" }} />
+    //       </Button>
+    //       <Button onClick={() => showModal(record)} type="text">
+    //         <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
+    //       </Button>
+    //     </div>
+    //   ),
+    // },
   ];
 
 

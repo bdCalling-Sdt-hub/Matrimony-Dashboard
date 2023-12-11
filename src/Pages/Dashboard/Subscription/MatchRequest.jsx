@@ -37,6 +37,7 @@ const MatchRequest = () => {
   };
 
   const handleCancel = () => {
+    window.location.reload();
     setDataItem({});
     setModalVisible(false);
   };
@@ -51,6 +52,7 @@ const MatchRequest = () => {
   };
 
   const handleAddModalCancel = () => {
+    window.location.reload();
     setAddModalVisible(false);
   };
 

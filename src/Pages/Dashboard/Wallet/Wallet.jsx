@@ -1,6 +1,6 @@
 import { Pie } from "@ant-design/plots";
 import { Button, Col, Drawer, Dropdown, Modal, Progress, Row, Space, Typography } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
@@ -15,8 +15,15 @@ const { Title, Text } = Typography;
 import { DownOutlined } from '@ant-design/icons';
 import { DatePicker } from 'antd';
 import WalletTable from "./WalletTable";
+import { useDispatch, useSelector } from "react-redux";
+import { PaymentData } from "../../../ReduxSlices/PaymentSlice";
 
 const Wallet = () => {
+
+  const dispatch = useDispatch
+  const data = useSelector((state) => state.PaymentData.PaymentList)
+
+  console.log(data)
 
   const items = [
     {
@@ -28,6 +35,8 @@ const Wallet = () => {
       key: '1',
     }
   ];
+
+  
 
   const { RangePicker } = DatePicker;
   const onChange = (value, dateString) => {

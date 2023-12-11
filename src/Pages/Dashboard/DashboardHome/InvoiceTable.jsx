@@ -9,43 +9,9 @@ import {
   CloseOutlined,
 
 } from '@ant-design/icons';
+import { Link } from "react-router-dom";
 
-
-const data = [
-  {
-    key: "1",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "2",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-  {
-    key: "3",
-    invoiceNo: <Avatar src={<img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6aFkmK5B0Zw_udaEn6Z9hLJ17h0l2gm43jw&usqp=CAU'} alt="avatar" />} />,
-    time: "18 Jul, 2023  4:30pm",
-    username: "Tushar",
-    method: "Credit Card",
-    amount: "$850.00",
-    status: "complete",
-    printView: "Button",
-  },
-
-];
-
-const InvoiceTable = () => {
+const InvoiceTable = ({data}) => {
   const [rentData, setRentData] = useState([]); // Data fetched from the server
   const [totalItems, setTotalItems] = useState(0); // Total number of items
   const [currentPage, setCurrentPage] = useState(1); // Current page number
@@ -69,30 +35,35 @@ const InvoiceTable = () => {
   const columns = [
     {
       title: "Image",
-      dataIndex: "invoiceNo",
-      key: "invoiceNo",
+      dataIndex: "photo",
+      key: "photo",
+      render: (_, record) => (
+        <div >
+          <img style={{ borderRadius: "100%" }} src={record?.photo[0]?.publicFileUrl} height={50} width={50} />
+        </div>
+      ),
     },
     {
       title: "Name",
-      dataIndex: "time",
-      key: "time",
+      dataIndex: "name",
+      key: "name",
       responsive: ["md"],
     },
     {
       title: "Religion",
-      dataIndex: "username",
-      key: "username",
+      dataIndex: "religion",
+      key: "religion",
       responsive: ["lg"],
     },
     {
       title: "Country",
-      dataIndex: "method",
-      key: "method",
+      dataIndex: "country",
+      key: "country",
     },
     {
       title: "Language",
-      dataIndex: "amount",
-      key: "amount",
+      dataIndex: "motherTongue",
+      key: "motherTongue",
       responsive: ["md"],
     },
     {
@@ -106,33 +77,12 @@ const InvoiceTable = () => {
             <AiOutlinePrinter style={{ fontSize: "30px", color: "#999999" }} />
           </Button> */}
           <Button style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
-            Details
+          <Link to={`/pesonal-details/${record.id}`}>Details</Link>
           </Button>
         </div>
       ),
     },
   ];
-
-
-
-  useEffect(() => {
-    // Fetch data from the server when the current page changes
-    fetchData();
-  }, [currentPage]);
-
-  const fetchData = async () => {
-    // Replace this with your actual API request to fetch data based on pagination
-    try {
-      const response = await fetch(`/api/data?page=${currentPage}&pageSize=${pageSize}`);
-      const result = await response.json();
-
-      setData(result.data);
-      setTotalItems(result.totalItems);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
   const handlePageChange = (page) => {
     setCurrentPage(page);
     console.log(currentPage)
