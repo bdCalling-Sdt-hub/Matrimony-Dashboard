@@ -20,10 +20,15 @@ import { PaymentData } from "../../../ReduxSlices/PaymentSlice";
 
 const Wallet = () => {
 
-  const dispatch = useDispatch
-  const data = useSelector((state) => state.PaymentData.PaymentList)
+  const dispatch = useDispatch();
+  const paymentData = useSelector((state) => state.PaymentData.PaymentList)
 
-  console.log(data)
+  useEffect(()=>{
+    const page = 1;
+    dispatch(PaymentData(page));
+  },[])
+
+  console.log("payment Data",paymentData)
 
   const items = [
     {
@@ -67,15 +72,11 @@ const Wallet = () => {
                 </div>
                 <h1 style={{ fontSize: "1.2rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Income</h1>
               </div>
-              <h3 style={{ fontSize: "2.5rem", letterSpacing: "1px", marginBottom: "15px" }}>$120.12k</h3>
+              <h3 style={{ fontSize: "2.5rem", letterSpacing: "1px", marginBottom: "15px" }}>{paymentData.total}</h3>
             </div>
 
             <div style={{ marginTop: "20px" }}>
               <MembersUpChart></MembersUpChart>
-              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
-                <h1 style={{ fontSize: "1.5rem", fontWeight: "300" }}>+10%</h1>
-                <AiOutlineArrowUp fontSize={20}></AiOutlineArrowUp>
-              </div>
             </div>
           </div>
         </Col>
@@ -90,14 +91,10 @@ const Wallet = () => {
                 <h1 style={{ fontSize: "1.2rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>This Month</h1>
               </div>
 
-              <h3 style={{ fontSize: "2.5rem", letterSpacing: "1px", marginBottom: "15px" }}>5.0K</h3>
+              <h3 style={{ fontSize: "2.5rem", letterSpacing: "1px", marginBottom: "15px" }}>{paymentData.monthly}</h3>
             </div>
             <div style={{ marginTop: "20px" }}>
               <MembersUpChart></MembersUpChart>
-              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
-                <h1 style={{ fontSize: "1.5rem", fontWeight: "300" }}>+10%</h1>
-                <AiOutlineArrowUp fontSize={20}></AiOutlineArrowUp>
-              </div>
             </div>
           </div>
         </Col>
@@ -112,14 +109,10 @@ const Wallet = () => {
                 <h1 style={{ fontSize: "1.2rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>This 6 Month</h1>
               </div>
 
-              <h3 style={{ fontSize: "2.5rem", letterSpacing: "1px", marginBottom: "15px" }}>5.0K</h3>
+              <h3 style={{ fontSize: "2.5rem", letterSpacing: "1px", marginBottom: "15px" }}>{paymentData.sixMonth}</h3>
             </div>
             <div style={{ marginTop: "20px" }}>
               <MembersUpChart></MembersUpChart>
-              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
-                <h1 style={{ fontSize: "1.5rem", fontWeight: "300" }}>+10%</h1>
-                <AiOutlineArrowUp fontSize={20}></AiOutlineArrowUp>
-              </div>
             </div>
           </div>
         </Col>
@@ -134,14 +127,10 @@ const Wallet = () => {
                 <h1 style={{ fontSize: "1.2rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>This Years</h1>
               </div>
 
-              <h3 style={{ fontSize: "2.5rem", letterSpacing: "1px", marginBottom: "15px" }}>$15.03k</h3>
+              <h3 style={{ fontSize: "2.5rem", letterSpacing: "1px", marginBottom: "15px" }}>{paymentData.yearly}</h3>
             </div>
             <div style={{ marginTop: "20px" }}>
               <MembersUpChart></MembersUpChart>
-              <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
-                <h1 style={{ fontSize: "1.5rem", fontWeight: "300" }}>+10%</h1>
-                <AiOutlineArrowUp fontSize={20}></AiOutlineArrowUp>
-              </div>
             </div>
           </div>
         </Col>
@@ -186,7 +175,7 @@ const Wallet = () => {
             </div>
             <p style={{ fontWeight: 600, fontSize: "30px", marginBottom: "20px", padding: "10px", color: "#2BA24C" }}>$432,415</p>
             <div style={{ marginBottom: "20px", }}>
-              <WalletOverView></WalletOverView>
+              <WalletOverView data={paymentData.monthlyCounts}></WalletOverView>
             </div>
           </div>
         </Col>

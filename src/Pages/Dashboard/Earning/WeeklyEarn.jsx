@@ -74,7 +74,7 @@ export default function WeeklyEarn({data}) {
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
-                    <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="#E91E63" />
+                    <Area type="monotone" dataKey="income" stroke="#8884d8" fill="#E91E63" />
                 </AreaChart>
             </ResponsiveContainer>
         </div>

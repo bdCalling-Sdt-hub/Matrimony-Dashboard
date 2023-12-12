@@ -1,4 +1,4 @@
-import { Avatar, Button, Drawer, Space, Table, Typography } from "antd";
+import { Avatar, Button, Drawer, Space, Table, Typography, Empty } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { ReportedUserData } from '../../../ReduxSlices/ReportedUserSlice';
@@ -97,31 +97,15 @@ const ReportAccountTable = () => {
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{}}>
-          <Button type="text" style={{ marginRight: "10px", paddingBottom: "30px", color:"#00aa00" }}>
+          <Button type="text" style={{ marginRight: "10px", paddingBottom: "30px", color: "#00aa00" }}>
             <div onClick={() => showModal(record)}>Details</div>
           </Button>
         </div>
       ),
     },
   ];
-  
-  useEffect(() => {
-    // Fetch data from the server when the current page changes
-    fetchData();
-  }, [currentPage]);
 
-  const fetchData = async () => {
-    // Replace this with your actual API request to fetch data based on pagination
-    try {
-      const response = await fetch(`/api/data?page=${currentPage}&pageSize=${pageSize}`);
-      const result = await response.json();
-
-      setData(result.data);
-      setTotalItems(result.totalItems);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  console.log("data length", reportData?.length)
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -130,21 +114,24 @@ const ReportAccountTable = () => {
 
   return (
     <>
-      <Table columns={columns} dataSource={data} pagination={{
-        pageSize,
-        showSizeChanger: false,
-        total: 5000,
-        current: currentPage,
-        onChange: handlePageChange,
-      }} />
+      {reportData?.length === 0 ?
+        <>
+          <Empty style={{padding:"200px", marginTop:"10px"}} description={<Title level={5}>No Data Found</Title>} />
+        </> :
+        <><Table columns={columns} dataSource={data} pagination={{
+          pageSize,
+          showSizeChanger: false,
+          total: 5000,
+          current: currentPage,
+          onChange: handlePageChange,
+        }} />
 
-      <ReportDetails
-        modalVisible={modalVisible}
-        handleCancel={handleCancel}
-        setModalVisible={setModalVisible}
-        data = {reportData}
-      />
-
+          <ReportDetails
+            modalVisible={modalVisible}
+            handleCancel={handleCancel}
+            setModalVisible={setModalVisible}
+            data={reportData}
+          /></>}
     </>
   )
 

@@ -73,7 +73,7 @@ export default function VisitorsChart(props) {
             <Tooltip />
             {/* <Legend /> */}
             <Bar dataKey="pv" fill="#E91E63" />
-            <Bar dataKey="uv" fill="#2BA24C" />
+            <Bar dataKey="income" fill="#2BA24C" />
         </BarChart>
     );
 }

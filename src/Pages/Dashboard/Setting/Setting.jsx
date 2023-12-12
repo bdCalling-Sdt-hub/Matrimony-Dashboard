@@ -62,9 +62,9 @@ const Setting = () => {
       link: "login-activity",
     },
     {
-      key: "4",
+      key: "12",
       title: "Suspend User List",
-      link: "suspend-list",
+      link: "suspend-user",
     },
     // {
     //   key: "4",

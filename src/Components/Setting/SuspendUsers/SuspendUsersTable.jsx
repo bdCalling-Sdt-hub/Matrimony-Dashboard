@@ -1,117 +1,19 @@
 import { Button, Drawer, Table, Typography } from "antd";
-import React, { useState } from "react";
-import { BsEye } from "react-icons/bs";
+import React, { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import { RiDeleteBin5Line } from "react-icons/ri";
-import {
-  UndoOutlined, DeleteOutlined
-} from '@ant-design/icons';
 import DrawerPage from "../../DrawerPage/DrawerPage";
+import { useDispatch, useSelector } from "react-redux";
+import { SuspendUsersData } from "../../../ReduxSlices/SuspendUsersSlice";
 const { Title, Text } = Typography;
 
-const data = [
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  }
 
-];
-
-const SuspendUserListTable = () => {
+const SuspendUsersTable = () => {
+  const data = useSelector((state) => state.SuspendUsersData.SuspendUsersList);
+  const dispatch = useDispatch();
+  console.log(data);
+  useEffect(()=>{
+    dispatch(SuspendUsersData());
+  }, [])
   const columns = [
     {
       title: "NAME",
@@ -211,4 +113,4 @@ const SuspendUserListTable = () => {
   );
 };
 
-export default SuspendUserListTable;
+export default SuspendUsersTable;
