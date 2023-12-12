@@ -84,7 +84,7 @@ function DashboardHome() {
         </Col>
       </Row>
 
-      <Row gutter={24} style={{marginTop:"30px"}}>
+      <Row gutter={24} style={{marginTop:"10px"}}>
         <Col lg={{ span: 16 }}>
           <div
             className=""

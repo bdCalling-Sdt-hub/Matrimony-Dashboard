@@ -69,13 +69,13 @@ const ReportAccountTable = () => {
     },
     {
       title: "Status",
-      dataIndex: ["profileId", "status"],
-      key: "status",
+      dataIndex: ["profileId", "payment"],
+      key: "payment",
       responsive: ["md"],
       render: (_, record) => (
         <div style={{}}>
-          <Button type="primary" shape="round" style={{ width: "125px", height: "40px", color: "white", background: "#E91E63", borderRadius: "50" }}>
-            Free
+          <Button type="primary" shape="round" style={{ width: "125px", height: "40px", color: "white", background: `${record?.profileId?.payment===true?"#A020F0":"#E91E63"}`, borderRadius: "50" }}>
+            {record?.profileId?.payment===true?"Premium":"Free"}
           </Button>
         </div>
       ),
