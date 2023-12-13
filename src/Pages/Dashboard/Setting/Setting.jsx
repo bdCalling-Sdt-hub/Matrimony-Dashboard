@@ -2,6 +2,8 @@ import { Button, Form, Input, Modal, Switch, Typography } from "antd";
 import React, { useState } from "react";
 import { LiaAngleRightSolid } from "react-icons/lia";
 import { useNavigate } from "react-router-dom";
+import baseAxios from "../../../../Config";
+import Swal from "sweetalert2";
 
 const { Paragraph, Title, Text } = Typography;
 
@@ -11,6 +13,7 @@ const Setting = () => {
   const [openChangePassModel, setOpenChangePassModel] = useState(false);
   const [verify, setVerify] = useState(false);
   const [updatePassword, setUpdatePassword] = useState(false);
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
 
   const style = {
     formContainer: {
@@ -101,10 +104,11 @@ const Setting = () => {
       title: "About Us",
       link: "about-us",
     },
-    
+
   ];
 
   const [err, setErr] = useState("");
+
   const handleUpdated = (values) => {
     const { password, confirmPassword } = values;
 
@@ -138,6 +142,29 @@ const Setting = () => {
     }
   };
 
+  const handleForgotPassword = async () => {
+    const user = localStorage.getItem("yourInfo");
+    const { email } = JSON.parse(user);
+    console.log(email);
+    baseAxios.post("/auth/forgot-password", {email: email})
+      .then((res) => {
+        console.log(res);
+        setOpenChangePassModel(false);
+        Swal.fire({
+          icon: "success",
+          title: "OTP sent successfully",
+        });
+        setVerify(true);
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.response.data.message,
+        });
+      });
+  }
+
   const handleNavigate = (value) => {
     if (value == "renti-percentage") {
       setOpenModal(true);
@@ -159,6 +186,41 @@ const Setting = () => {
 
   const handleChangePassword = (values) => {
     console.log("Received values of form: ", values);
+    const { currentPassword, newPassword, password } = values;
+
+    if (newPassword !== password) {
+      setPasswordsMatch(false);
+      setErr("Passwords do not match!");
+
+      values.currentPassword = "";
+      values.newPassword = "";
+      values.password = "";
+      return;
+    }
+    baseAxios.post("/auth/change-password", { newPassword: newPassword, oldPassword: currentPassword }, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        Swal.fire({
+          icon: "success",
+          title: "Password Updated Successfully",
+        });
+        setOpenChangePassModel(false);
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.response.data.message,
+        });
+      });
+    setPasswordsMatch(true);
+    values.currentPassword = "";
+    values.newPassword = "";
+    values.password = "";
   };
 
   return (
@@ -254,6 +316,8 @@ const Setting = () => {
                     message: "Please input your Re-type Password!",
                   },
                 ]}
+                validateStatus={!passwordsMatch ? 'error' : ''} // Apply error style if passwords don't match
+                help={!passwordsMatch ? 'Passwords do not match!' : null} // Show error message if passwords don't match
               >
                 <Input
                   type="password"
@@ -267,7 +331,7 @@ const Setting = () => {
                 type="text"
                 className="login-form-forgot"
                 style={{ color: "#222" }}
-                onClick={() => (setVerify(true), setOpenChangePassModel(false))}
+                onClick={handleForgotPassword}
               >
                 Forgot password
               </Button>

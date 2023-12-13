@@ -1,5 +1,5 @@
 import { Button, Drawer, Table, Typography } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsEye } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 import { RiDeleteBin5Line } from "react-icons/ri";
@@ -8,139 +8,64 @@ import {
 } from '@ant-design/icons';
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 import LoginActivity from './LoginActivity';
+import { useDispatch, useSelector } from "react-redux";
+import { LoginActivitys } from "../../../ReduxSlices/LoginActivitySlice";
 const { Title, Text } = Typography;
-
-const data = [
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  },
-  {
-    name: "Kate Winslate",
-    email: "kate@gmail.com",
-    contact: " 014845454545",
-    joiningDate: "22/05/2023",
-    ine: 20,
-  }
-
-];
+import moment from 'moment';
+import baseAxios from "../../../../Config";
+import Swal from "sweetalert2";
 
 const LoginActivityTable = () => {
+  const { loginActivity } = useSelector((state) => state.LoginActivity);
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(LoginActivitys())
+  }, [])
+
+  const handleSignOut = (id) => {
+    console.log(id);
+    baseAxios.delete(`/activity/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "User Sign Out Successfully",
+        timer: 2000,
+      });
+      dispatch(LoginActivitys())
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  };
+  
   const columns = [
     {
-      title: "NAME",
-      dataIndex: "name",
-      key: "name",
+      title: "Browser",
+      dataIndex: "browser",
+      key: "browser",
     },
     {
-      title: "EMAIL",
-      dataIndex: "email",
-      key: "email",
+      title: "Operating System",
+      dataIndex: "operatingSystem",
+      key: "operatingSystem",
       responsive: ["md"],
     },
     {
-      title: "CONTACT",
-      dataIndex: "contact",
-      key: "contact",
+      title: "Location",
+      dataIndex: "location",
+      key: "location",
       responsive: ["lg"],
     },
     {
-      title: "JOINING DATE",
-      dataIndex: "joiningDate",
-      key: "joiningDate",
-    },
-    {
-      title: "INE",
-      dataIndex: "ine",
-      key: "ine",
-      responsive: ["md"],
+      title: "Time",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (text) => <span>{moment(text).format('YYYY-MM-DD HH:mm:ss')}</span>
     },
     {
       title: "ACTIONS",
@@ -152,6 +77,7 @@ const LoginActivityTable = () => {
           <Button
             type="text"
             style={{ marginRight: "10px", background: "#E91E63", color: "white" }}
+            onClick={()=>{handleSignOut(record._id)}}
           >
             Sign Out
             {/* <DeleteOutlined style={{ fontSize: "25px", color: "#999999" }} /> */}
@@ -179,35 +105,7 @@ const LoginActivityTable = () => {
 
   return (
     <div>
-      <Table columns={columns} dataSource={data} />
-      <Drawer
-        title={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography>
-              <Title level={5} strong>
-                Invoice# Trip No.{hostData?.tripNo}
-              </Title>
-              <Text>See all information about the trip no. 68656</Text>
-            </Typography>
-            <Button type="text" onClick={closeDrawer}>
-              <IoMdClose fontSize={25} />
-            </Button>
-          </div>
-        }
-        closable={false}
-        placement="right"
-        onClose={closeDrawer}
-        open={isDrawerVisible}
-        width={600}
-      >
-        {hostData && <DrawerPage hostData={hostData} />}
-      </Drawer>
+      <Table columns={columns} dataSource={loginActivity?.data?.attributes} />
     </div>
   );
 };

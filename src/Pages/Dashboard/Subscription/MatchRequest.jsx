@@ -89,10 +89,13 @@ const MatchRequest = () => {
             data?.map((item) => (
               <Col span={8} key={item.id}>
                 <div style={style.cardStyle}>
-                  <h2 style={{ color: "#E91E63", marginTop: "30px", fontSize: "30px", fontWeight: "bold" }}>
-                    ${item.pkCountryPrice}
+                  <h2 style={{ color: "#E91E63", marginTop: "10px", fontSize: "25px", fontWeight: "bold" }}>
+                    {item.pkCountryPrice} PKR
                   </h2>
-                  <div style={{ marginTop: "30px" }}>
+                  <h2 style={{ color: "#E91E63", marginTop: "10px", fontSize: "25px", fontWeight: "bold" }}>
+                    $ {item.otherCountryPrice}
+                  </h2>
+                  <div style={{ marginTop: "20px" }}>
                     <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
                       <AiOutlineCheckCircle style={{ color: "#000B90", fontSize: "20px" }} />
                       <p>Send {item.matchRequests} match requests</p>

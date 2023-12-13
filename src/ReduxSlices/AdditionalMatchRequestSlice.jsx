@@ -66,7 +66,7 @@ export const AdditionalMatchRequestSlice = createSlice({
       state.Loading = false;
       state.Success = true;
       state.Error = false;
-      state.AdditionalMatchRequestList = action.payload.data.attributes.results;
+      state.AdditionalMatchRequestList = action.payload.data.attributes.result;
       state.pagination = {"page":action.payload.data.attributes.page, "totalPages": action.payload.data.attributes.totalPages, "limit": action.payload.data.attributes.limit, "totalResults": action.payload.data.attributes.totalResults};
     },
     [AdditionalMatchRequestData.rejected]: (state, action) => {

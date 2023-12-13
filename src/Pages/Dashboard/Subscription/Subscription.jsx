@@ -43,6 +43,7 @@ const Subscription = () => {
   };
 
   const handleCancel = () => {
+    window.location.reload();
     setModalVisible(false);
   };
 
@@ -52,8 +53,8 @@ const Subscription = () => {
   };
 
   const handleEditCancel = () => {
-    setDataItem({});
     setEditModelVisible(false);
+    window.location.reload();
   };
 
 
@@ -94,8 +95,11 @@ const Subscription = () => {
                     <h2 style={{ color: "#000000", marginBottom: "5px", marginTop: "30px", fontSize: "" }}>
                       {item.name}
                     </h2>
-                    <h2 style={{ color: "#E91E63", marginTop: "5px", fontSize: "30px", fontWeight: "bold" }}>
-                      $ {item.price}
+                    <h2 style={{ color: "#E91E63", marginTop: "5px", fontSize: "25px", fontWeight: "bold" }}>
+                      {item.pkCountryPrice} PKR 
+                    </h2>
+                    <h2 style={{ color: "#E91E63", marginTop: "5px", fontSize: "25px", fontWeight: "bold" }}>
+                      $ {item.otherCountryPrice}
                     </h2>
                     <div style={{ marginTop: "30px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>

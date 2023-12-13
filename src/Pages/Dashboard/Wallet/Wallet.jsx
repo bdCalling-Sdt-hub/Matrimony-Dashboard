@@ -22,6 +22,8 @@ const Wallet = () => {
 
   const dispatch = useDispatch();
   const paymentData = useSelector((state) => state.PaymentData.PaymentList)
+  const [toDate, setToDate] = useState(null);
+  const [fromDate, setFromDate] = useState(null);
 
   useEffect(()=>{
     const page = 1;
@@ -47,6 +49,9 @@ const Wallet = () => {
   const onChange = (value, dateString) => {
     console.log('Selected Time: ', value);
     console.log('Formatted Selected Time: ', dateString);
+    setFromDate(dateString[0])
+    setToDate(dateString[1])
+
   };
   const onOk = (value) => {
     console.log('onOk: ', value);
@@ -211,7 +216,7 @@ const Wallet = () => {
               </div>
             </div>
             <div style={{ marginBottom: "20px" }}>
-              <WalletTable></WalletTable>
+              <WalletTable date={{fromDate: fromDate, toDate: toDate}}></WalletTable>
             </div>
           </div>
         </Col>

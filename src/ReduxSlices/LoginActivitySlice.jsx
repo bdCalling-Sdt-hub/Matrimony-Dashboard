@@ -10,20 +10,21 @@ const initialState = {
   pagination: {},
 };
 
-const token = localStorage.token;
+const token = localStorage.getItem("token");
 
 export const LoginActivitys = createAsyncThunk(
   "LoginActivitys",
   async (value, thunkAPI) => {
     try {
-      const response = await axios.get("/api/activities", {
+      const response = await axios.get("/activity", {
         headers: {
           "Content-type": "application/json",
           authorization: `Bearer ${token}`,
         },
       });
+      console.log(response.data);
       return response.data;
-    } catch (err) {
+    } catch (error) {
       if (
         "You are not authorised to sign in now" === error.response.data.message || "Error authorization" === error.response.data.message
       ) {

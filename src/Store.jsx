@@ -29,6 +29,6 @@ export const Store = configureStore({
     // HostInformationData: HostInformationReducer,
     // ResidenceInformationData: ResidenceInformationReducer,
     // NotificationsData: NotificationsSlice,
-    // LoginActivity: LoginActivitySlice,
+    LoginActivity: LoginActivitySlice,
   },
 });
