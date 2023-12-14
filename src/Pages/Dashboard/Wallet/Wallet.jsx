@@ -1,5 +1,5 @@
 import { Pie } from "@ant-design/plots";
-import { Button, Col, Drawer, Dropdown, Modal, Progress, Row, Space, Typography } from "antd";
+import { Button, Col, Drawer, Dropdown, Menu, Modal, Progress, Row, Space, Typography } from "antd";
 import React, { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineArrowUp } from "react-icons/ai";
@@ -25,25 +25,38 @@ const Wallet = () => {
   const [toDate, setToDate] = useState(null);
   const [fromDate, setFromDate] = useState(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     const page = 1;
     dispatch(PaymentData(page));
-  },[])
+    setSelectedFrequency('yearly');
+  }, [])
 
-  console.log("payment Data",paymentData)
+  console.log("payment Data", paymentData)
 
-  const items = [
-    {
-      label: <a href="">Monthly</a>,
-      key: '0',
-    },
-    {
-      label: <a href="">Yearly</a>,
-      key: '1',
-    }
-  ];
+  const [paymentShowing, setPaymentShowing] = useState({
+    monthly: paymentData?.monthly, // Monthly payment amount
+    yearly: paymentData?.yearly, // Yearly payment amount
+  });
 
-  
+  const [selectedFrequency, setSelectedFrequency] = useState('monthly');
+
+  const handleMenuClick = (e) => {
+    setSelectedFrequency(e.key);
+  };
+
+  const menu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="monthly">Monthly</Menu.Item>
+      <Menu.Item key="yearly">Yearly</Menu.Item>
+    </Menu>
+  );
+
+  const handlePayment = () => {
+    const paymentAmount = paymentShowing[selectedFrequency];
+    // Use the paymentAmount as needed (e.g., pass it to a function or component)
+    console.log(`Payment amount for ${selectedFrequency} is: ${paymentAmount}`);
+    // Here, you can perform actions with the payment amount based on the selected frequency
+  };
 
   const { RangePicker } = DatePicker;
   const onChange = (value, dateString) => {
@@ -147,38 +160,31 @@ const Wallet = () => {
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <p style={{ fontWeight: 600, fontSize: "18px", marginBottom: "20px", padding: "10px" }}>Overview Balance</p>
               <div>
-                <Button
-                  onClick={() => setEarn("weeklyEarn")}
-                  style={{
-                    height: "40px",
-                    background: "#F4F4F4",
-                    color: "black",
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "10px 30px",
-                    gap: "10px",
-                    borderRadius: "60px",
-                  }}
-                >
-                  {/* <span>  Weekly Earning </span> */}
-                  <Dropdown
-                    menu={{
-                      items,
+                <Dropdown overlay={menu} trigger={['click']}>
+                  <Button
+                    style={{
+                      height: '40px',
+                      background: '#F4F4F4',
+                      color: 'black',
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '10px 30px',
+                      gap: '10px',
+                      borderRadius: '60px',
                     }}
-                    trigger={['click']}
+                    onClick={handlePayment}
                   >
-                    <a onClick={(e) => e.preventDefault()}>
-                      <Space>
-                        Monthly
-                        <DownOutlined />
-                      </Space>
-                    </a>
-                  </Dropdown>
-                </Button>
-
+                    {selectedFrequency === 'monthly' ? 'Monthly' : 'Yearly'} <DownOutlined />
+                  </Button>
+                </Dropdown>
               </div>
             </div>
-            <p style={{ fontWeight: 600, fontSize: "30px", marginBottom: "20px", padding: "10px", color: "#2BA24C" }}>$432,415</p>
+            {selectedFrequency === 'monthly' && (
+              <p style={{ fontWeight: 600, fontSize: "30px", marginBottom: "20px", padding: "10px", color: "#2BA24C" }}>{paymentData.monthly}</p>
+            )}
+            {selectedFrequency === 'yearly' && (
+              <p style={{ fontWeight: 600, fontSize: "30px", marginBottom: "20px", padding: "10px", color: "#2BA24C" }}>{paymentData.yearly}</p>
+            )}
             <div style={{ marginBottom: "20px", }}>
               <WalletOverView data={paymentData.monthlyCounts}></WalletOverView>
             </div>
@@ -216,7 +222,7 @@ const Wallet = () => {
               </div>
             </div>
             <div style={{ marginBottom: "20px" }}>
-              <WalletTable date={{fromDate: fromDate, toDate: toDate}}></WalletTable>
+              <WalletTable date={{ fromDate: fromDate, toDate: toDate }}></WalletTable>
             </div>
           </div>
         </Col>

@@ -14,7 +14,6 @@ let token = localStorage.getItem("token");
 export const SubscriptionData = createAsyncThunk(
   "SubscriptionInfo",
   async (value, thunkAPI) => {
-    console.log(value.gender)
     try {
       let response = await baseAxios.get(
         `/subscription`,

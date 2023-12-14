@@ -29,7 +29,6 @@ export const AdminData = createAsyncThunk(
       );
 
       return response.data;
-      console.log(response.data);
     } catch (error) {
       if (
         "You are not authorised to sign in now" === error.response.data.message || "Error authorization" === error.response.data.message

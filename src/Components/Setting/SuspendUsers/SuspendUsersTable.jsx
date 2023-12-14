@@ -4,111 +4,93 @@ import { IoMdClose } from "react-icons/io";
 import DrawerPage from "../../DrawerPage/DrawerPage";
 import { useDispatch, useSelector } from "react-redux";
 import { SuspendUsersData } from "../../../ReduxSlices/SuspendUsersSlice";
+import { Link } from "react-router-dom";
 const { Title, Text } = Typography;
 
 
 const SuspendUsersTable = () => {
   const data = useSelector((state) => state.SuspendUsersData.SuspendUsersList);
   const dispatch = useDispatch();
-  console.log(data);
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(SuspendUsersData());
   }, [])
+
   const columns = [
     {
-      title: "NAME",
+      title: "Image",
+      dataIndex: "photo",
+      key: "photo",
+      render: (_, record) => (
+        <div >
+          <img style={{ borderRadius: "100%" }} src={record.photo[0].publicFileUrl} height={50} width={50} />
+        </div>
+      ),
+    },
+    {
+      title: "Name",
       dataIndex: "name",
       key: "name",
-    },
-    {
-      title: "EMAIL",
-      dataIndex: "email",
-      key: "email",
       responsive: ["md"],
     },
     {
-      title: "CONTACT",
-      dataIndex: "contact",
-      key: "contact",
+      title: "Age",
+      dataIndex: "age",
+      key: "age",
       responsive: ["lg"],
     },
     {
-      title: "JOINING DATE",
-      dataIndex: "joiningDate",
-      key: "joiningDate",
+      title: "Religion",
+      dataIndex: "religion",
+      key: "religion",
     },
+    // {
+    //   title: "Status",
+    //   dataIndex: "amount",
+    //   key: "amount",
+    //   responsive: ["md"],
+    // },
     {
-      title: "INE",
-      dataIndex: "ine",
-      key: "ine",
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
       responsive: ["md"],
+      render: (_, record) => (
+        <div style={{}}>
+          <Button type="primary" shape="round" style={{ width: "125px", height: "40px", color: "white", background: "#E91E63", borderRadius: "50" }}>
+            Free
+          </Button>
+        </div>
+      ),
+    },
+
+    {
+      title: "Country",
+      dataIndex: "country",
+      key: "country",
     },
     {
-      title: "ACTIONS",
-      dataIndex: "actions",
-      key: "actions",
+      title: "Language",
+      dataIndex: "motherTongue",
+      key: "motherTongue",
+    },
+    {
+      title: "Action",
+      dataIndex: "printView",
+      key: "printView",
       responsive: ["lg"],
       render: (_, record) => (
-        <div style={{ textAlign: "center" }}>
-          <Button
-            type="text"
-            style={{ marginRight: "10px", background: "#E91E63", color: "white" }}
-          >
-            Sign Out
-            {/* <DeleteOutlined style={{ fontSize: "25px", color: "#999999" }} /> */}
+        <div>
+          <Button type="primary" style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
+            Un-suspend
           </Button>
-          {/* <Button type="text">
-            <UndoOutlined style={{ fontSize: "25px", color: "#999999"}} />
-          </Button> */}
         </div>
       ),
     },
   ];
 
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [hostData, setHostData] = useState(null);
-
-  const showDrawer = (record) => {
-    setIsDrawerVisible(true);
-    setHostData(record);
-  };
-
-  const closeDrawer = () => {
-    setIsDrawerVisible(false);
-    setHostData(null);
-  };
-
   return (
     <div>
       <Table columns={columns} dataSource={data} />
-      <Drawer
-        title={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography>
-              <Title level={5} strong>
-                Invoice# Trip No.{hostData?.tripNo}
-              </Title>
-              <Text>See all information about the trip no. 68656</Text>
-            </Typography>
-            <Button type="text" onClick={closeDrawer}>
-              <IoMdClose fontSize={25} />
-            </Button>
-          </div>
-        }
-        closable={false}
-        placement="right"
-        onClose={closeDrawer}
-        open={isDrawerVisible}
-        width={600}
-      >
-        {hostData && <DrawerPage hostData={hostData} />}
-      </Drawer>
     </div>
   );
 };

@@ -1,8 +1,14 @@
 import { Col, Row } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import SuspendUsersTable from "./SuspendUsersTable";
+import { useDispatch } from "react-redux";
+import { SuspendUsersData } from "../../../ReduxSlices/SuspendUsersSlice";
 
 const SuspendUsers = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(SuspendUsersData());
+  }, [])
   return (
     <div>
       <Row>

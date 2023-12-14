@@ -14,7 +14,6 @@ let token = localStorage.getItem("token");
 export const AdditionalMatchRequestData = createAsyncThunk(
   "AdditionalMatchRequestInfo",
   async (value, thunkAPI) => {
-    console.log(value.gender)
     try {
       let response = await baseAxios.get(
         `/additional-match-requests`,
