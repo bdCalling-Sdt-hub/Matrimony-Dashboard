@@ -39,7 +39,7 @@ export default function FreeMembersChart({data}) {
                     // label={{ position: "insideStart", fill: "#000" }}
                     background
                     clockWise
-                    dataKey="uv"
+                    dataKey="income"
                 />
                 <Legend
                     iconSize={10}

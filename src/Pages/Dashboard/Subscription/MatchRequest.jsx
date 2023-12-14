@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Button, Col, Input, Row, Modal, Card } from 'antd';
+import { Button, Col, Input, Row, Modal, Card, Empty, Typography } from 'antd';
 import { AiOutlineCheckCircle, AiOutlinePlus } from 'react-icons/ai';
 import { FaCrown } from 'react-icons/fa';
 import AddMatchRequest from "./AddMatchRequest"; // Import your AddMatchRequest component
 import EditMatchRequest from "./EditMatchRequest";
 import { useDispatch, useSelector } from "react-redux";
 import { AdditionalMatchRequestData } from "../../../ReduxSlices/AdditionalMatchRequestSlice";
+const { Title } = Typography;
 
 const MatchRequest = () => {
   const dispatch = useDispatch();
@@ -80,28 +81,37 @@ const MatchRequest = () => {
       </div>
       <div style={{ background: "#F5F5F5", padding: "30px", borderRadius: "10px" }}>
         <Row gutter={[30, 30]}>
-          {data.map((item) => (
-            <Col span={8} key={item.id}>
-              <div style={style.cardStyle}>
-                <h2 style={{ color: "#E91E63", marginTop: "30px", fontSize: "30px", fontWeight: "bold" }}>
-                  ${item.price}
-                </h2>
-                <div style={{ marginTop: "30px" }}>
-                  <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-                    <AiOutlineCheckCircle style={{ color: "#000B90", fontSize: "20px" }} />
-                    <p>Send {item.matchRequests} match requests</p>
+          {
+            data && data?.length === 0 ? <>
+            <Empty style={{paddingLeft:"600px"}}description={<Title level={5}>No Data Found</Title>} />
+            </>
+            :
+            data?.map((item) => (
+              <Col span={8} key={item.id}>
+                <div style={style.cardStyle}>
+                  <h2 style={{ color: "#E91E63", marginTop: "10px", fontSize: "25px", fontWeight: "bold" }}>
+                    {item.pkCountryPrice} PKR
+                  </h2>
+                  <h2 style={{ color: "#E91E63", marginTop: "10px", fontSize: "25px", fontWeight: "bold" }}>
+                    $ {item.otherCountryPrice}
+                  </h2>
+                  <div style={{ marginTop: "20px" }}>
+                    <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                      <AiOutlineCheckCircle style={{ color: "#000B90", fontSize: "20px" }} />
+                      <p>Send {item.matchRequests} match requests</p>
+                    </div>
+                  </div>
+                  <div style={{ position: "absolute", bottom: "20px", left: "0", width: "100%" }}>
+                    <div style={{ display: "flex", gap: "9px", justifyContent: "center" }}>
+                      <Button onClick={() => showEditModal(item)} style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
+                        Edit
+                      </Button>
+                    </div>
                   </div>
                 </div>
-                <div style={{ position: "absolute", bottom: "20px", left: "0", width: "100%" }}>
-                  <div style={{ display: "flex", gap: "9px", justifyContent: "center" }}>
-                    <Button onClick={() => showEditModal(item)} style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
-                      Edit
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </Col>
-          ))}
+              </Col>
+            ))
+          }
         </Row>
       </div>
       <EditMatchRequest

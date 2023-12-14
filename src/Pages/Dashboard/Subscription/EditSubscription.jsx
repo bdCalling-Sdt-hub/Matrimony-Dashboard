@@ -54,7 +54,7 @@ const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, request
                     },
                   ]}
                 >
-                  <Input placeholder="Type full name here" type='number' />
+                  <Input placeholder="Type full name here" type='number' defaultValue={requestData?.pkCountryPrice}/>
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -68,7 +68,7 @@ const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, request
                     },
                   ]}
                 >
-                  <Input placeholder="Enter amount here" type="number" />
+                  <Input placeholder="Enter amount here" type="number" defaultValue={requestData?.otherCountryPrice}/>
                 </Form.Item>
               </Col>
             </Row>

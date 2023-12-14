@@ -5,19 +5,19 @@ const initialState = {
   Error: false,
   Success: false,
   Loading: false,
-  SubscriptionList: [],
+  SuspendUsersList: [],
   pagination: {},
 };
 
 let token = localStorage.getItem("token");
 
-export const SubscriptionData = createAsyncThunk(
-  "SubscriptionInfo",
+export const SuspendUsersData = createAsyncThunk(
+  "SuspendUsersInfo",
   async (value, thunkAPI) => {
     console.log(value.gender)
     try {
       let response = await baseAxios.get(
-        `/subscription`,
+        `users/suspend`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const SubscriptionData = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
+      console.log(response);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -47,38 +47,38 @@ export const SubscriptionData = createAsyncThunk(
   }
 );
 
-export const SubscriptionSlice = createSlice({
-  name: "subscriptioninfo",
+export const SuspendUsersSlice = createSlice({
+  name: "suspendUsersinfo",
   initialState,
   reducers: {
     reset: (state) => {
       state.Loading = false;
       state.Success = false;
       state.Error = false;
-      (state.SubscriptionList = []), (state.pagination = {});
+      (state.SuspendUsersList = []), (state.pagination = {});
     },
   },
   extraReducers: {
-    [SubscriptionData.pending]: (state, action) => {
+    [SuspendUsersData.pending]: (state, action) => {
       state.Loading = true;
     },
-    [SubscriptionData.fulfilled]: (state, action) => {
+    [SuspendUsersData.fulfilled]: (state, action) => {
       state.Loading = false;
       state.Success = true;
       state.Error = false;
-      state.SubscriptionList = action.payload.data.attributes.result.results;
+      state.SuspendUsersList = action.payload.data;
       state.pagination = {"page":action.payload.data.attributes.page, "totalPages": action.payload.data.attributes.totalPages, "limit": action.payload.data.attributes.limit, "totalResults": action.payload.data.attributes.totalResults};
     },
-    [SubscriptionData.rejected]: (state, action) => {
+    [SuspendUsersData.rejected]: (state, action) => {
       state.Loading = false;
       state.Success = false;
       state.Error = true;
-      (state.SubscriptionList = []), (state.pagination = {});
+      (state.SuspendUsersList = []), (state.pagination = {});
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { reset } = SubscriptionSlice.actions;
+export const { reset } = SuspendUsersSlice.actions;
 
-export default SubscriptionSlice.reducer;
+export default SuspendUsersSlice.reducer;

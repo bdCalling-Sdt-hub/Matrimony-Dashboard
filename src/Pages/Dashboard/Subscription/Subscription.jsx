@@ -1,4 +1,4 @@
-import { Button, Col, Input, Row } from "antd";
+import { Button, Col, Empty, Input, Row, Typography } from "antd";
 import React, { useEffect } from "react";
 import { AiOutlineCheckCircle, AiOutlinePlus } from 'react-icons/ai';
 import { FaCrown } from 'react-icons/fa';
@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SubscriptionData } from "../../../ReduxSlices/SubscriptionSlice";
 import EditSubscription from "./EditSubscription";
+const { Title } = Typography;
 
 const Subscription = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const Subscription = () => {
   };
 
   const handleCancel = () => {
+    window.location.reload();
     setModalVisible(false);
   };
 
@@ -51,8 +53,8 @@ const Subscription = () => {
   };
 
   const handleEditCancel = () => {
-    setDataItem({});
     setEditModelVisible(false);
+    window.location.reload();
   };
 
 
@@ -84,7 +86,7 @@ const Subscription = () => {
 
       <div style={{ background: "#F5F5F5", padding: "30px", borderRadius: "10px" }}>
         <Row gutter={[30, 30]}>
-          {data.map((item) => {
+          {(data && data?.length > 0) ? data?.map((item) => {
             return (
               <>
                 <Col span={8}>
@@ -93,8 +95,11 @@ const Subscription = () => {
                     <h2 style={{ color: "#000000", marginBottom: "5px", marginTop: "30px", fontSize: "" }}>
                       {item.name}
                     </h2>
-                    <h2 style={{ color: "#E91E63", marginTop: "5px", fontSize: "30px", fontWeight: "bold" }}>
-                      $ {item.price}
+                    <h2 style={{ color: "#E91E63", marginTop: "5px", fontSize: "25px", fontWeight: "bold" }}>
+                      {item.pkCountryPrice} PKR 
+                    </h2>
+                    <h2 style={{ color: "#E91E63", marginTop: "5px", fontSize: "25px", fontWeight: "bold" }}>
+                      $ {item.otherCountryPrice}
                     </h2>
                     <div style={{ marginTop: "30px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -134,13 +139,15 @@ const Subscription = () => {
                 </Col>
               </>
             );
-          })}
+          }) :<Empty style={{paddingLeft:"600px"}}description={<Title level={5}>No Data Found</Title>} />
+          }
         </Row>
       </div>
       <AddSubscription
         modalVisible={modalVisible}
         handleCancel={handleCancel}
         setModalVisible={setModalVisible}
+        setReload={setReload}
       />
       <EditSubscription
         modalVisible={editModelVisible}

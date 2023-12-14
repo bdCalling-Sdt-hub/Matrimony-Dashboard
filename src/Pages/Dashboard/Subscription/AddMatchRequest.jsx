@@ -45,12 +45,28 @@ const AddMatchRequest = ({ modalVisible, handleCancel, setModalVisible, setReloa
             <Row gutter={16}>
               <Col span={24}>
                 <Form.Item
-                  label="Plan Amount"
-                  name="price"
+                  label="Price for Pakistan"
+                  name="pkCountryPrice"
                   rules={[
                     {
                       required: true,
-                      message: 'Please enter a Plan Amount!',
+                      message: 'Enter price for Pakistan',
+                    },
+                  ]}
+                >
+                  <Input type="number" />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row gutter={16}>
+              <Col span={24}>
+                <Form.Item
+                  label="Price for Other Countries"
+                  name="otherCountryPrice"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Enter price for other countries!',
                     },
                   ]}
                 >

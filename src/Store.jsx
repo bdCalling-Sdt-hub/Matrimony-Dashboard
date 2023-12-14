@@ -12,6 +12,7 @@ import SubscriptionSlice from "./ReduxSlices/SubscriptionSlice";
 import PaymentSlice from "./ReduxSlices/PaymentSlice";
 import SubscriptionCountSlice from "./ReduxSlices/SubscriptionCountSlice";
 import ReportedUserSlice from "./ReduxSlices/ReportedUserSlice";
+import SuspendUsersSlice from "./ReduxSlices/SuspendUsersSlice";
 
 export const Store = configureStore({
   reducer: {
@@ -24,9 +25,10 @@ export const Store = configureStore({
     PaymentData: PaymentSlice,
     SubscriptionCountData: SubscriptionCountSlice,
     ReportedUserData: ReportedUserSlice,
+    SuspendUsersData: SuspendUsersSlice,
     // HostInformationData: HostInformationReducer,
     // ResidenceInformationData: ResidenceInformationReducer,
     // NotificationsData: NotificationsSlice,
-    // LoginActivity: LoginActivitySlice,
+    LoginActivity: LoginActivitySlice,
   },
 });

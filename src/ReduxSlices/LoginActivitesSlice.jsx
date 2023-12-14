@@ -5,19 +5,19 @@ const initialState = {
   Error: false,
   Success: false,
   Loading: false,
-  SubscriptionList: [],
+  LoginActivitiesList: [],
   pagination: {},
 };
 
 let token = localStorage.getItem("token");
 
-export const SubscriptionData = createAsyncThunk(
-  "SubscriptionInfo",
+export const LoginActivitiesData = createAsyncThunk(
+  "LoginActivitiesInfo",
   async (value, thunkAPI) => {
     console.log(value.gender)
     try {
       let response = await baseAxios.get(
-        `/subscription`,
+        `/additional-match-requests`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export const SubscriptionData = createAsyncThunk(
     } catch (error) {
       console.log(error);
       if (
-        "You are not authorised to sign in now" === error.response.data.message || "Error authorization" === error.response.data.message
+        "You are not authorised to sign in now" === error.response.data.message || "You are already signed out" === error.response.data.message
       ) {
         localStorage.removeItem("token");
         localStorage.removeItem("yourInfo");
@@ -47,38 +47,38 @@ export const SubscriptionData = createAsyncThunk(
   }
 );
 
-export const SubscriptionSlice = createSlice({
-  name: "subscriptioninfo",
+export const LoginActivitiesSlice = createSlice({
+  name: "loginActivitiesinfo",
   initialState,
   reducers: {
     reset: (state) => {
       state.Loading = false;
       state.Success = false;
       state.Error = false;
-      (state.SubscriptionList = []), (state.pagination = {});
+      (state.LoginActivitiesList = []), (state.pagination = {});
     },
   },
   extraReducers: {
-    [SubscriptionData.pending]: (state, action) => {
+    [LoginActivitiesData.pending]: (state, action) => {
       state.Loading = true;
     },
-    [SubscriptionData.fulfilled]: (state, action) => {
+    [LoginActivitiesData.fulfilled]: (state, action) => {
       state.Loading = false;
       state.Success = true;
       state.Error = false;
-      state.SubscriptionList = action.payload.data.attributes.result.results;
+      state.LoginActivitiesList = action.payload.data.attributes.result;
       state.pagination = {"page":action.payload.data.attributes.page, "totalPages": action.payload.data.attributes.totalPages, "limit": action.payload.data.attributes.limit, "totalResults": action.payload.data.attributes.totalResults};
     },
-    [SubscriptionData.rejected]: (state, action) => {
+    [LoginActivitiesData.rejected]: (state, action) => {
       state.Loading = false;
       state.Success = false;
       state.Error = true;
-      (state.SubscriptionList = []), (state.pagination = {});
+      (state.LoginActivitiesList = []), (state.pagination = {});
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { reset } = SubscriptionSlice.actions;
+export const { reset } = LoginActivitiesSlice.actions;
 
-export default SubscriptionSlice.reducer;
+export default LoginActivitiesSlice.reducer;

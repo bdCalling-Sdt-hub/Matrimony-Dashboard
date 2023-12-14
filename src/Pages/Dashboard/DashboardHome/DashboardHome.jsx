@@ -52,6 +52,7 @@ function DashboardHome() {
           md: 24,
           lg: 32,
         }}
+        style={{marginBottom:"30px"}}
       >
         <Col className="gutter-row" span={6}>
           <div className='free-members'>

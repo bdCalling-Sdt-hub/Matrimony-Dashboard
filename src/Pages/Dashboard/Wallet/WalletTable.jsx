@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Space, Table, Tag } from 'antd';
 import { AiOutlineDownload } from 'react-icons/ai';
+import baseAxios from '../../../../Config';
+import moment from 'moment';
 
 const columns = [
   {
-    title: 'Action',
-    key: 'action',
+    title: '',
+    key: '',
     render: (_, record) => (
       <Space size="middle">
         {/* <a>Invite {record.name}</a>
@@ -18,60 +20,44 @@ const columns = [
   },
   {
     title: 'Method',
-    dataIndex: 'method',
-    key: 'method',
+    dataIndex: 'paymentMethod',
+    key: 'paymentMethod',
     render: (text) => <a>{text}</a>,
   },
   {
     title: 'Date',
-    dataIndex: 'date',
-    key: 'date',
+    dataIndex: 'createdAt',
+    key: 'createdAt',
+    // render: (text) => <span>{moment(text).format('YYYY-MM-DD HH:mm:ss')}</span>,
+    render: (text) => <span>{moment(text).format('hh:mm:ss A')}</span>,
   },
   {
     title: 'Amount',
-    dataIndex: 'amount',
-    key: 'amount',
+    dataIndex: ['paymentData', 'price'],
+    key: 'price',
   },
 
 ];
-const data = [
-  {
-    key: '1',
-    method: 'credit',
-    date: "06:24:45 AM",
-    amount: '$5,553',
-  },
-  {
-    key: '2',
-    method: 'credit',
-    date: "06:24:45 AM",
-    amount: '$5,553',
-  },
-  {
-    key: '3',
-    method: 'credit',
-    date: "06:24:45 AM",
-    amount: '$5,553',
-  },
-  {
-    key: '4',
-    method: 'credit',
-    date: "06:24:45 AM",
-    amount: '$5,553',
-  },
-  {
-    key: '5',
-    method: 'credit',
-    date: "06:24:45 AM",
-    amount: '$5,553',
-  },
-  {
-    key: '6',
-    method: 'credit',
-    date: "06:24:45 AM",
-    amount: '$5,553',
-  },
 
-];
-const WalletTable = () => <Table columns={columns} dataSource={data} pagination={false} />;
+//const WalletTable = () => <Table columns={columns} dataSource={data} pagination={false} />;
+const WalletTable = ({ date }) => {
+  const { fromDate, toDate } = date;
+  const [paymentData, setPaymentData] = React.useState([]);
+
+  useEffect(() => {
+    baseAxios.get(`/payment?fromDate=${!fromDate?"":fromDate}&toDate=${!toDate?"":toDate}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => {
+        console.log(res.data.data.attributes);
+        setPaymentData(res.data.data.attributes);
+      })
+      .catch((err) => console.log(err));
+
+  }, [fromDate, toDate]);
+  return <Table columns={columns} dataSource={paymentData} pagination={false} />
+}
 export default WalletTable;

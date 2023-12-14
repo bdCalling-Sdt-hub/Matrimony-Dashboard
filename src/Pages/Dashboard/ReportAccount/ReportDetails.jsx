@@ -24,7 +24,7 @@ const ReportDetails = ({ modalVisible, handleCancel, setModalVisible, data }) =>
                     icon: "success",
                     title: "User suspended successfully",
                 });
-                setModalVisible(true);
+                setModalVisible(false);
                 setSelectedDate(null); // Deselect the date when closing modal
             })
             .catch((err) => {

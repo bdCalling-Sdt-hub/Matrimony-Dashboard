@@ -130,6 +130,7 @@ const items = [...Array(5).keys()].map((item, index) => {
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(localStorage.lang);
+  const userData = JSON.parse(localStorage.getItem("yourInfo"));
 
   const {
     token: { colorBgContainer },
@@ -416,14 +417,14 @@ const Dashboard = () => {
                   style={{ cursor: "pointer" }}
                   width="40"
                   height="40"
-                  src="https://img.icons8.com/3d-fluency/94/person-male--v2.png"
+                  src={userData?.photo[0].publicFileUrl}
                   alt="person-male--v2"
                 />
               </Dropdown>
             </div>
 
             <div style={{ lineHeight: "1.2" }}>
-              <h1 style={{ fontSize: "16px" }}>Mr. John Doe</h1>
+              <h1 style={{ fontSize: "16px" }}>{userData.name}</h1>
               <p style={{ fontSize: "14px" }}>Admin</p>
             </div>
           </div>

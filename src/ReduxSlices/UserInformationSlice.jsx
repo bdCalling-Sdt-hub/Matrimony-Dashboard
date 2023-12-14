@@ -31,7 +31,7 @@ export const UserInformationData = createAsyncThunk(
     } catch (error) {
       console.log(error);
       if (
-        "You are not authorised to sign in now" === error.response.data.message || "Error authorization" === error.response.data.message
+        "You are not authorised to sign in now" === error.response.data.message || "Error authorization" === error.response.data.message || "You are already signed out" === error.response.data.message
       ) {
         localStorage.removeItem("token");
         localStorage.removeItem("yourInfo");
