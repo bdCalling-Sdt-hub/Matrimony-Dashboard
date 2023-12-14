@@ -14,10 +14,9 @@ let token = localStorage.getItem("token");
 export const SuspendUsersData = createAsyncThunk(
   "SuspendUsersInfo",
   async (value, thunkAPI) => {
-    console.log(value.gender)
     try {
       let response = await baseAxios.get(
-        `users/suspend`,
+        `/users/suspend`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -25,7 +24,7 @@ export const SuspendUsersData = createAsyncThunk(
           },
         }
       );
-      console.log(response);
+      console.log("hello ----->",response);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -66,8 +65,10 @@ export const SuspendUsersSlice = createSlice({
       state.Loading = false;
       state.Success = true;
       state.Error = false;
-      state.SuspendUsersList = action.payload.data;
+      state.SuspendUsersList = action.payload.data.attributes.results;
       state.pagination = {"page":action.payload.data.attributes.page, "totalPages": action.payload.data.attributes.totalPages, "limit": action.payload.data.attributes.limit, "totalResults": action.payload.data.attributes.totalResults};
+      console.log("suspend users list", state.SuspendUsersList);
+
     },
     [SuspendUsersData.rejected]: (state, action) => {
       state.Loading = false;

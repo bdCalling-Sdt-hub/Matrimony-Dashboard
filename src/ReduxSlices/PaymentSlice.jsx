@@ -24,7 +24,7 @@ export const PaymentData = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
+      console.log("check payment",response.data.data.attributes);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -66,7 +66,7 @@ export const PaymentSlice = createSlice({
       state.Success = true;
       state.Error = false;
       state.PaymentList = action.payload.data.attributes;
-      state.pagination = {"page":action.payload.data.attributes.allPayments.page, "totalPages": action.payload.data.attributes.allPayments.totalPages, "limit": action.payload.data.attributes.allPayments.limit, "totalResults": action.payload.data.attributes.allPayments.totalResults};
+      console.log("state payment",state.PaymentList);
     },
     [PaymentData.rejected]: (state, action) => {
       state.Loading = false;

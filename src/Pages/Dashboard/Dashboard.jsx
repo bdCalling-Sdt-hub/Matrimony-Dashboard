@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { CarOutlined, MenuOutlined, SettingOutlined, SearchOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Input, Layout, Menu, Select, Space, theme } from "antd";
+import { Button, Card, Dropdown, Input, Layout, Menu, Select, Space, theme } from "antd";
 import { Divider } from "antd";
 import { GiReceiveMoney } from "react-icons/gi";
 import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
@@ -17,6 +17,9 @@ import { useTranslation } from "react-i18next";
 import { Link, Outlet } from "react-router-dom";
 import logo from "../../Images/Logo.png";
 import Styles from "./Dashboard.module.css";
+import { useDispatch } from "react-redux";
+import { UserInformationData } from "../../ReduxSlices/UserInformationSlice";
+import baseAxios from "../../../Config";
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -131,7 +134,8 @@ const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(localStorage.lang);
   const userData = JSON.parse(localStorage.getItem("yourInfo"));
-
+  const [userList, setUserList] = useState([]);
+  console.log("user list -----> ", userList);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -145,6 +149,25 @@ const Dashboard = () => {
 
   const handleSearch = (value) => {
     console.log(value);
+    const token = localStorage.getItem("token");
+    if(value){
+      baseAxios
+      .get(
+        `/users/home?limit=5&page=1&role=user&name=${!value ? "" : value}`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("user data ------> ", res.data);
+        setUserList(res.data.data.attributes.results);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
   };
 
   useEffect(() => {
@@ -351,15 +374,16 @@ const Dashboard = () => {
               }}
             />
             <Space.Compact size="large" style={{ width: "416px", padding: " 10px" }}>
-              <Input addonBefore={<SearchOutlined />} placeholder="Search User" onChange={(e) => handleSearch(e.target.value)}/>
+              <Input addonBefore={<SearchOutlined />} placeholder="Search User" onChange={(e) => handleSearch(e.target.value)} />
             </Space.Compact>
+            
           </div>
 
           <div
             className={Styles.notificatonProfileSection}
             style={{ display: "flex", alignItems: "center", lineHeight: 0 }}
           >
-            <div className="" style={{ marginRight: "40px" }}>
+            {/* <div className="" style={{ marginRight: "40px" }}>
               <Select
                 value={selectedLanguage}
                 style={{ width: 150 }}
@@ -385,7 +409,7 @@ const Dashboard = () => {
                   </div>
                 </Option>
               </Select>
-            </div>
+            </div> */}
             <div className={Styles.notificaton}>
               <Dropdown
                 overlay={menu}
