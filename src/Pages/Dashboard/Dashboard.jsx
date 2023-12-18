@@ -22,84 +22,11 @@ import baseAxios from "../../../Config";
 import { useDispatch, useSelector } from "react-redux";
 import { NotificationsData } from "../../ReduxSlices/NotificationsSlice";
 import { io } from "socket.io-client";
+import Swal from "sweetalert2";
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 const { Option } = Select;
-
-const profileItems = [
-  {
-    key: 1,
-    label: (
-      <Link to="/setting/personal-information" style={{ height: "50px" }} rel="noreferrer">
-        <div
-          className={Styles.everyNotify}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <img
-            style={{ marginRight: "20px" }}
-            width="30"
-            height="30"
-            src="https://img.icons8.com/windows/32/gender-neutral-user.png"
-            alt="gender-neutral-user"
-          />
-          <div className="" style={{ marginTop: "" }}>
-            <p>Profile</p>
-          </div>
-        </div>
-      </Link>
-    ),
-  },
-  // {
-  //   key: 2,
-  //   label: (
-  //     <Link to="/notification" style={{}} rel="noreferrer">
-  //       <div
-  //         className={Styles.everyNotify}
-  //         style={{ display: "flex", alignItems: "center" }}
-  //       >
-  //         <img
-  //           style={{ marginRight: "20px" }}
-  //           width="30"
-  //           height="30"
-  //           src="https://img.icons8.com/ios/50/appointment-reminders--v1.png"
-  //           alt="appointment-reminders--v1"
-  //         />
-  //         <div className="" style={{ marginTop: "" }}>
-  //           <p>Notification</p>
-  //         </div>
-  //       </div>
-  //     </Link>
-  //   ),
-  // },
-  {
-    key: 3,
-    label: (
-      <div
-        style={{ border: "none", backgroundColor: "transparent" }}
-        rel="noreferrer"
-      >
-        <div
-          className={Styles.everyNotify}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <img
-            style={{ marginRight: "20px" }}
-            width="25"
-            height="25"
-            src="https://img.icons8.com/ios/50/exit--v1.png"
-            alt="exit--v1"
-          />
-          <div className="" style={{ marginTop: "" }}>
-            <p>Logout</p>
-          </div>
-        </div>
-      </div>
-    ),
-  },
-];
-
-
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -153,6 +80,91 @@ const Dashboard = () => {
     }
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("yourInfo");
+    Swal.fire({
+      icon: "success",
+      title: "Logout Successful",
+      showConfirmButton: true,
+      timer: 1500,
+    });
+    navigate("/signin")
+  }
+
+  const profileItems = [
+    {
+      key: 1,
+      label: (
+        <Link to="/setting/personal-information" style={{ height: "50px" }} rel="noreferrer">
+          <div
+            className={Styles.everyNotify}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <img
+              style={{ marginRight: "20px" }}
+              width="30"
+              height="30"
+              src="https://img.icons8.com/windows/32/gender-neutral-user.png"
+              alt="gender-neutral-user"
+            />
+            <div className="" style={{ marginTop: "" }}>
+              <p>Profile</p>
+            </div>
+          </div>
+        </Link>
+      ),
+    },
+    // {
+    //   key: 2,
+    //   label: (
+    //     <Link to="/notification" style={{}} rel="noreferrer">
+    //       <div
+    //         className={Styles.everyNotify}
+    //         style={{ display: "flex", alignItems: "center" }}
+    //       >
+    //         <img
+    //           style={{ marginRight: "20px" }}
+    //           width="30"
+    //           height="30"
+    //           src="https://img.icons8.com/ios/50/appointment-reminders--v1.png"
+    //           alt="appointment-reminders--v1"
+    //         />
+    //         <div className="" style={{ marginTop: "" }}>
+    //           <p>Notification</p>
+    //         </div>
+    //       </div>
+    //     </Link>
+    //   ),
+    // },
+    {
+      key: 3,
+      label: (
+        <div
+          style={{ border: "none", backgroundColor: "transparent" }}
+          rel="noreferrer"
+          onClick={handleLogout}
+        >
+          <div
+            className={Styles.everyNotify}
+            style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+          >
+            <img
+              style={{ marginRight: "20px" }}
+              width="25"
+              height="25"
+              src="https://img.icons8.com/ios/50/exit--v1.png"
+              alt="exit--v1"
+            />
+            <div className="" style={{ marginTop: "" }}>
+              <p>Logout</p>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+  ];
+  
   const data = notifications?.allNotification
     ? notifications?.allNotification
     : dataApi.allNotification;

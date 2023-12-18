@@ -6,32 +6,37 @@ import logo from "../../Images/icon.png";
 import isometric from "../../Images/isometric.png";
 import style from "./Signin.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { UserData, reset } from "../../ReduxSlices/SigninSlice";
+import { UserData } from "../../ReduxSlices/SigninSlice";
 import Swal from "sweetalert2";
-import Cookies from "js-cookie"; // Import js-cookie
+import Cookies from "js-cookie";
 
 const Signin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm(); // Ant Design form instance
-  const { isLoading, isError, isSuccess, userData, accessToken, message } = useSelector((state) => state.UserData);
+  const { isSuccess, userData, accessToken, message } = useSelector((state) => state.UserData);
 
   useEffect(() => {
-    if (isError) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: message,
-      });
-    }
     if (isSuccess) {
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: message,
+        showConfirmButton: true,
+      });
+
+      // Save user data to cookies upon successful login
+      Cookies.set("userData", JSON.stringify(userData), { expires: 30 });
+      Cookies.set("accessToken", accessToken, { expires: 30 });
+
       localStorage.setItem("yourInfo", JSON.stringify(userData));
       localStorage.setItem("token", accessToken);
+      
       if (userData.role === "admin") {
         window.location.href = "/";
       }
     }
-  }, [isLoading, isError, isSuccess, dispatch, navigate]);
+  }, [isSuccess, userData, accessToken]);
 
   useEffect(() => {
     const rememberedEmail = Cookies.get("rememberedEmail");
@@ -52,14 +57,6 @@ const Signin = () => {
       password: values.password,
     };
     dispatch(UserData(data));
-
-    if (values.remember) {
-      Cookies.set("rememberedEmail", values.email, { expires: 30 });
-      Cookies.set("rememberedPassword", values.password, { expires: 30 });
-    } else {
-      Cookies.remove("rememberedEmail");
-      Cookies.remove("rememberedPassword");
-    }
   };
 
   const handleForget = () => {

@@ -4,6 +4,7 @@ import { AiOutlineCheckCircle } from 'react-icons/ai';
 import baseAxios from '../../../../Config';
 import { useDispatch } from 'react-redux';
 import { AdditionalMatchRequestData } from '../../../ReduxSlices/AdditionalMatchRequestSlice';
+import Swal from 'sweetalert2';
 
 const EditMatchRequest = ({ modalVisible, handleCancel, setModalVisible, requestData, setReload }) => {
   const token = localStorage.getItem("token");
@@ -18,6 +19,12 @@ const EditMatchRequest = ({ modalVisible, handleCancel, setModalVisible, request
       })
         .then((res) => {
           console.log(res.data);
+          Swal.fire({
+            icon: 'success',
+            title: 'Match Request updated successfully',
+            showConfirmButton: true,
+            timer: 1500
+          });
           setReload(reload => reload + 1);
           setModalVisible(false);
         })
@@ -55,11 +62,6 @@ const EditMatchRequest = ({ modalVisible, handleCancel, setModalVisible, request
                 <Form.Item
                   label="Price for Pakistan"
                   name="pkCountryPrice"
-                  rules={[
-                    {
-                      message: 'Please enter amount for Pakistan',
-                    },
-                  ]}
                 >
                   <Input type="number" />
                 </Form.Item>
@@ -70,11 +72,6 @@ const EditMatchRequest = ({ modalVisible, handleCancel, setModalVisible, request
                 <Form.Item
                   label="Price for Other Countries"
                   name="otherCountryPrice"
-                  rules={[
-                    {
-                      message: 'Please enter amount for other countries',
-                    },
-                  ]}
                 >
                   <Input type="number" />
                 </Form.Item>
@@ -83,11 +80,6 @@ const EditMatchRequest = ({ modalVisible, handleCancel, setModalVisible, request
             <Form.Item
               label="Match Requests"
               name="matchRequests"
-              rules={[
-                {
-                  message: 'Please enter Match Requests!',
-                },
-              ]}
             >
               <Input type="number" />
             </Form.Item>

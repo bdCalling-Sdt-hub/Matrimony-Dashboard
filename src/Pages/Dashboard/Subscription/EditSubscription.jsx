@@ -2,13 +2,35 @@ import { useState } from 'react';
 import { Modal, Card, Form, Input, Radio, Checkbox, Button, Row, Col, Switch } from 'antd';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { FaCrown } from 'react-icons/fa';
+import Swal from 'sweetalert2';
+import baseAxios from '../../../../Config';
 
 const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, requestData, setReload }) => {
-  
-  console.log(requestData);
+  const token = localStorage.getItem("token");
   const onFinish = (values) => {
     console.log('Received values:', values);
-    setModalVisible(false);
+    if (requestData) {
+      baseAxios.put(`/subscription?subscriptionId=${requestData.id}`, values, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        }
+      })
+        .then((res) => {
+          console.log('update subs---->', res.data);
+          Swal.fire({
+            icon: 'success',
+            title: 'Subscription updated successfully',
+            showConfirmButton: true,
+            timer: 1500
+          });
+          setReload(reload => reload + 1);
+          setModalVisible(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setModalVisible(true);
+        });
+    }
   };
   return (
     <>
@@ -24,7 +46,17 @@ const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, request
             name="subscriptionForm"
             onFinish={onFinish}
             initialValues={{
-              status: true,
+              name: requestData?.name,
+              pkCountryPrice: requestData?.pkCountryPrice,
+              otherCountryPrice: requestData?.otherCountryPrice,
+              duration: requestData?.duration,
+              message: requestData?.message,
+              reminders: requestData?.reminders,
+              matchRequests: requestData?.matchRequests,
+              isMessageNoLimit: requestData?.isMessageNoLimit,
+              isRemindersNoLimit: requestData?.isRemindersNoLimit,
+              isMatchRequestsNoLimit: requestData?.isMatchRequestsNoLimit,
+              status: true
             }}
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
@@ -33,12 +65,6 @@ const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, request
             <Form.Item
               label="Plan Name"
               name="name"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please enter a Plan Name!',
-                },
-              ]}
             >
               <Input defaultValue={requestData?.name} placeholder="Type full name here" />
             </Form.Item>
@@ -46,33 +72,21 @@ const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, request
               <Col span={12}>
                 <Form.Item
                   label="Price for Pakistan"
-                  name="pakistan"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please enter a Plan Amount for Pakistan!',
-                    },
-                  ]}
+                  name="pkCountryPrice"
                 >
-                  <Input placeholder="Type full name here" type='number' defaultValue={requestData?.pkCountryPrice}/>
+                  <Input placeholder="Type full name here" type='number' defaultValue={requestData?.pkCountryPrice} />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item
                   label="Price for other countries"
-                  name="others"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please enter a Plan for other countries!',
-                    },
-                  ]}
+                  name="otherCountryPrice"
                 >
-                  <Input placeholder="Enter amount here" type="number" defaultValue={requestData?.otherCountryPrice}/>
+                  <Input placeholder="Enter amount here" type="number" defaultValue={requestData?.otherCountryPrice} />
                 </Form.Item>
               </Col>
             </Row>
-            <Form.Item label="Plan Types" name="plan-types">
+            <Form.Item label="Plan Types" name="duration">
               <Input defaultValue={requestData?.duration} placeholder="Ex. 3 months" />
             </Form.Item>
 
@@ -95,17 +109,17 @@ const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, request
               </style>
             </Form.Item> */}
 
-            <Form.Item label="Messages" name="messages">
+            <Form.Item label="Messages" name="message">
               <Row justify="space-between" align="middle">
                 <Col span={18}>
                   <Input
-                  defaultValue={requestData?.message}
+                    defaultValue={requestData?.message}
                     placeholder="Send unlimited message and check online"
                   />
                 </Col>
                 <Col span={4} style={{ marginRight: "20px" }}>
                   <Form.Item name="unlimitedMessages" valuePropName="checked" style={{ marginBottom: 0 }}>
-                    <Checkbox checked={requestData?.isMessageNoLimit}  style={{ color: '#E91E63' }}>Unlimited</Checkbox>
+                    <Checkbox checked={requestData?.isMessageNoLimit} style={{ color: '#E91E63' }}>Unlimited</Checkbox>
                   </Form.Item>
                 </Col>
               </Row>
@@ -115,7 +129,7 @@ const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, request
               <Row justify="space-between" align="middle">
                 <Col span={18} >
                   <Input
-                  defaultValue={requestData?.reminders}
+                    defaultValue={requestData?.reminders}
                     placeholder="Send unlimited reminder and check online"
                   />
                 </Col>
@@ -131,7 +145,7 @@ const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, request
               <Row justify="space-between" align="middle">
                 <Col span={18}>
                   <Input
-                  defaultValue={requestData?.matchRequests}
+                    defaultValue={requestData?.matchRequests}
                     placeholder="Send unlimited match request and check online"
                   />
                 </Col>
