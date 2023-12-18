@@ -5,18 +5,18 @@ const initialState = {
   Error: false,
   Success: false,
   Loading: false,
-  AdditionalMatchRequestList: [],
+  VisitorsList: [],
   pagination: {},
 };
 
 let token = localStorage.getItem("token");
 
-export const AdditionalMatchRequestData = createAsyncThunk(
-  "AdditionalMatchRequestInfo",
+export const VisitorsData = createAsyncThunk(
+  "VisitorsInfo",
   async (value, thunkAPI) => {
     try {
       let response = await baseAxios.get(
-        `/additional-match-requests`,
+        `/visitors`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export const AdditionalMatchRequestData = createAsyncThunk(
           },
         }
       );
-      console.log(response.data);
+      console.log("check visitors",response.data.data.attributes);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -44,38 +44,38 @@ export const AdditionalMatchRequestData = createAsyncThunk(
   }
 );
 
-export const AdditionalMatchRequestSlice = createSlice({
-  name: "additionalmatchrequestinfo",
+export const VisitorsSlice = createSlice({
+  name: "visitorsinfo",
   initialState,
   reducers: {
     reset: (state) => {
       state.Loading = false;
       state.Success = false;
       state.Error = false;
-      (state.AdditionalMatchRequestList = []), (state.pagination = {});
+      (state.VisitorsList = {}), (state.pagination = {});
     },
   },
   extraReducers: {
-    [AdditionalMatchRequestData.pending]: (state, action) => {
+    [VisitorsData.pending]: (state, action) => {
       state.Loading = true;
     },
-    [AdditionalMatchRequestData.fulfilled]: (state, action) => {
+    [VisitorsData.fulfilled]: (state, action) => {
       state.Loading = false;
       state.Success = true;
       state.Error = false;
-      state.AdditionalMatchRequestList = action.payload.data.attributes.result;
-      state.pagination = {"page":action.payload.data.attributes.page, "totalPages": action.payload.data.attributes.totalPages, "limit": action.payload.data.attributes.limit, "totalResults": action.payload.data.attributes.totalResults};
+      state.VisitorsList = action.payload.data.attributes;
+      console.log("state visitors",state.VisitorsList);
     },
-    [AdditionalMatchRequestData.rejected]: (state, action) => {
+    [VisitorsData.rejected]: (state, action) => {
       state.Loading = false;
       state.Success = false;
       state.Error = true;
-      (state.AdditionalMatchRequestList = []), (state.pagination = {});
+      (state.VisitorsList = {}), (state.pagination = {});
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { reset } = AdditionalMatchRequestSlice.actions;
+export const { reset } = VisitorsSlice.actions;
 
-export default AdditionalMatchRequestSlice.reducer;
+export default VisitorsSlice.reducer;

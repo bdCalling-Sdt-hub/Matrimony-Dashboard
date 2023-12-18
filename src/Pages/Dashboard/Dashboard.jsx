@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { CarOutlined, MenuOutlined, SettingOutlined, SearchOutlined } from "@ant-design/icons";
-import { Button, Card, Dropdown, Input, Layout, Menu, Select, Space, theme } from "antd";
+import { Button, Card, Dropdown, Input, Layout, Menu, Select, Space, theme, Badge } from "antd";
 import { Divider } from "antd";
 import { GiReceiveMoney } from "react-icons/gi";
 import { MdCarRental, MdPayment, MdPeopleOutline } from "react-icons/md";
@@ -14,12 +14,14 @@ import { RiUserSearchLine } from "react-icons/ri";
 import React, { useEffect, useState } from "react";
 
 import { useTranslation } from "react-i18next";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import logo from "../../Images/Logo.png";
 import Styles from "./Dashboard.module.css";
-import { useDispatch } from "react-redux";
 import { UserInformationData } from "../../ReduxSlices/UserInformationSlice";
 import baseAxios from "../../../Config";
+import { useDispatch, useSelector } from "react-redux";
+import { NotificationsData } from "../../ReduxSlices/NotificationsSlice";
+import { io } from "socket.io-client";
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -97,49 +99,123 @@ const profileItems = [
   },
 ];
 
-const items = [...Array(5).keys()].map((item, index) => {
-  return {
-    key: index,
-    label: (
-      <Link to="/notification" style={{}} rel="noreferrer">
-        <div
-          className={Styles.everyNotify}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <img
-            style={{
-              backgroundColor: "#d9cffb",
-              borderRadius: "100%",
-              padding: "5px",
-              marginRight: "15px",
-            }}
-            width="30"
-            height="30"
-            src="https://img.icons8.com/3d-fluency/94/person-male--v2.png"
-            alt="person-male--v2"
-          />
-          <div className="" style={{ marginTop: "" }}>
-            <p>
-              <span>Sanchej haro manual </span>started a new trip from mexico.
-            </p>
-            <span style={{ color: "#d2d2d2" }}>1 hr ago</span>
-          </div>
-        </div>
-      </Link>
-    ),
-  };
-});
+
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(localStorage.lang);
   const userData = JSON.parse(localStorage.getItem("yourInfo"));
   const [userList, setUserList] = useState([]);
+  const navigate = useNavigate()
   console.log("user list -----> ", userList);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
   const [t, i18n] = useTranslation("global");
+
+  const dataApi = useSelector(
+    (state) => state.NotificationsData.AllNotifications
+  );
+
+  const handleGoHomePage = () => {
+    navigate("/")
+  }
+
+  console.log("dataApi -----> ", dataApi);
+
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    // Connect to server using socket.io-client
+    var socket = io("http://192.168.10.17:3008");
+
+    if (userData.role === "admin") {
+      socket.on("connect", () => {
+        // Emit events or listen for events here
+        socket.on("admin-notification", (data) => {
+          console.log(data);
+          setNotifications(data);
+        });
+      });
+      dispatch(NotificationsData());
+      socket.off("admin-notification", data);
+    } else {
+      socket.on("connect", () => {
+        // Emit events or listen for events here
+        socket.on("super-admin-notification", (data) => {
+          console.log(data);
+          setNotifications(data);
+        });
+      });
+      dispatch(NotificationsData());
+      socket.off("super-admin-notification", data);
+    }
+  }, []);
+
+  const data = notifications?.allNotification
+    ? notifications?.allNotification
+    : dataApi.allNotification;
+
+  console.log("data -----> ", data);
+
+
+  function getTimeAgo(timestamp) {
+    const now = new Date();
+    const date = new Date(timestamp);
+
+    const secondsAgo = Math.floor((now - date) / 1000);
+    const minutesAgo = Math.floor(secondsAgo / 60);
+    const hoursAgo = Math.floor(minutesAgo / 60);
+    const daysAgo = Math.floor(hoursAgo / 24);
+    const yearsAgo = Math.floor(daysAgo / 365);
+
+    if (yearsAgo > 0) {
+      return yearsAgo === 1 ? "1 year ago" : `${yearsAgo} years ago`;
+    } else if (daysAgo > 0) {
+      return daysAgo === 1 ? "1 day ago" : `${daysAgo} days ago`;
+    } else if (hoursAgo > 0) {
+      return hoursAgo === 1 ? "1 hour ago" : `${hoursAgo} hours ago`;
+    } else if (minutesAgo > 0) {
+      return minutesAgo === 1 ? "1 minute ago" : `${minutesAgo} minutes ago`;
+    } else {
+      return "just now";
+    }
+  }
+
+  const items = dataApi?.slice(0, 5)?.map((item, index) => {
+    return {
+      key: index,
+      label: (
+        <Link to="/notification" style={{}} rel="noreferrer">
+          <div
+            className={Styles.everyNotify}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <img
+              style={{
+                backgroundColor: "#d9cffb",
+                borderRadius: "100%",
+                padding: "5px",
+                marginRight: "15px",
+              }}
+              width="30"
+              height="30"
+              src={item?.image[0]?.publicFileUrl}
+              alt="person-male--v2"
+            />
+            <div className="" style={{ marginTop: "" }}>
+              <p>
+                {item?.message}
+              </p>
+              <span style={{ color: "#d2d2d2" }}>{getTimeAgo(item.createdAt)}</span>
+            </div>
+          </div>
+        </Link>
+      ),
+    };
+  });
+
 
   const handleSelectLanguage = (value) => {
     setSelectedLanguage(value);
@@ -150,23 +226,23 @@ const Dashboard = () => {
   const handleSearch = (value) => {
     console.log(value);
     const token = localStorage.getItem("token");
-    if(value){
+    if (value) {
       baseAxios
-      .get(
-        `/users/home?limit=5&page=1&role=user&name=${!value ? "" : value}`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log("user data ------> ", res.data);
-        setUserList(res.data.data.attributes.results);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        .get(
+          `/users/home?limit=5&page=1&role=user&name=${!value ? "" : value}`,
+          {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log("user data ------> ", res.data);
+          setUserList(res.data.data.attributes.results);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
@@ -245,15 +321,17 @@ const Dashboard = () => {
             marginBottom: "45px",
           }}
         >
-          <img
-            style={{
-              marginTop: "20px",
-              marginBottom: "20px",
-            }}
-            src={logo}
-          // height={collapsed ? "40px" : "40px"}
-          // width={collapsed ? "40px" : "40px"}
-          />
+          <div onClick={handleGoHomePage} style={{"cursor": "pointer"}}>
+            <img
+              style={{
+                marginTop: "20px",
+                marginBottom: "20px",
+              }}
+              src={logo}
+            // height={collapsed ? "40px" : "40px"}
+            // width={collapsed ? "40px" : "40px"}
+            />
+          </div>
         </div>
 
         <Menu
@@ -374,9 +452,9 @@ const Dashboard = () => {
               }}
             />
             <Space.Compact size="large" style={{ width: "416px", padding: " 10px" }}>
-              <Input addonBefore={<SearchOutlined />} placeholder="Search User" onChange={(e) => handleSearch(e.target.value)} />
+              {/* <Input addonBefore={<SearchOutlined />} placeholder="Search User" onChange={(e) => handleSearch(e.target.value)} /> */}
             </Space.Compact>
-            
+
           </div>
 
           <div
@@ -418,13 +496,22 @@ const Dashboard = () => {
                   pointAtCenter: true,
                 }}
               >
-                <img
-                  style={{ cursor: "pointer" }}
-                  width="30"
-                  height="30"
-                  src="https://img.icons8.com/ios/50/appointment-reminders--v1.png"
-                  alt="appointment-reminders--v1"
-                />
+                <Badge
+                  count={
+                    notifications?.notViewed
+                      ? notifications?.notViewed
+                      : dataApi?.notViewed
+                  }
+                  color="#333333"
+                >
+                  <img
+                    style={{ cursor: "pointer" }}
+                    width="30"
+                    height="30"
+                    src="https://img.icons8.com/ios/50/appointment-reminders--v1.png"
+                    alt="appointment-reminders--v1"
+                  />
+                </Badge>
               </Dropdown>
             </div>
             <div className={Styles.profile}>

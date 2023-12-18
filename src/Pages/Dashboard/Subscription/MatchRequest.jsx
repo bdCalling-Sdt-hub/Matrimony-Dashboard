@@ -6,6 +6,8 @@ import AddMatchRequest from "./AddMatchRequest"; // Import your AddMatchRequest 
 import EditMatchRequest from "./EditMatchRequest";
 import { useDispatch, useSelector } from "react-redux";
 import { AdditionalMatchRequestData } from "../../../ReduxSlices/AdditionalMatchRequestSlice";
+import Swal from 'sweetalert2';
+import baseAxios from '../../../../Config';
 const { Title } = Typography;
 
 const MatchRequest = () => {
@@ -57,6 +59,36 @@ const MatchRequest = () => {
     setAddModalVisible(false);
   };
 
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You are about to delete this item',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const token = localStorage.getItem('token');
+        baseAxios
+          .delete(`/additional-match-requests?id=${id}`, {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            console.log(res.data);
+            setReload((reload) => reload + 1);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  };
+  
+
   return (
     <div style={{ padding: "0px 60px" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", marginBottom: "40px" }}>
@@ -105,6 +137,9 @@ const MatchRequest = () => {
                     <div style={{ display: "flex", gap: "9px", justifyContent: "center" }}>
                       <Button onClick={() => showEditModal(item)} style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
                         Edit
+                      </Button>
+                      <Button onClick={()=>handleDelete(item.id)} style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
+                        Delete
                       </Button>
                     </div>
                   </div>

@@ -35,8 +35,8 @@ const EarnHistoryTable = ({data}) => {
     },
     {
       title: "Amount",
-      dataIndex: "uv",
-      key: "uv",
+      dataIndex: "income",
+      key: "income",
       responsive: ["lg"],
     },
 

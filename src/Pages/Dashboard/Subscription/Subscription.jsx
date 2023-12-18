@@ -7,6 +7,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SubscriptionData } from "../../../ReduxSlices/SubscriptionSlice";
 import EditSubscription from "./EditSubscription";
+import Swal from "sweetalert2";
+import baseAxios from "../../../../Config";
 const { Title } = Typography;
 
 const Subscription = () => {
@@ -55,6 +57,35 @@ const Subscription = () => {
   const handleEditCancel = () => {
     setEditModelVisible(false);
     window.location.reload();
+  };
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You are about to delete this item',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const token = localStorage.getItem('token');
+        baseAxios
+          .delete(`/subscription?id=${id}`, {
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            console.log(res.data);
+            setReload((reload) => reload + 1);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
   };
 
 
@@ -129,7 +160,7 @@ const Subscription = () => {
                         <Button style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }} onClick={() => showEditModal(item)}>
                           Edit
                         </Button>
-                        <Button style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
+                        <Button onClick={()=>handleDelete(item.id)} style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
                           Delete
                         </Button>
                       </div>

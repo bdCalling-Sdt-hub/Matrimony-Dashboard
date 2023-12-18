@@ -4,6 +4,8 @@ import { LiaAngleRightSolid } from "react-icons/lia";
 import { useNavigate } from "react-router-dom";
 import baseAxios from "../../../../Config";
 import Swal from "sweetalert2";
+import OTPInput from "react-otp-input";
+import mainStyle from "./Settings.module.css";
 
 const { Paragraph, Title, Text } = Typography;
 
@@ -14,6 +16,8 @@ const Setting = () => {
   const [verify, setVerify] = useState(false);
   const [updatePassword, setUpdatePassword] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [otp, setOtp] = useState("");
 
   const style = {
     formContainer: {
@@ -222,6 +226,33 @@ const Setting = () => {
     values.newPassword = "";
     values.password = "";
   };
+  
+  const handleOtp = () => {
+
+    const user = localStorage.getItem("yourInfo");
+    const { email } = JSON.parse(user);
+    baseAxios
+      .post("/auth/verify-email", { email, oneTimeCode: otp })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        // sweet alert for success and error set
+        Swal.fire({
+          icon: "success",
+          title: "OTP Verified Successfully",
+          // text: "Please Check Your Email!",
+        });
+        navigate(`/update-password/${email}`);
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "OTP is not verified",
+        });
+      });
+  };
 
   return (
     <div style={{ padding: "0 60px" }}>
@@ -385,36 +416,32 @@ const Setting = () => {
               enter the code here.
             </Paragraph>
 
-            <Input.Group
-              style={{
-                display: "flex",
-                gap: "10px",
-                marginBottom: "10px",
-              }}
-            >
-              <Input style={{ width: "50px", height: "70px" }} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-              <Input style={style.otpInput} />
-            </Input.Group>
+            <OTPInput
+            value={otp}
+            onChange={setOtp}
+            numInputs={6}
+            containerStyle={mainStyle.otpFormContainer}
+            inputStyle={mainStyle.otpInputFild}
+            renderSeparator={<span style={{ width: "20px" }}></span>}
+            renderInput={(props) => <input {...props} />}
+          />
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Text>Don't received code?</Text>
 
-              <a
+              <div
                 className="login-form-forgot"
-                style={{ color: "#000B90" }}
-                href=""
+                style={{ color: "#000B90", cursor: "pointer"}}
+                onClick={handleForgotPassword}
               >
                 Resend
-              </a>
+              </div>
             </div>
 
             <Button
               block
-              onClick={() => (setUpdatePassword(true), setVerify(false))}
+              // onClick={() => (setUpdatePassword(true), setVerify(false))}
+              onClick={handleOtp}
               style={{
                 height: "45px",
                 fontWeight: "400px",
