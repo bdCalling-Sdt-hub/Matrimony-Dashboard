@@ -21,11 +21,17 @@ import { SubscriptionCountData } from "../../../ReduxSlices/SubscriptionCountSli
 import { useDispatch, useSelector } from "react-redux";
 import { UserInformationData } from "../../../ReduxSlices/UserInformationSlice";
 import { useNavigate } from "react-router-dom";
+import { VisitorsData } from "../../../ReduxSlices/VisitorsSlice";
 
 function DashboardHome() {
   const onChange = (pageNumber) => {
     console.log("Page: ", pageNumber);
   };
+  const currentMonth = new Date().getMonth();
+  console.log("currentMonth", currentMonth)
+  const visitorsData = useSelector((state) => state.VisitorsData.VisitorsList)
+  const thisMonthVisitors = visitorsData?.lastMonthCount  || 0 
+  const thisYearVisitors = visitorsData?.yearlyVisitors || 0 
   const navigate = useNavigate()
   const paymentData = useSelector((state) => state.PaymentData.PaymentList)
   const subscriptionCountData = useSelector((state) => state.SubscriptionCountData.SubscriptionCountList)
@@ -39,6 +45,7 @@ function DashboardHome() {
     dispatch(SubscriptionCountData());
     dispatch(PaymentData());
     dispatch(UserInformationData(limit));
+    dispatch(VisitorsData());
   }, [])
   console.log("user Count", userData)
 
@@ -52,14 +59,14 @@ function DashboardHome() {
           md: 24,
           lg: 32,
         }}
-        style={{marginBottom:"30px"}}
+        style={{ marginBottom: "30px" }}
       >
         <Col className="gutter-row" span={6}>
           <div className='free-members'>
             <div style={{ display: 'flex', justifyContent: "space-between", paddingLeft: "20px", paddingRight: "20px" }}>
               <div>
-                <h2 style={{ paddingLeft: "10px", paddingTop:"12.5px"}}>Free Members</h2>
-                <h1 style={{ fontSize: "52px",  paddingLeft: "10px" }}>{subscriptionCountData?.free?.freeUsers}</h1>
+                <h2 style={{ paddingLeft: "10px", paddingTop: "12.5px" }}>Free Members</h2>
+                <h1 style={{ fontSize: "52px", paddingLeft: "10px" }}>{subscriptionCountData?.free?.freeUsers}</h1>
               </div>
             </div>
             <FreeMembersChart data={subscriptionCountData?.free}></FreeMembersChart>
@@ -72,7 +79,7 @@ function DashboardHome() {
                 <Col span={8}>
                   <div className='income-card'>
                     <div>
-                      <div style={{ display: 'flex', alignItems: "center", gap: "10px",paddingLeft: "5px", paddingTop:"5px" }}>
+                      <div style={{ display: 'flex', alignItems: "center", gap: "10px", paddingLeft: "5px", paddingTop: "5px" }}>
                         <GiQueenCrown fontSize={20} color="orange"></GiQueenCrown>
                         <h1 style={{ fontWeight: "normal", fontSize: "20px" }}>{item.packageName}</h1>
                       </div>
@@ -175,9 +182,9 @@ function DashboardHome() {
           >
             <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "2px solid #D3D3D3" }}>
               <h3 style={{ color: "black", paddingBottom: "8px", marginBottom: "8px" }}>User List</h3>
-              <h3 style={{ color: "black", paddingBottom: "8px", marginBottom: "8px", cursor: "pointer" }} onClick={()=> navigate('/user-info')}>See All</h3>
+              <h3 style={{ color: "black", paddingBottom: "8px", marginBottom: "8px", cursor: "pointer" }} onClick={() => navigate('/user-info')}>See All</h3>
             </div>
-            <InvoiceTable data = {userData} />
+            <InvoiceTable data={userData} />
           </div>
         </Col>
 
@@ -192,19 +199,21 @@ function DashboardHome() {
               <div>
                 <VisitorsChart
                   width={400}
-                  height={180}></VisitorsChart>
+                  height={180}
+                  data={visitorsData.monthlyData}
+                ></VisitorsChart>
               </div>
             </div>
 
             <div style={{ display: "flex", background: "white", borderRadius: "10px" }}>
 
               <div style={{ backgroundColor: "#2BA24C", padding: "5px 20px", margin: "10px", borderRadius: "8px", width: "100%", textAlign: "center", height: "90px" }}>
-                <h3 style={{ fontSize: "2.0rem", fontWeight: "200", letterSpacing: "1px", marginBottom: "0px", color: "white" }}>2,124</h3>
+                <h3 style={{ fontSize: "2.0rem", fontWeight: "200", letterSpacing: "1px", marginBottom: "0px", color: "white" }}>{thisMonthVisitors}</h3>
                 <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "0px", marginBottom: "10px", color: "white" }}>Last Month</h1>
               </div>
 
               <div style={{ backgroundColor: "#E91E63", padding: "5px 20px", margin: "10px", borderRadius: "8px", width: "100%", textAlign: "center", height: "90px" }}>
-                <h3 style={{ fontSize: "2.0rem", fontWeight: "200", letterSpacing: "1px", marginBottom: "0px", color: "white" }}>7,124</h3>
+                <h3 style={{ fontSize: "2.0rem", fontWeight: "200", letterSpacing: "1px", marginBottom: "0px", color: "white" }}>{thisYearVisitors}</h3>
                 <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "0px", marginBottom: "10px", color: "white" }}>Last 1 Years</h1>
               </div>
             </div>

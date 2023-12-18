@@ -30,9 +30,8 @@ export const AdminData = createAsyncThunk(
 
       return response.data;
     } catch (error) {
-      if (
-        "You are not authorised to sign in now" === error.response.data.message || "Error authorization" === error.response.data.message
-      ) {
+      console.log(error);
+      if (error.response.status === 401) {
         localStorage.removeItem("token");
         localStorage.removeItem("yourInfo");
       }

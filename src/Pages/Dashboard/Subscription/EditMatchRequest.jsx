@@ -42,8 +42,9 @@ const EditMatchRequest = ({ modalVisible, handleCancel, setModalVisible, request
             name="subscriptionForm"
             onFinish={onFinish}
             initialValues={{
-              price: requestData.price,
+              otherCountryPrice: requestData.otherCountryPrice,
               matchRequests: requestData.matchRequests,
+              pkCountryPrice: requestData.pkCountryPrice,
             }}
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
@@ -52,11 +53,26 @@ const EditMatchRequest = ({ modalVisible, handleCancel, setModalVisible, request
             <Row gutter={16}>
               <Col span={24}>
                 <Form.Item
-                  label="Plan Amount"
-                  name="price"
+                  label="Price for Pakistan"
+                  name="pkCountryPrice"
                   rules={[
                     {
-                      message: 'Please enter a Plan Amount!',
+                      message: 'Please enter amount for Pakistan',
+                    },
+                  ]}
+                >
+                  <Input type="number" />
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row gutter={16}>
+              <Col span={24}>
+                <Form.Item
+                  label="Price for Other Countries"
+                  name="otherCountryPrice"
+                  rules={[
+                    {
+                      message: 'Please enter amount for other countries',
                     },
                   ]}
                 >

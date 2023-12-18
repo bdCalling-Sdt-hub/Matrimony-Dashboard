@@ -17,7 +17,7 @@ export const NotificationsData = createAsyncThunk(
     try {
       console.log("slice page", value);
       let response = await baseAxios.get(
-        `/api/notifications?limit=5&page=${value?.page}`,
+        `notification/admin?page=${!value?.page?1:value?.page}&sortBy=createdAt:desc`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -25,16 +25,14 @@ export const NotificationsData = createAsyncThunk(
           },
         }
       );
-
+      console.log("check notifications", response.data);
       return response.data;
     } catch (error) {
-      if (
-        "You are not authorised to sign in now" === error.response.data.message
-      ) {
+      console.log(error);
+      if (error.response.status === 401) {
         localStorage.removeItem("token");
         localStorage.removeItem("yourInfo");
       }
-
       const message =
         (error.response &&
           error.response.data &&
@@ -66,9 +64,9 @@ export const NotificationsSlice = createSlice({
       state.Loading = false;
       state.Success = true;
       state.Error = false;
-      state.AllNotifications = action.payload.data.attributes;
+      state.AllNotifications = action.payload.data.attributes.results;
       //   console.log(state.AllNotifications);
-      state.pagination = action.payload.data.attributes.pagination;
+      state.pagination = {"page":action.payload.data.attributes.page, "totalPages": action.payload.data.attributes.totalPages, "limit": action.payload.data.attributes.limit, "totalResults": action.payload.data.attributes.totalResults};
     },
     [NotificationsData.rejected]: (state, action) => {
       state.Loading = false;

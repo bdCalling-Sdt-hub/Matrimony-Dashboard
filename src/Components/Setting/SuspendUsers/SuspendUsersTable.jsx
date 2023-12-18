@@ -74,14 +74,14 @@ const SuspendUsersTable = () => {
       key: "motherTongue",
     },
     {
-      title: "Action",
+      title: "Status",
       dataIndex: "printView",
       key: "printView",
       responsive: ["lg"],
       render: (_, record) => (
         <div>
           <Button type="primary" style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
-            Un-suspend
+            Suspended
           </Button>
         </div>
       ),
