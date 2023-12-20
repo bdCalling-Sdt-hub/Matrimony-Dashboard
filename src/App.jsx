@@ -54,7 +54,7 @@ function App() {
 
               <Route path="/report-account" element={<ReportAccountInfo />} />
               <Route path="/user-info" element={<MembersInformation />} />
-              <Route path="/pesonal-details/:id" element={<PersonalDetails />} />
+              <Route path="/personal-details/:id" element={<PersonalDetails />} />
               <Route path="/car-info" element={<CarInformation />} />
               <Route path="/user-payment" element={<UserPayment />} />
               <Route path="/renti-income" element={<RentisIncome />} />

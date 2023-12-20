@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NotificationsData } from "../../ReduxSlices/NotificationsSlice";
 import { io } from "socket.io-client";
 import Swal from "sweetalert2";
+import { ReportedUserData } from "../../ReduxSlices/ReportedUserSlice";
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -30,6 +31,8 @@ const { Option } = Select;
 
 const Dashboard = () => {
   const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const [collapsed, setCollapsed] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(localStorage.lang);
   const userData = JSON.parse(localStorage.getItem("yourInfo"));
@@ -67,6 +70,7 @@ const Dashboard = () => {
       });
       dispatch(NotificationsData());
       socket.off("admin-notification", data);
+      dispatch(ReportedUserData())
     } else {
       socket.on("connect", () => {
         // Emit events or listen for events here
@@ -164,7 +168,7 @@ const Dashboard = () => {
       ),
     },
   ];
-  
+
   const data = notifications?.allNotification
     ? notifications?.allNotification
     : dataApi.allNotification;
@@ -228,7 +232,6 @@ const Dashboard = () => {
     };
   });
 
-
   const handleSelectLanguage = (value) => {
     setSelectedLanguage(value);
     i18n.changeLanguage(selectedLanguage);
@@ -236,21 +239,20 @@ const Dashboard = () => {
   };
 
   const handleSearch = (value) => {
-    console.log(value);
+    setSearchQuery(value);
+
     const token = localStorage.getItem("token");
     if (value) {
       baseAxios
-        .get(
-          `/users/home?limit=5&page=1&role=user&name=${!value ? "" : value}`,
-          {
-            headers: {
-              authorization: `Bearer ${token}`,
-            },
-          }
-        )
+        .get(`/users/home?limit=5&page=1&role=user&name=${!value ? "" : value}`, {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        })
         .then((res) => {
-          console.log("user data ------> ", res.data);
+          console.log("-------------------------user data ------------------------> ", res.data, '---------------------------??______________________');
           setUserList(res.data.data.attributes.results);
+          setSearchResults(res.data.data.attributes.results); // Update search results
         })
         .catch((err) => {
           console.log(err);
@@ -333,7 +335,7 @@ const Dashboard = () => {
             marginBottom: "45px",
           }}
         >
-          <div onClick={handleGoHomePage} style={{"cursor": "pointer"}}>
+          <div onClick={handleGoHomePage} style={{ "cursor": "pointer" }}>
             <img
               style={{
                 marginTop: "20px",
@@ -464,8 +466,43 @@ const Dashboard = () => {
               }}
             />
             <Space.Compact size="large" style={{ width: "416px", padding: " 10px" }}>
-              {/* <Input addonBefore={<SearchOutlined />} placeholder="Search User" onChange={(e) => handleSearch(e.target.value)} /> */}
+              <Input addonBefore={<SearchOutlined />} placeholder="Search User" onChange={(e) => handleSearch(e.target.value)} />
+              {searchQuery && (
+              <div style={{ position: "absolute", top: "70px", overflow: "auto", maxHeight: "300px" }}>
+              {searchResults.map((user) => (
+                <Card
+                  key={user.id}
+                  style={{
+                    width: "400px",
+                    display: "flex",
+                    alignItems: "center",
+                    cursor: "pointer",
+                    justifyContent: "center", // Center the content horizontally
+                  }}
+                  onClick={() => {
+                    navigate(`/personal-details/${user.id}`);
+                    window.location.reload(); // Refresh the browser
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <img
+                      src={user?.photo[0]?.publicFileUrl}
+                      alt={user.name}
+                      height={"20px"}
+                      width={"20px"}
+                      style={{ marginRight: "10px" }}
+                    />
+                    <p style={{ margin: 0 }}>{user?.name}</p>
+                  </div>
+                  {/* Add any other user details to display */}
+                </Card>
+              ))}
+            </div>
+            
+            )}
             </Space.Compact>
+
+            
 
           </div>
 

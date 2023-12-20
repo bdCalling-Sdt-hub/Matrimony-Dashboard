@@ -77,7 +77,7 @@ const InvoiceTable = ({data}) => {
             <AiOutlinePrinter style={{ fontSize: "30px", color: "#999999" }} />
           </Button> */}
           <Button style={{ width: "125px", height: "40px", color: "white", background: "#E91E63" }}>
-          <Link to={`/pesonal-details/${record.id}`}>Details</Link>
+          <Link to={`/personal-details/${record.id}`}>Details</Link>
           </Button>
         </div>
       ),
