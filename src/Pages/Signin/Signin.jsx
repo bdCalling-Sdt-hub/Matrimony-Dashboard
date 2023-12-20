@@ -6,37 +6,36 @@ import logo from "../../Images/icon.png";
 import isometric from "../../Images/isometric.png";
 import style from "./Signin.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { UserData } from "../../ReduxSlices/SigninSlice";
+import { UserData, reset } from "../../ReduxSlices/SigninSlice";
 import Swal from "sweetalert2";
-import Cookies from "js-cookie";
+import Cookies from "js-cookie"; // Import js-cookie
 
 const Signin = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm(); // Ant Design form instance
-  const { isSuccess, userData, accessToken, message } = useSelector((state) => state.UserData);
+  const { isLoading, isError, isSuccess, userData, accessToken, message } = useSelector((state) => state.UserData);
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isError) {
       Swal.fire({
-        icon: "success",
-        title: "Success",
+        icon: "error",
+        title: "Oops...",
         text: message,
-        showConfirmButton: true,
       });
-
-      // Save user data to cookies upon successful login
-      Cookies.set("userData", JSON.stringify(userData), { expires: 30 });
-      Cookies.set("accessToken", accessToken, { expires: 30 });
-
+    }
+    if (isSuccess) {
       localStorage.setItem("yourInfo", JSON.stringify(userData));
       localStorage.setItem("token", accessToken);
-      
       if (userData.role === "admin") {
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful",
+        });
         window.location.href = "/";
       }
     }
-  }, [isSuccess, userData, accessToken]);
+  }, [isLoading, isError, isSuccess, dispatch, navigate]);
 
   useEffect(() => {
     const rememberedEmail = Cookies.get("rememberedEmail");
@@ -57,6 +56,14 @@ const Signin = () => {
       password: values.password,
     };
     dispatch(UserData(data));
+
+    if (values.remember) {
+      Cookies.set("rememberedEmail", values.email, { expires: 30 });
+      Cookies.set("rememberedPassword", values.password, { expires: 30 });
+    } else {
+      Cookies.remove("rememberedEmail");
+      Cookies.remove("rememberedPassword");
+    }
   };
 
   const handleForget = () => {

@@ -7,7 +7,7 @@ import moment from 'moment';
 import baseAxios from '../../../../Config';
 import Swal from 'sweetalert2';
 
-const ReportDetails = ({ modalVisible, handleCancel, setModalVisible, data }) => {
+const ReportDetails = ({ modalVisible, handleCancel, setModalVisible, data, setReload }) => {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [selectedDate, setSelectedDate] = useState(data.selectedDate || null);
     const [proceedClicked, setProceedClicked] = useState(false);
@@ -25,6 +25,7 @@ const ReportDetails = ({ modalVisible, handleCancel, setModalVisible, data }) =>
                     title: "User suspended successfully",
                 });
                 setModalVisible(false);
+                setReload(reload => reload + 1);
                 setSelectedDate(null); // Deselect the date when closing modal
             })
             .catch((err) => {

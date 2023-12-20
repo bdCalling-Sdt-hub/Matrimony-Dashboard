@@ -15,11 +15,14 @@ import { Link } from "react-router-dom";
 const ReportAccountTable = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.ReportedUserData.ReportedUserList);
+  //const data = []
+  const pagination = useSelector((state) => state.ReportedUserData.pagination);
+  console.log("pagination", pagination);
+  const [reload, setReload] = useState(1); // This is for refreshing the table after deleting a record
   const [reportData, setReportData] = useState({});
-  console.log(data);
   useEffect(() => {
     dispatch(ReportedUserData());
-  }, [])
+  }, [reload])
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -74,8 +77,8 @@ const ReportAccountTable = () => {
       responsive: ["md"],
       render: (_, record) => (
         <div style={{}}>
-          <Button type="primary" shape="round" style={{ width: "125px", height: "40px", color: "white", background: `${record?.profileId?.payment===true?"#A020F0":"#E91E63"}`, borderRadius: "50" }}>
-            {record?.profileId?.payment===true?"Premium":"Free"}
+          <Button type="primary" shape="round" style={{ width: "125px", height: "40px", color: "white", background: `${record?.profileId?.payment === true ? "#A020F0" : "#E91E63"}`, borderRadius: "50" }}>
+            {record?.profileId?.payment === true ? "Premium" : "Free"}
           </Button>
         </div>
       ),
@@ -105,28 +108,29 @@ const ReportAccountTable = () => {
     },
   ];
 
-  console.log("data length", reportData?.length)
-
-  const handlePageChange = (page) => {
+  const handlePageChange = (page=1) => {
     setCurrentPage(page);
     console.log(currentPage)
+    userDataGetByPagination(page);
   }
 
   return (
     <>
       {reportData?.length === 0 ?
         <>
-          <Empty style={{padding:"200px", marginTop:"10px"}} description={<Title level={5}>No Data Found</Title>} />
+          <Empty style={{ padding: "200px", marginTop: "10px" }} description={<Title level={5}>No Data Found</Title>} />
         </> :
         <><Table columns={columns} dataSource={data} pagination={{
-          pageSize,
+          pageSize: pagination.limit,
           showSizeChanger: false,
-          total: 5000,
-          current: currentPage,
+          total: pagination.totalResults,
+          current: pagination.page,
           onChange: handlePageChange,
         }} />
 
           <ReportDetails
+            reload={reload}
+            setReload={setReload}
             modalVisible={modalVisible}
             handleCancel={handleCancel}
             setModalVisible={setModalVisible}

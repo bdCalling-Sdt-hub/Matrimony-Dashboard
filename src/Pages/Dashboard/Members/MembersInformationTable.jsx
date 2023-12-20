@@ -153,7 +153,7 @@ const MembersInformationTable = ({ activeKey }) => {
       render: (_, record) => (
         <div style={{}}>
           <Button type="text" style={{ marginRight: "10px", paddingBottom: "35px" }}>
-            <Link to={`/pesonal-details/${record.id}`}><BsInfoCircle style={{ fontSize: "20px", color: "#2BA24C" }} /></Link>
+            <Link to={`/personal-details/${record.id}`}><BsInfoCircle style={{ fontSize: "20px", color: "#2BA24C" }} /></Link>
           </Button>
           {/* <Button onClick={() => showDrawer(record)} type="text" style={{ paddingBottom: "35px" }}>
             <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
