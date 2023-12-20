@@ -19,7 +19,8 @@
   "hostInfo": {
     "title": "Subscription",
     "subTitle1": "Additional Match Requests",
-    "subTitle2": "Subscription Plans"
+    "subTitle2": "Subscription Plans",
+    "subTitle3": "Default Subscription Plans"
   },
   "payment": {
     "title": "Payments",

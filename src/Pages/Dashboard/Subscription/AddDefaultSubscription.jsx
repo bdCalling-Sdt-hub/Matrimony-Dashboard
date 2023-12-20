@@ -5,7 +5,7 @@ import { FaCrown } from 'react-icons/fa';
 import baseAxios from '../../../../Config';
 import Swal from 'sweetalert2';
 
-const AddSubscription = ({ modalVisible, handleCancel, setModalVisible, setReload }) => {
+const AddDefaultSubscription = ({ modalVisible, handleCancel, setModalVisible, setReload }) => {
   const [isMessageUnlimited, setMessageUnlimited] = useState(false);
   const [isReminderUnlimited, setReminderUnlimited] = useState(false);
   const [isMatchRequestUnlimited, setMatchRequestUnlimited] = useState(false);
@@ -13,17 +13,13 @@ const AddSubscription = ({ modalVisible, handleCancel, setModalVisible, setReloa
   const [reminders, setReminders] = useState(0);
   const [matchRequest, setMatchRequest] = useState(0);
   const [name, setName] = useState('');
-  const [pkCountryPrice, setPkCountryPrice] = useState(0);
-  const [otherCountryPrice, setOtherCountryPrice] = useState(0);
   const [duration, setDuration] = useState(0);
 
   const onFinish = (values) => {
     console.log('Received values:', values);
     setModalVisible(false);
-    baseAxios.post('/subscription', {
+    baseAxios.post('/subscription/default', {
       name: name,
-      pkCountryPrice: pkCountryPrice,
-      otherCountryPrice: otherCountryPrice,
       duration: duration,
       message: message,
       reminders: reminders,
@@ -31,6 +27,7 @@ const AddSubscription = ({ modalVisible, handleCancel, setModalVisible, setReloa
       isMatchRequestsNoLimit: isMatchRequestUnlimited,
       isRemindersNoLimit: isReminderUnlimited,
       isMessageNoLimit: isMessageUnlimited,
+      active: values.active===null?false:values.active,
     }, {
       headers: {
         authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -52,7 +49,7 @@ const AddSubscription = ({ modalVisible, handleCancel, setModalVisible, setReloa
   return (
     <>
       <Modal
-        title="Add Subscription"
+        title="Add Default Subscription"
         visible={modalVisible}
         onCancel={handleCancel}
         footer={null}
@@ -81,38 +78,15 @@ const AddSubscription = ({ modalVisible, handleCancel, setModalVisible, setReloa
             >
               <Input placeholder="Type full name here" onChange={(e) => setName(e.target.value)} />
             </Form.Item>
-            <Row gutter={18}>
-              <Col span={12}>
-                <Form.Item
-                  label="Price for Pakistan"
-                  name="pkCountryPrice"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please enter a Plan Amount for Pakistan!',
-                    },
-                  ]}
-                >
-                  <Input placeholder="Type full name here" type='number' onChange={(e) => setPkCountryPrice(e.target.value)} />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  label="Price for other countries"
-                  name="otherCountryPrice"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please enter a Plan for other countries!',
-                    },
-                  ]}
-                >
-                  <Input placeholder="Enter amount here" type="number" onChange={(e) => setOtherCountryPrice(e.target.value)} />
-                </Form.Item>
-              </Col>
-            </Row>
+            
             <Form.Item label="Plan Types" name="duration">
               <Input placeholder="Ex. 3 months" type='number' onChange={(e) => setDuration(e.target.value)} />
+            </Form.Item>
+
+            <Form.Item name="active" valuePropName="true">
+              <Checkbox style={{ color: '#E91E63' }}>
+                Active
+              </Checkbox>
             </Form.Item>
 
             <Form.Item label="Messages" name="message">
@@ -193,4 +167,4 @@ const AddSubscription = ({ modalVisible, handleCancel, setModalVisible, setReloa
   );
 };
 
-export default AddSubscription;
+export default AddDefaultSubscription;

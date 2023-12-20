@@ -12,13 +12,15 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { UserInformationData } from "../../../ReduxSlices/UserInformationSlice";
 import baseAxios from "../../../../Config";
+import ReactToPrint from "react-to-print";
 
 const PersonalDetails = () => {
-  const { id }  = useParams()
+  const { id } = useParams()
   const [data, setData] = useState({});
   const [subscription, setSubscription] = useState("");
   const token = localStorage.getItem("token");
-  
+  const componentRef = React.useRef();
+
   console.log(id)
   useEffect(() => {
     baseAxios.get(`/users/${id}`, {
@@ -30,7 +32,7 @@ const PersonalDetails = () => {
       setSubscription(res.data.data.attributes.mySubscription);
     });
   }, []);
-  
+
   console.log(data, subscription);
 
   // const [fileList, setFileList] = useState([
@@ -62,7 +64,7 @@ const PersonalDetails = () => {
   return (
     <>
       {
-        <>
+        <div ref={componentRef} style={{padding:"20px"}}>
           <div
             style={{
               display: "flex",
@@ -76,29 +78,34 @@ const PersonalDetails = () => {
                 style={{ borderRadius: "6px" }}
                 src={data.photo && data.photo[0].publicFileUrl}
               />
-              <div style={{marginTop:"60px"}}>
+              <div style={{ marginTop: "60px" }}>
                 <h2>{data.name}</h2>
-                <p>{data.occupation + ',  ' +data.age+ " years"}</p>
+                <p>{data.occupation + ',  ' + data.age + " years"}</p>
                 <p style={{ display: 'flex', alignItems: "center", gap: "2px" }}><HiOutlineLocationMarker></HiOutlineLocationMarker> {data.country}</p>
               </div>
             </div>
             <div>
-              <Button
+              <ReactToPrint
+                trigger={() => (<Button
 
-                style={{
-                  height: "40px",
-                  background: "#E91E63",
-                  color: "white",
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "10px 20px",
-                  gap: "10px",
-                }}
-              >
-                <BsFileEarmarkPdfFill fontSize={16} />
-                <span> Bio Data.pdf</span>
-                <GoDownload fontSize={16}></GoDownload>
-              </Button>
+                  style={{
+                    height: "40px",
+                    background: "#E91E63",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "10px 20px",
+                    gap: "10px",
+                  }}
+                  onClick={() => window.print()}
+                >
+                  <BsFileEarmarkPdfFill fontSize={16} />
+                  <span> Bio Data.pdf</span>
+                  <GoDownload fontSize={16}></GoDownload>
+                </Button>
+                )}
+                content={() => componentRef.current}
+              />
             </div>
           </div>
 
@@ -153,7 +160,7 @@ const PersonalDetails = () => {
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
                   <p>Height :</p>
-                  <p>{data.height?'0':data.height} cm</p>
+                  <p>{data.height ? '0' : data.height} cm</p>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "10px", marginTop: "10px" }}>
@@ -262,7 +269,7 @@ const PersonalDetails = () => {
               <div style={{ borderRight: "#A7A7A7 1px solid", marginRight: "10px", height: "340px" }}>
                 <p style={{ marginTop: "20px", fontSize: "16px", fontWeight: 'bold' }}>Family Information</p>
 
-                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingTop:"10px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", paddingRight: "200px", paddingTop: "10px" }}>
                   <p>Family status :</p>
                   <p>{data.familyStatus}</p>
                 </div>
@@ -361,8 +368,7 @@ const PersonalDetails = () => {
               </div>
             </Col>
           </Row >
-        </>
-
+        </div>
       }
     </>
   );
