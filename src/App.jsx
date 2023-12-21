@@ -28,6 +28,7 @@ import UserPayment from "./Pages/Dashboard/UserPayment/UserPayment";
 import MembersInformation from "./Pages/Dashboard/Members/MembersInformation";
 import PersonalDetails from "./Pages/Dashboard/Members/PersonalDetails";
 import ReportAccountInfo from "./Pages/Dashboard/ReportAccount/ReportAccountInfo";
+import DefaultSubscription from "./Pages/Dashboard/Subscription/DefaultSubscription";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
               <Route path="/notification" element={<Notification />} />
               <Route path="/earning/:income" element={<Earning />} />
               <Route path="/match-request" element={<MatchRequest />} />
+              <Route path="/default-subscription" element={<DefaultSubscription />} />
               <Route path="/subscription" element={<Subscription />} />
               <Route path="/kyc-form" element={<KycForm />} />
               <Route path="/wallet" element={<Wallet />} />

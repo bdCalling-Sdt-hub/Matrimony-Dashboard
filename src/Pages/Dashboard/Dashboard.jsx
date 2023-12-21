@@ -377,6 +377,9 @@ const Dashboard = () => {
             icon={<MdSubscriptions style={{ fontSize: "14px" }} />}
             title={t("hostInfo.title")}
           >
+            <Menu.Item key="41" style={{ fontSize: "14px" }} >
+              <Link to="/default-subscription">{t("hostInfo.subTitle3")}</Link>
+            </Menu.Item>
             <Menu.Item key="39" style={{ fontSize: "14px" }} >
               <Link to="/subscription">{t("hostInfo.subTitle2")}</Link>
             </Menu.Item>
@@ -475,9 +478,7 @@ const Dashboard = () => {
                   style={{
                     width: "400px",
                     display: "flex",
-                    alignItems: "center",
-                    cursor: "pointer",
-                    justifyContent: "center", // Center the content horizontally
+                    cursor: "pointer"
                   }}
                   onClick={() => {
                     navigate(`/personal-details/${user.id}`);

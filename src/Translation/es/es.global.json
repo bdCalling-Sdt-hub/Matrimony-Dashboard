@@ -19,7 +19,8 @@
   "hostInfo": {
     "title": "información del anfitrión",
     "subTitle1": "Todo anfitrión",
-    "subTitle2": "Solicitud de anfitrión"
+    "subTitle2": "Solicitud de anfitrión",
+    "subTitle3": "Planes de Suscripción Predeterminados"
   },
   "payment": {
     "title": "Pagos",
