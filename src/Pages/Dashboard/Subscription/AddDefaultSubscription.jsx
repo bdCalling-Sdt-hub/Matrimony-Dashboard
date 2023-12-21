@@ -14,10 +14,17 @@ const AddDefaultSubscription = ({ modalVisible, handleCancel, setModalVisible, s
   const [matchRequest, setMatchRequest] = useState(0);
   const [name, setName] = useState('');
   const [duration, setDuration] = useState(0);
+  const [active, setActive] = useState(false);
+  const [allowFor, setAllowFor] = useState(false);
+
+  const handleCheckboxChange = (e) => {
+    setActive(e.target.checked);
+  };
 
   const onFinish = (values) => {
     console.log('Received values:', values);
     setModalVisible(false);
+    console.log(allowFor, active, matchRequest, reminders, message, duration, name)
     baseAxios.post('/subscription/default', {
       name: name,
       duration: duration,
@@ -27,7 +34,8 @@ const AddDefaultSubscription = ({ modalVisible, handleCancel, setModalVisible, s
       isMatchRequestsNoLimit: isMatchRequestUnlimited,
       isRemindersNoLimit: isReminderUnlimited,
       isMessageNoLimit: isMessageUnlimited,
-      active: values.active===null?false:values.active,
+      active: active,
+      allowFor: allowFor
     }, {
       headers: {
         authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -78,13 +86,17 @@ const AddDefaultSubscription = ({ modalVisible, handleCancel, setModalVisible, s
             >
               <Input placeholder="Type full name here" onChange={(e) => setName(e.target.value)} />
             </Form.Item>
-            
+
             <Form.Item label="Plan Types" name="duration">
               <Input placeholder="Ex. 3 months" type='number' onChange={(e) => setDuration(e.target.value)} />
             </Form.Item>
 
-            <Form.Item name="active" valuePropName="true">
-              <Checkbox style={{ color: '#E91E63' }}>
+            <Form.Item name="active" valuePropName={active}>
+              <Checkbox
+                style={{ color: '#E91E63' }}
+                checked={active}
+                onChange={handleCheckboxChange}
+              >
                 Active
               </Checkbox>
             </Form.Item>
@@ -154,6 +166,17 @@ const AddDefaultSubscription = ({ modalVisible, handleCancel, setModalVisible, s
                 }}
               />
             </Form.Item> */}
+            <Form.Item label="Maximum Allowed Users" name="allowFor">
+              <Row justify="space-between" align="middle">
+                  <Input
+                    placeholder="Enter maximum number of users"
+                    prefix={<FaCrown style={{ color: '#FFC60B' }} />}
+                    disabled={isMatchRequestUnlimited}
+                    type='number'
+                    onChange={(e) => setAllowFor(e.target.value)}
+                  />
+              </Row>
+            </Form.Item>
 
             <Form.Item style={{ textAlign: "center" }}>
               <Button type="primary" htmlType="submit" style={{ background: "#E91E63", color: "#ffffff", borderRadius: "20px", width: "140px" }}>

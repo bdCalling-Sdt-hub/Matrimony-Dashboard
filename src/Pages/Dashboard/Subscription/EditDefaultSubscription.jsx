@@ -1,16 +1,40 @@
-import { useState } from 'react';
-import { Modal, Card, Form, Input, Radio, Checkbox, Button, Row, Col, Switch } from 'antd';
-import { AiOutlineCheckCircle } from 'react-icons/ai';
-import { FaCrown } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
+import { Modal, Card, Form, Input, Checkbox, Button, Row, Col } from 'antd';
 import Swal from 'sweetalert2';
 import baseAxios from '../../../../Config';
+import { FaCrown } from 'react-icons/fa';
 
 const EditDefaultSubscription = ({ modalVisible, handleCancel, setModalVisible, requestData, setReload }) => {
   const token = localStorage.getItem("token");
+  const [formData, setFormData] = useState({
+    name: requestData?.name,
+    duration: requestData?.duration,
+    message: requestData?.message,
+    reminders: requestData?.reminders,
+    matchRequests: requestData?.matchRequests,
+    isMessageNoLimit: requestData?.isMessageNoLimit,
+    isRemindersNoLimit: requestData?.isRemindersNoLimit,
+    isMatchRequestsNoLimit: requestData?.isMatchRequestsNoLimit,
+    active: requestData?.active,
+    allowFor: requestData?.allowFor
+  });
+
+  const handleCheckboxChange = (field) => (e) => {
+    setFormData({ ...formData, [field]: e.target.checked });
+  };
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      isMessageNoLimit: requestData?.isMessageNoLimit,
+      isRemindersNoLimit: requestData?.isRemindersNoLimit,
+      isMatchRequestsNoLimit: requestData?.isMatchRequestsNoLimit,
+    });
+  }, [requestData]);
+
   const onFinish = (values) => {
-    console.log('Received values:', values);
     if (requestData) {
-      baseAxios.post(`/subscription/default`, values, {
+      baseAxios.post(`/subscription/default`, formData, {
         headers: {
           authorization: `Bearer ${token}`,
         }
@@ -45,17 +69,7 @@ const EditDefaultSubscription = ({ modalVisible, handleCancel, setModalVisible, 
           <Form
             name="subscriptionForm"
             onFinish={onFinish}
-            initialValues={{
-              name: requestData?.name,
-              duration: requestData?.duration,
-              message: requestData?.message,
-              reminders: requestData?.reminders,
-              matchRequests: requestData?.matchRequests,
-              isMessageNoLimit: requestData?.isMessageNoLimit,
-              isRemindersNoLimit: requestData?.isRemindersNoLimit,
-              isMatchRequestsNoLimit: requestData?.isMatchRequestsNoLimit,
-              active: requestData?.active,
-            }}
+            initialValues={formData}
             labelCol={{ span: 24 }}
             wrapperCol={{ span: 24 }}
             layout="vertical"
@@ -64,11 +78,11 @@ const EditDefaultSubscription = ({ modalVisible, handleCancel, setModalVisible, 
               label="Plan Name"
               name="name"
             >
-              <Input defaultValue={requestData?.name} placeholder="Type full name here" />
+              <Input defaultValue={requestData?.name} placeholder="Type full name here" onChange={(e) => setFormData({ ...formData, name: e.target.value })}/>
             </Form.Item>
-          
+
             <Form.Item label="Plan Types" name="duration">
-              <Input defaultValue={requestData?.duration} placeholder="Ex. 3 months" />
+              <Input defaultValue={requestData?.duration} placeholder="Ex. 3 months" onChange={(e) => setFormData({ ...formData, duration: e.target.value })}/>
             </Form.Item>
 
             <Form.Item name="active" valuePropName="checked">
@@ -81,30 +95,42 @@ const EditDefaultSubscription = ({ modalVisible, handleCancel, setModalVisible, 
               <Row justify="space-between" align="middle">
                 <Col span={18}>
                   <Input
-                    defaultValue={requestData?.message}
+                    value={formData.message}
                     placeholder="Send unlimited message and check online"
+                    disabled={formData.isMessageNoLimit}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   />
                 </Col>
                 <Col span={4} style={{ marginRight: "20px" }}>
-                  <Form.Item name="unlimitedMessages" valuePropName="checked" style={{ marginBottom: 0 }}>
-                    <Checkbox checked={requestData?.isMessageNoLimit} style={{ color: '#E91E63' }}>Unlimited</Checkbox>
-                  </Form.Item>
+                  <Checkbox
+                    checked={formData.isMessageNoLimit}
+                    style={{ color: '#E91E63' }}
+                    onChange={handleCheckboxChange('isMessageNoLimit')}
+                  >
+                    Unlimited
+                  </Checkbox>
                 </Col>
               </Row>
             </Form.Item>
 
             <Form.Item label="Reminder" name="reminder">
               <Row justify="space-between" align="middle">
-                <Col span={18} >
+                <Col span={18}>
                   <Input
-                    defaultValue={requestData?.reminders}
+                    value={formData.reminders}
                     placeholder="Send unlimited reminder and check online"
+                    disabled={formData.isRemindersNoLimit}
+                    onChange={(e) => setFormData({ ...formData, reminders: e.target.value })}
                   />
                 </Col>
                 <Col span={4} style={{ marginRight: "20px" }}>
-                  <Form.Item name="unlimitedReminder" valuePropName="checked" style={{ marginBottom: 0 }}>
-                    <Checkbox checked={requestData?.isRemindersNoLimit} style={{ color: '#E91E63', }}>Unlimited</Checkbox>
-                  </Form.Item>
+                  <Checkbox
+                    checked={formData.isRemindersNoLimit}
+                    style={{ color: '#E91E63' }}
+                    onChange={handleCheckboxChange('isRemindersNoLimit')}
+                  >
+                    Unlimited
+                  </Checkbox>
                 </Col>
               </Row>
             </Form.Item>
@@ -113,15 +139,31 @@ const EditDefaultSubscription = ({ modalVisible, handleCancel, setModalVisible, 
               <Row justify="space-between" align="middle">
                 <Col span={18}>
                   <Input
-                    defaultValue={requestData?.matchRequests}
+                    value={formData.matchRequests}
                     placeholder="Send unlimited match request and check online"
+                    disabled={formData.isMatchRequestsNoLimit}
+                    onChange={(e) => setFormData({ ...formData, matchRequests: e.target.value })}
                   />
                 </Col>
                 <Col span={4} style={{ marginRight: "20px" }}>
-                  <Form.Item name="unlimitedMatchRequest" valuePropName="checked" style={{ marginBottom: 0 }}>
-                    <Checkbox checked={requestData?.isMatchRequestsNoLimit} style={{ color: '#E91E63' }}>Unlimited</Checkbox>
-                  </Form.Item>
+                  <Checkbox
+                    checked={formData.isMatchRequestsNoLimit}
+                    style={{ color: '#E91E63' }}
+                    onChange={handleCheckboxChange('isMatchRequestsNoLimit')}
+                  >
+                    Unlimited
+                  </Checkbox>
                 </Col>
+              </Row>
+            </Form.Item>
+            <Form.Item label="Maximum Allowed Users" name="allowFor">
+              <Row justify="space-between" align="middle">
+                  <Input
+                    placeholder="Enter maximum number of users"
+                    prefix={<FaCrown style={{ color: '#FFC60B' }} />}
+                    type='number'
+                    onChange={(e) => setFormData({ ...formData, allowFor: e.target.value })}
+                  />
               </Row>
             </Form.Item>
 

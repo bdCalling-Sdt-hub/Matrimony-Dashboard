@@ -1,16 +1,30 @@
 import { useState } from 'react';
-import { Modal, Card, Form, Input, Radio, Checkbox, Button, Row, Col, Switch } from 'antd';
-import { AiOutlineCheckCircle } from 'react-icons/ai';
-import { FaCrown } from 'react-icons/fa';
+import { Modal, Card, Form, Input, Checkbox, Button, Row, Col } from 'antd';
 import Swal from 'sweetalert2';
 import baseAxios from '../../../../Config';
 
 const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, requestData, setReload }) => {
   const token = localStorage.getItem("token");
+  const [unlimitedMessages, setUnlimitedMessages] = useState(requestData?.isMessageNoLimit);
+  const [unlimitedReminder, setUnlimitedReminder] = useState(requestData?.isRemindersNoLimit);
+  const [unlimitedMatchRequest, setUnlimitedMatchRequest] = useState(requestData?.isMatchRequestsNoLimit);
+
   const onFinish = (values) => {
-    console.log('Received values:', values);
+    const updatedValues = {
+      ...values,
+      isMessageNoLimit: unlimitedMessages,
+      isRemindersNoLimit: unlimitedReminder,
+      isMatchRequestsNoLimit: unlimitedMatchRequest,
+      reminders: values['reminder'],
+      matchRequests: values['match-request'],
+      message: values['message'],
+      pkCountryPrice: values['pkCountryPrice'],
+      otherCountryPrice: values['otherCountryPrice'],
+      duration: values['duration']
+    };
+
     if (requestData) {
-      baseAxios.put(`/subscription?subscriptionId=${requestData.id}`, values, {
+      baseAxios.put(`/subscription?subscriptionId=${requestData.id}`, updatedValues, {
         headers: {
           authorization: `Bearer ${token}`,
         }
@@ -32,6 +46,7 @@ const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, request
         });
     }
   };
+
   return (
     <>
       <Modal
@@ -90,82 +105,73 @@ const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, request
               <Input defaultValue={requestData?.duration} placeholder="Ex. 3 months" />
             </Form.Item>
 
-            {/* <Form.Item name="active" valuePropName="checked">
-              <Checkbox style={{ color: '#E91E63' }}>
-                Active
-              </Checkbox>
-              <style>
-                {`
-                  .ant-checkbox-input:focus + .ant-checkbox-inner,
-                  .ant-checkbox-checked .ant-checkbox-inner,
-                  .ant-checkbox-checked:hover .ant-checkbox-inner {
-                    background-color: #E91E63;
-                    border-color: #E91E63;
-                  }
-                  .ant-checkbox-checked .ant-checkbox-inner::after {
-                    border-color: #ffffff;
-                  }
-                `}
-              </style>
-            </Form.Item> */}
-
+            {/* Messages */}
             <Form.Item label="Messages" name="message">
               <Row justify="space-between" align="middle">
                 <Col span={18}>
                   <Input
                     defaultValue={requestData?.message}
                     placeholder="Send unlimited message and check online"
+                    disabled={unlimitedMessages}
                   />
                 </Col>
                 <Col span={4} style={{ marginRight: "20px" }}>
-                  <Form.Item name="unlimitedMessages" valuePropName="checked" style={{ marginBottom: 0 }}>
-                    <Checkbox checked={requestData?.isMessageNoLimit} style={{ color: '#E91E63' }}>Unlimited</Checkbox>
-                  </Form.Item>
+                  <Checkbox
+                    checked={unlimitedMessages}
+                    style={{ color: '#E91E63' }}
+                    onChange={(e) => setUnlimitedMessages(e.target.checked)}
+                  >
+                    Unlimited
+                  </Checkbox>
                 </Col>
               </Row>
             </Form.Item>
 
+            {/* Reminder */}
             <Form.Item label="Reminder" name="reminder">
               <Row justify="space-between" align="middle">
                 <Col span={18} >
                   <Input
                     defaultValue={requestData?.reminders}
                     placeholder="Send unlimited reminder and check online"
+                    disabled={unlimitedReminder}
                   />
                 </Col>
                 <Col span={4} style={{ marginRight: "20px" }}>
-                  <Form.Item name="unlimitedReminder" valuePropName="checked" style={{ marginBottom: 0 }}>
-                    <Checkbox checked={requestData?.isRemindersNoLimit} style={{ color: '#E91E63', }}>Unlimited</Checkbox>
-                  </Form.Item>
+                  <Checkbox
+                    checked={unlimitedReminder}
+                    style={{ color: '#E91E63' }}
+                    onChange={(e) => setUnlimitedReminder(e.target.checked)}
+                  >
+                    Unlimited
+                  </Checkbox>
                 </Col>
               </Row>
             </Form.Item>
 
+            {/* Match Request */}
             <Form.Item label="Match Request" name="match-request">
               <Row justify="space-between" align="middle">
                 <Col span={18}>
                   <Input
                     defaultValue={requestData?.matchRequests}
                     placeholder="Send unlimited match request and check online"
+                    disabled={unlimitedMatchRequest}
                   />
                 </Col>
                 <Col span={4} style={{ marginRight: "20px" }}>
-                  <Form.Item name="unlimitedMatchRequest" valuePropName="checked" style={{ marginBottom: 0 }}>
-                    <Checkbox checked={requestData?.isMatchRequestsNoLimit} style={{ color: '#E91E63' }}>Unlimited</Checkbox>
-                  </Form.Item>
+                  <Checkbox
+                    checked={unlimitedMatchRequest}
+                    style={{ color: '#E91E63' }}
+                    onChange={(e) => setUnlimitedMatchRequest(e.target.checked)}
+                  >
+                    Unlimited
+                  </Checkbox>
                 </Col>
               </Row>
             </Form.Item>
 
-            {/* <Form.Item label="Status" name="status" valuePropName="checked">
-              <Switch
-                style={{
-                  background: "#E91E63",
-                  borderRadius: "20px",
-                }}
-              />
-            </Form.Item> */}
-
+            {/* Submit button */}
             <Form.Item style={{ textAlign: "center" }}>
               <Button type="primary" htmlType="submit" style={{ background: "#E91E63", color: "#ffffff", borderRadius: "20px", width: "140px" }}>
                 Submit

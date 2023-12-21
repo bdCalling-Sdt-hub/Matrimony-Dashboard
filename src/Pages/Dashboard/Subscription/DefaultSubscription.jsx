@@ -82,7 +82,10 @@ const DefaultSubscription = () => {
                     <h2 style={{ color: "#E91E63", marginTop: "5px", fontSize: "25px", fontWeight: "bold" }}>
                     {item.name}
                     </h2>
-                    <div style={{ marginTop: "50px", marginLeft:"20px" }}>
+                    <h2 style={{ color: "#E91E63", marginTop: "5px", fontSize: "15px", fontWeight: "bold" }}>
+                    Default Subscription Users: {item?.userCount}
+                    </h2>
+                    <div style={{ marginTop: "40px", marginLeft:"20px" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                         <AiOutlineCheckCircle style={{ color: "#000B90", fontSize: "20px" }} />
                         <p>{!item.isMatchRequestsNoLimit ? "Send " + item.matchRequests + " match requests" : "Send unlimited match requests"}</p>
@@ -129,17 +132,16 @@ const DefaultSubscription = () => {
             color: "#ffffff",
             backgroundColor: "#E91E63",
             height: 45,
-            width: "180px",
+            width: "250px",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center",
             gap: "5px",
             justifyContent: "center",
             margin: "0 auto"
           }}
         >
           <AiOutlinePlus style={{ fontSize: "20px" }} />
-          Add Subscription
+          Add Default Subscription
         </Button>
           }
         </Row>
