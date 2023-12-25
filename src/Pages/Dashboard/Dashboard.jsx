@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+"use strict";
 import { CarOutlined, MenuOutlined, SettingOutlined, SearchOutlined } from "@ant-design/icons";
 import { Button, Card, Dropdown, Input, Layout, Menu, Select, Space, theme, Badge } from "antd";
 import { Divider } from "antd";
@@ -52,36 +53,30 @@ const Dashboard = () => {
     navigate("/")
   }
 
-  console.log("dataApi -----> ", dataApi);
 
-  const [notifications, setNotifications] = useState([]);
+  console.log("dataApi -----> ", dataApi);
+  
+
+  const [notifications, setNotifications] = useState();
+
+
+  console.log("notifications socket -----> ", notifications);
 
   useEffect(() => {
     // Connect to server using socket.io-client
-    var socket = io("http://192.168.10.17:3008");
-
-    if (userData.role === "admin") {
-      socket.on("connect", () => {
-        // Emit events or listen for events here
-        socket.on("admin-notification", (data) => {
-          console.log(data);
-          setNotifications(data);
-        });
+    var socket = io(`ws://${import.meta.env.VITE_SOCKET_ENDPOINT}`);
+    socket.on("connect", () => {
+      // Emit events or listen for events here
+      socket.on("admin-notification", (data) => {
+        console.log(data);
+        // lestNotification.unshift(data);
+        setNotifications(data);
+        // window.location.reload();
       });
-      dispatch(NotificationsData());
-      socket.off("admin-notification", data);
-      dispatch(ReportedUserData())
-    } else {
-      socket.on("connect", () => {
-        // Emit events or listen for events here
-        socket.on("super-admin-notification", (data) => {
-          console.log(data);
-          setNotifications(data);
-        });
-      });
-      dispatch(NotificationsData());
-      socket.off("super-admin-notification", data);
-    }
+    });
+    dispatch(NotificationsData());
+    //socket.off("admin-notification", data);
+    dispatch(ReportedUserData())
   }, []);
 
   const handleLogout = () => {
@@ -169,11 +164,13 @@ const Dashboard = () => {
     },
   ];
 
-  const data = notifications?.allNotification
-    ? notifications?.allNotification
-    : dataApi.allNotification;
+  const unreadNotifation = notifications?.notifications
+    ? notifications?.totalUnreadNotifications
+    : dataApi.totalUnreadNotifications;
 
-  console.log("data -----> ", data);
+  const mainNotification = notifications?.notifications ? notifications?.notifications : dataApi?.notifications?.results;
+
+  // console.log("data -----> ", data);
 
 
   function getTimeAgo(timestamp) {
@@ -199,7 +196,7 @@ const Dashboard = () => {
     }
   }
 
-  const items = dataApi?.slice(0, 5)?.map((item, index) => {
+  const items = mainNotification?.slice(0, 5)?.map((item, index) => {
     return {
       key: index,
       label: (
@@ -279,7 +276,7 @@ const Dashboard = () => {
         </h2>
         {/* <span style={{ fontWeight: 'bold', color: '#000' }}>Notifications</span> */}
       </Menu.Item>
-      {items.map((item) => (
+      {items?.map((item) => (
         <Menu.Item key={item.key}>{item.label}</Menu.Item>
       ))}
       <div
@@ -471,39 +468,39 @@ const Dashboard = () => {
             <Space.Compact size="large" style={{ width: "416px", padding: " 10px" }}>
               <Input addonBefore={<SearchOutlined />} placeholder="Search User" onChange={(e) => handleSearch(e.target.value)} />
               {searchQuery && (
-              <div style={{ position: "absolute", top: "70px", overflow: "auto", maxHeight: "300px" }}>
-              {searchResults.map((user) => (
-                <Card
-                  key={user.id}
-                  style={{
-                    width: "400px",
-                    display: "flex",
-                    cursor: "pointer"
-                  }}
-                  onClick={() => {
-                    navigate(`/personal-details/${user.id}`);
-                    window.location.reload(); // Refresh the browser
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <img
-                      src={user?.photo[0]?.publicFileUrl}
-                      alt={user.name}
-                      height={"20px"}
-                      width={"20px"}
-                      style={{ marginRight: "10px" }}
-                    />
-                    <p style={{ margin: 0 }}>{user?.name}</p>
-                  </div>
-                  {/* Add any other user details to display */}
-                </Card>
-              ))}
-            </div>
-            
-            )}
+                <div style={{ position: "absolute", top: "70px", overflow: "auto", maxHeight: "300px" }}>
+                  {searchResults.map((user) => (
+                    <Card
+                      key={user.id}
+                      style={{
+                        width: "400px",
+                        display: "flex",
+                        cursor: "pointer"
+                      }}
+                      onClick={() => {
+                        navigate(`/personal-details/${user.id}`);
+                        window.location.reload(); // Refresh the browser
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center" }}>
+                        <img
+                          src={user?.photo[0]?.publicFileUrl}
+                          alt={user.name}
+                          height={"20px"}
+                          width={"20px"}
+                          style={{ marginRight: "10px" }}
+                        />
+                        <p style={{ margin: 0 }}>{user?.name}</p>
+                      </div>
+                      {/* Add any other user details to display */}
+                    </Card>
+                  ))}
+                </div>
+
+              )}
             </Space.Compact>
 
-            
+
 
           </div>
 
@@ -548,9 +545,7 @@ const Dashboard = () => {
               >
                 <Badge
                   count={
-                    notifications?.notViewed
-                      ? notifications?.notViewed
-                      : dataApi?.notViewed
+                    unreadNotifation
                   }
                   color="#333333"
                 >

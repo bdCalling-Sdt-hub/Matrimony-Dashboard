@@ -64,7 +64,7 @@ export const NotificationsSlice = createSlice({
       state.Loading = false;
       state.Success = true;
       state.Error = false;
-      state.AllNotifications = action.payload.data.attributes.notifications.results;
+      state.AllNotifications = action.payload.data.attributes;
       //   console.log(state.AllNotifications);
       state.pagination = {"page":action.payload.data.attributes.notifications.page, "totalPages": action.payload.data.attributes.notifications.totalPages, "limit": action.payload.data.attributes.notifications.limit, "totalResults": action.payload.data.attributes.notifications.totalResults};
     },

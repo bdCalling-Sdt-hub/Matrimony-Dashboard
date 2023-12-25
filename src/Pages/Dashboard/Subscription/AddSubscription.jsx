@@ -43,7 +43,8 @@ const AddSubscription = ({ modalVisible, handleCancel, setModalVisible, setReloa
           icon: 'success',
           title: 'Subscription added successfully',
         });
-        modalVisible(false)
+        window.location.reload();
+        modalVisible(false);
       })
       .catch((err) => console.log(err));
 

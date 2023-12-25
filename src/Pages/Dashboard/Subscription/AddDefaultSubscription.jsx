@@ -171,7 +171,6 @@ const AddDefaultSubscription = ({ modalVisible, handleCancel, setModalVisible, s
                   <Input
                     placeholder="Enter maximum number of users"
                     prefix={<FaCrown style={{ color: '#FFC60B' }} />}
-                    disabled={isMatchRequestUnlimited}
                     type='number'
                     onChange={(e) => setAllowFor(e.target.value)}
                   />

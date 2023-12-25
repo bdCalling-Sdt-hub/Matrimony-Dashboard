@@ -66,7 +66,7 @@ export const UserInformationSlice = createSlice({
       state.Success = true;
       state.Error = false;
       state.UserInfoList = action.payload.data.attributes.users;
-      state.pagination = {"page":action.payload.data.attributes.page, "totalPages": action.payload.data.attributes.totalPages, "limit": action.payload.data.attributes.limit, "totalResults": action.payload.data.attributes.totalResults};
+      state.pagination = {"page":Number(action.payload.data.attributes.page), "totalPages": Number(action.payload.data.attributes.totalPages), "limit": Number(action.payload.data.attributes.limit), "totalResults": Number(action.payload.data.attributes.totalResults)};
     },
     [UserInformationData.rejected]: (state, action) => {
       state.Loading = false;

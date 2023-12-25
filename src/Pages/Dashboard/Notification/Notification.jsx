@@ -113,11 +113,11 @@ function Notification() {
       <h2 style={{ fontSize: "30px", marginBottom: "30px" }}>
         All Notifications
       </h2>
-      {data?.length > 0 ?
+      {data?.notifications?.results?.length > 0 ?
         <>
           <Row>
 
-            {data?.map((item, index) => {
+            {data?.notifications?.results?.map((item, index) => {
               return (
                 <Col lg={{ span: 24 }}>
                   <div className='single-notification' style={{ display: "flex", alignItems: "center" }}>
@@ -145,8 +145,8 @@ function Notification() {
             </Col>
             <Col lg={{ span: 8, offset: 4 }}>
             <Pagination
-              defaultCurrent={dataPagination?.page}
-              total={dataPagination.totalResults}
+              defaultCurrent={data?.notifications?.page}
+              total={data?.notifications?.totalResults}
               onChange={notificationsDataGetByPagination} // Add onChange to handle page change
               showQuickJumper={false}
               showSizeChanger={false}

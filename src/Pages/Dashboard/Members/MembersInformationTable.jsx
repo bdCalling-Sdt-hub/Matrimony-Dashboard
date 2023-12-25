@@ -20,6 +20,7 @@ const MembersInformationTable = ({ activeKey }) => {
   const dataPagination = useSelector(
     (state) => state.UserInformationData.pagination
   );
+  console.log("dataPagination-------->", dataPagination)
   const isLoading = useSelector((state) => state.UserInformationData.Loading);
 
   // console.log(dataPagination);
