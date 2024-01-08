@@ -8,7 +8,7 @@ import { MdCarRental } from "react-icons/md";
 import { SlRefresh } from "react-icons/sl";
 import InvoiceTable from "./InvoiceTable";
 import MostRentCarChart from "./MostRentCarChart";
-import DailyRentChart from "./dailyRentChart";
+import DailyRentChart from "./DailyRentChart";
 import { RadialBarChart, RadialBar, Legend, ResponsiveContainer } from 'recharts';
 import FreeMembersChart from "./FreeMembersChart";
 import MembersUpChart from "./MembersUpChart";
