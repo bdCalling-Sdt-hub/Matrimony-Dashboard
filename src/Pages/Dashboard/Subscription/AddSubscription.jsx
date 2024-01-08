@@ -43,6 +43,16 @@ const AddSubscription = ({ modalVisible, handleCancel, setModalVisible, setReloa
           icon: 'success',
           title: 'Subscription added successfully',
         });
+        setName('')
+        setPkCountryPrice('')
+        setOtherCountryPrice('')
+        setDuration('')
+        setMessage('')
+        setReminders('')
+        setMatchRequest('')
+        setMessageUnlimited(false)
+        setReminderUnlimited(false)
+        setMatchRequestUnlimited(false)
         modalVisible(false)
       })
       .catch((err) => console.log(err));
