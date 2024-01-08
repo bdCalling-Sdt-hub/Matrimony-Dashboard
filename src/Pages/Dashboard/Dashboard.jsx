@@ -217,7 +217,7 @@ const Dashboard = () => {
               }}
               width="30"
               height="30"
-              src={item?.image[0]?.publicFileUrl}
+              src="https://img.icons8.com/ios/50/exit--v1.png"
               alt="person-male--v2"
             />
             <div className="" style={{ marginTop: "" }}>

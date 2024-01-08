@@ -49,6 +49,7 @@ const DefaultSubscription = () => {
   };
 
   const showEditModal = (item) => {
+    console.log(item);
     setDataItem(item);
     setEditModelVisible(true);
   };
