@@ -5,14 +5,13 @@ import DashboardHome from "./Pages/Dashboard/DashboardHome/DashboardHome";
 import Earning from "./Pages/Dashboard/Earning/Earning";
 import MatchRequest from "./Pages/Dashboard/Subscription/MatchRequest";
 import Subscription from "./Pages/Dashboard/Subscription/Subscription";
-import KycForm from "./Pages/Dashboard/Kyc/KycForm";
+import KycForm from "./Pages/Dashboard/KYC/KycForm";
 import Notification from "./Pages/Dashboard/Notification/Notification";
 import Wallet from "./Pages/Dashboard/Wallet/Wallet";
 import Email from "./Pages/Email/Email";
 import Otp from "./Pages/Otp/Otp";
 import Signin from "./Pages/Signin/Signin";
 import UpdatePass from "./Pages/UpdatePass/UpdatePass";
-
 import NotFound from "./404";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import CarInformation from "./Pages/Dashboard/CarInformation/CarInformation";

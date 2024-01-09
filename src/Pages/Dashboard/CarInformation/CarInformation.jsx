@@ -1,7 +1,7 @@
 import { Col, Row } from "antd";
 import React from "react";
 import CarInfoTable from "./CarinfoTable";
-import "./Carinformation.css";
+import "./CarInformation.css";
 
 function CarInformation() {
   return (
