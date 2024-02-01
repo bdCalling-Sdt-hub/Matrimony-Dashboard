@@ -5,14 +5,15 @@ import { BsInfoCircle } from "react-icons/bs";
 import { LiaSaveSolid } from "react-icons/lia";
 import DrawerPage from "../../../Components/DrawerPage/DrawerPage";
 const { Title, Text } = Typography;
-import { CloseOutlined, } from '@ant-design/icons';
-import { Link } from "react-router-dom";
+import { CloseOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import { UserInformationData } from "../../../ReduxSlices/UserInformationSlice";
 import ShowingPegination from "../../../Components/ShowingPegination/ShowingPegination";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 const MembersInformationTable = ({ activeKey }) => {
+  const navigate = useNavigate();
   const [searchData, setSearchData] = useState("");
   const [reload, setReload] = useState(1);
   const pageSize = 10;
@@ -42,7 +43,7 @@ const MembersInformationTable = ({ activeKey }) => {
     let data = {
       search: searchData,
       page: page,
-      gender: gender
+      gender: gender,
     };
     dispatch(UserInformationData(data));
   };
@@ -51,22 +52,20 @@ const MembersInformationTable = ({ activeKey }) => {
     var gender;
     if (activeKey !== 1) {
       if (activeKey == 2) {
-        gender = "Male"
+        gender = "Male";
+      } else if (activeKey == 2) {
+        gender = "Female";
+      } else {
+        gender = "Others";
       }
-      else if (activeKey == 2) {
-        gender = "Female"
-      }
-      else {
-        gender = "Others"
-      }
-    };
+    }
     const data = {
       gender: gender,
       search: searchData,
       page: page,
-    }
+    };
     dispatch(UserInformationData(data));
-  }
+  };
   var [currentPage, setCurrentPage] = useState(0); // Current page number
   const userDataGetBySearch = (currentPage) => {
     let data = {
@@ -91,15 +90,19 @@ const MembersInformationTable = ({ activeKey }) => {
     setInvoiceData(null);
   };
 
-
   const columns = [
     {
       title: "Image",
       dataIndex: "photo",
       key: "photo",
       render: (_, record) => (
-        <div >
-          <img style={{ borderRadius: "100%" }} src={record.photo[0].publicFileUrl} height={50} width={50} />
+        <div>
+          <img
+            style={{ borderRadius: "100%" }}
+            src={record.photo[0].publicFileUrl}
+            height={50}
+            width={50}
+          />
         </div>
       ),
     },
@@ -133,9 +136,36 @@ const MembersInformationTable = ({ activeKey }) => {
       responsive: ["md"],
       render: (_, record) => (
         <div style={{}}>
-          <Button type="primary" shape="round" style={{ width: "125px", height: "40px", color: "white", background: "#E91E63", borderRadius: "50" }}>
-            Free
-          </Button>
+          {record?.subscription && (
+            <Button
+              type="primary"
+              shape="round"
+              style={{
+                width: "125px",
+                height: "40px",
+                color: "white",
+                background: "green",
+                borderRadius: "50",
+              }}
+            >
+              {record?.subscription?.name}
+            </Button>
+          )}
+          {!record?.subscription && (
+            <Button
+              type="primary"
+              shape="round"
+              style={{
+                width: "140px",
+                height: "40px",
+                color: "white",
+                background: "red",
+                borderRadius: "50",
+              }}
+            >
+              No Subscription
+            </Button>
+          )}
         </div>
       ),
     },
@@ -152,42 +182,49 @@ const MembersInformationTable = ({ activeKey }) => {
       responsive: ["lg"],
       render: (_, record) => (
         <div style={{}}>
-          <Button type="text" style={{ marginRight: "10px", paddingBottom: "35px" }}>
-            <Link to={`/personal-details/${record.id}`}><BsInfoCircle style={{ fontSize: "20px", color: "#2BA24C" }} /></Link>
+          <Button
+            type="text"
+            style={{ marginRight: "10px", paddingBottom: "35px" }}
+          >
+            <div onClick={() => navigate(`/personal-details/${record.id}`)}>
+              <BsInfoCircle style={{ fontSize: "20px", color: "#2BA24C" }} />
+            </div>
           </Button>
-          {/* <Button onClick={() => showDrawer(record)} type="text" style={{ paddingBottom: "35px" }}>
-            <LiaSaveSolid style={{ fontSize: "30px", color: "#999999" }} />
-          </Button> */}
         </div>
       ),
     },
   ];
 
-  const handlePageChange = (page=1) => {
+  const handlePageChange = (page = 1) => {
     let gender = "";
-    if (activeKey === '2') {
+    if (activeKey === "2") {
       gender = "Male";
-    } else if (activeKey === '3') {
+    } else if (activeKey === "3") {
       gender = "Female";
-    } else if (activeKey === '4') {
+    } else if (activeKey === "4") {
       gender = "Others";
     }
     setCurrentPage(page);
     userDataGetByPagination(page, gender);
-  }
-  console.log("pages", dataPagination.page, dataPagination.totalPages)
+  };
+  console.log("pages", dataPagination, dataPagination.totalPages);
+
+  console.log("data", data);
 
   return (
     <>
-      <Table columns={columns} dataSource={data} pagination={{
-        pageSize: dataPagination.limit,
-        showSizeChanger: false,
-        total: dataPagination.totalResults,
-        current: dataPagination.page,
-        onChange: handlePageChange,
-      }} />
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={{
+          pageSize: dataPagination.limit,
+          showSizeChanger: false,
+          total: dataPagination.totalPages,
+          current: dataPagination.page,
+          onChange: handlePageChange,
+        }}
+      />
       <Drawer
-
         title={
           <div>
             <Typography>
@@ -205,17 +242,25 @@ const MembersInformationTable = ({ activeKey }) => {
         closable={false}
         extra={
           <Space>
-            <Button style={{ borderRadius: "100%", backgroundColor: "white", color: "red", height: "50px", width: "50px", textAlign: "center" }} onClick={closeDrawer}><CloseOutlined /></Button>
-
+            <Button
+              style={{
+                borderRadius: "100%",
+                backgroundColor: "white",
+                color: "red",
+                height: "50px",
+                width: "50px",
+                textAlign: "center",
+              }}
+              onClick={closeDrawer}
+            >
+              <CloseOutlined />
+            </Button>
           </Space>
         }
-
       >
         {invoiceData && <DrawerPage invoiceData={invoiceData} />}
       </Drawer>
-
     </>
-  )
-
+  );
 };
 export default MembersInformationTable;
