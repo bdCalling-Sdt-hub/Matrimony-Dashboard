@@ -219,7 +219,7 @@ const MembersInformationTable = ({ activeKey }) => {
         pagination={{
           pageSize: dataPagination.limit,
           showSizeChanger: false,
-          total: dataPagination.totalPages,
+          total: 20,
           current: dataPagination.page,
           onChange: handlePageChange,
         }}

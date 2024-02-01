@@ -18,7 +18,7 @@ export const UserInformationData = createAsyncThunk(
       const limit = value.limit ? value.limit : 10;
       console.log("value",value)
       let response = await baseAxios.get(
-        `/users?limit=${limit}&page=${value.page}&gender=${!value.gender?"":value.gender}&role=user&name=${!value.name?"":value.name}`,
+        `/users?limit=10&page=${value.page}&gender=${!value.gender?"":value.gender}&role=user&name=${!value.name?"":value.name}`,
         {
           headers: {
             "Content-Type": "application/json",
