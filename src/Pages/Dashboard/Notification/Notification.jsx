@@ -12,16 +12,12 @@ function Notification() {
   const dispatch = useDispatch();
   const userFromLocalStorage = JSON.parse(localStorage.getItem("yourInfo"));
   const data = useSelector((state) => state.NotificationsData.AllNotifications);
-  console.log("data-------->", data);
   const [page, setPage] = useState();
   const dataPagination = useSelector(
     (state) => state.NotificationsData.pagination
   );
-  console.log("dataPagination-------->", dataPagination);
   const [modalData, setModalData] = useState({});
-  console.log("modalData", modalData);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // console.log(data);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -60,7 +56,6 @@ function Notification() {
     }
   }
 
-  console.log("pegination data", dataPagination);
 
   const navigate = useNavigate();
 
@@ -69,7 +64,6 @@ function Notification() {
 
 
 
-  console.log(notifications);
 
   const notificationUpdateHandler = (id) => {
     let data = {
@@ -101,7 +95,6 @@ function Notification() {
     dispatch(NotificationsData({ page })); // Update the page in the Redux state
   };
 
-  console.log("notificationsDetails", notificationsDetails);
 
   const comomnData = notifications?.allNotification
     ? notifications?.allNotification

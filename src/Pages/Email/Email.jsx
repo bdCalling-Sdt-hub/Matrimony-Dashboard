@@ -18,12 +18,9 @@ const Email = () => {
   const navigate = useNavigate();
   const onFinish = (values) => {
     setIsLoading(true);
-    console.log("Received values of form: ", values);
     baseAxios
       .post("auth/forgot-password", values)
       .then((response) => {
-        console.log(response);
-        console.log(response.data);
         setIsLoading(false);
 
         Swal.fire({

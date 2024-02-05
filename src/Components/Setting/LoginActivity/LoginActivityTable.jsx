@@ -23,7 +23,6 @@ const LoginActivityTable = () => {
   }, [])
 
   const handleSignOut = (id) => {
-    console.log(id);
     baseAxios.delete(`/activity/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

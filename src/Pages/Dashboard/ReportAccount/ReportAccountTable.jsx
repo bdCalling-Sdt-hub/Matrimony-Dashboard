@@ -17,7 +17,6 @@ const ReportAccountTable = () => {
   const data = useSelector((state) => state.ReportedUserData.ReportedUserList);
   //const data = []
   const pagination = useSelector((state) => state.ReportedUserData.pagination);
-  console.log("pagination", pagination);
   const [reload, setReload] = useState(1); // This is for refreshing the table after deleting a record
   const [reportData, setReportData] = useState({});
   useEffect(() => {
@@ -27,7 +26,6 @@ const ReportAccountTable = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const showModal = (record) => {
-    console.log(record);
     setReportData(record);
     setModalVisible(true);
   };
@@ -110,7 +108,6 @@ const ReportAccountTable = () => {
 
   const handlePageChange = (page=1) => {
     setCurrentPage(page);
-    console.log(currentPage)
     userDataGetByPagination(page);
   }
 

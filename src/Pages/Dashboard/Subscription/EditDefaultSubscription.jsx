@@ -60,7 +60,6 @@ const EditDefaultSubscription = ({
       allowFor,
     };
 
-    console.log(data);
 
     if (requestData) {
       baseAxios.post(`/subscription/default`, data, {
@@ -69,7 +68,6 @@ const EditDefaultSubscription = ({
         }
       })
         .then((res) => {
-          console.log('update subs---->', res.data);
           Swal.fire({
             icon: 'success',
             title: 'Default subscription updated successfully',

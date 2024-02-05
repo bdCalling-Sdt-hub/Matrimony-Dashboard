@@ -85,7 +85,6 @@ const InvoiceTable = ({data}) => {
   ];
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    console.log(currentPage)
   }
 
   return (

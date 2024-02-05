@@ -15,7 +15,6 @@ export const UserData = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       let response = await axios.post("auth/login", value);
-      // console.log(response.data)
 
       return response.data;
     } catch (error) {
@@ -52,12 +51,10 @@ export const signinSlice = createSlice({
       state.isLoading = true;
     },
     [UserData.fulfilled]: (state, action) => {
-      //   console.log("hello"+action.payload.data.attributes.email);
       state.isError = false;
       state.isSuccess = true;
       state.isLoading = false;
       state.message = action.payload.message;
-      console.log(action.payload);
       state.userData = action.payload.data.attributes.user;
       state.accessToken = action.payload.data.attributes.tokens.access.token;
     },

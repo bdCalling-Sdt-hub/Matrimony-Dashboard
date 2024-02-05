@@ -10,7 +10,6 @@ const EditMatchRequest = ({ modalVisible, handleCancel, setModalVisible, request
   const token = localStorage.getItem("token");
 
   const onFinish = (values) => {
-    console.log('Received values:', values);
     if (requestData) {
       baseAxios.patch(`/additional-match-requests?id=${requestData.id}`, values, {
         headers: {
@@ -18,7 +17,6 @@ const EditMatchRequest = ({ modalVisible, handleCancel, setModalVisible, request
         }
       })
         .then((res) => {
-          console.log(res.data);
           Swal.fire({
             icon: 'success',
             title: 'Match Request updated successfully',

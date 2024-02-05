@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { UserInformationData } from "../../../ReduxSlices/UserInformationSlice";
 
 // const onChange = (key) => {
-//   // console.log(key);
 // };
 
 
@@ -34,7 +33,6 @@ function MembersInformation() {
   ];
 
   const [activeKey, setActiveKey] = useState('1');
-  console.log(activeKey)
   let page = 1;
   const handleTabChange = (key) => {
     setActiveKey(key);

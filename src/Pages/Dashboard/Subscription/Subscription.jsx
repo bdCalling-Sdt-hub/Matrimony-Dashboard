@@ -14,7 +14,6 @@ const { Title } = Typography;
 const Subscription = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.SubscriptionData.SubscriptionList);
-  console.log(data);
   const style = {
     cardStyle: {
       background: "#FFFFFF",
@@ -78,7 +77,6 @@ const Subscription = () => {
             },
           })
           .then((res) => {
-            console.log(res.data);
             setReload((reload) => reload + 1);
           })
           .catch((err) => {

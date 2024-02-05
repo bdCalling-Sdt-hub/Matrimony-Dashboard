@@ -30,7 +30,6 @@ const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, request
         }
       })
         .then((res) => {
-          console.log('update subs---->', res.data);
           Swal.fire({
             icon: 'success',
             title: 'Subscription updated successfully',

@@ -13,13 +13,11 @@ const ReportDetails = ({ modalVisible, handleCancel, setModalVisible, data, setR
     const [proceedClicked, setProceedClicked] = useState(false);
 
     const onFinish = () => {
-        console.log(data.profileId, localStorage.getItem('token'));
         baseAxios.post('users/suspend', {
             profileId: data.profileId.id,
         }, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
 
             .then((res) => {
-                console.log(res);
                 Swal.fire({
                     icon: "success",
                     title: "User suspended successfully",

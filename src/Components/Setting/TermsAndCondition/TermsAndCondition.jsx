@@ -10,7 +10,6 @@ const TermsAndCondition = () => {
 
   const AboutDataSave = () => {
     let token = localStorage.getItem("token");
-    console.log("before pass--->",content);
     baseAxios
       .post(
         "/terms",
@@ -39,7 +38,6 @@ const TermsAndCondition = () => {
         },
       })
       .then((res) => {
-        console.log(res.data.data.attributes[0].content);
         setContent(res.data.data.attributes[0].content);
       })
       .catch((err) => console.log(err));

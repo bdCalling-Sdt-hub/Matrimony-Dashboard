@@ -18,7 +18,6 @@ const AddSubscription = ({ modalVisible, handleCancel, setModalVisible, setReloa
   const [duration, setDuration] = useState(0);
 
   const onFinish = (values) => {
-    console.log('Received values:', values);
     setModalVisible(false);
     baseAxios.post('/subscription', {
       name: name,
@@ -37,7 +36,6 @@ const AddSubscription = ({ modalVisible, handleCancel, setModalVisible, setReloa
       },
     })
       .then((res) => {
-        console.log(res);
         setReload(reload => reload + 1);
         Swal.fire({
           icon: 'success',

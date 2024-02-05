@@ -149,10 +149,9 @@ const Setting = () => {
   const handleForgotPassword = async () => {
     const user = localStorage.getItem("yourInfo");
     const { email } = JSON.parse(user);
-    console.log(email);
+
     baseAxios.post("/auth/forgot-password", {email: email})
       .then((res) => {
-        console.log(res);
         setOpenChangePassModel(false);
         Swal.fire({
           icon: "success",
@@ -180,7 +179,7 @@ const Setting = () => {
   };
 
   const handleNotification = (e) => {
-    console.log(e);
+
   };
 
   const setPercentage = () => {
@@ -189,7 +188,6 @@ const Setting = () => {
   };
 
   const handleChangePassword = (values) => {
-    console.log("Received values of form: ", values);
     const { currentPassword, newPassword, password } = values;
 
     if (newPassword !== password) {
@@ -207,7 +205,6 @@ const Setting = () => {
       },
     })
       .then((res) => {
-        console.log(res);
         Swal.fire({
           icon: "success",
           title: "Password Updated Successfully",
@@ -234,8 +231,6 @@ const Setting = () => {
     baseAxios
       .post("/auth/verify-email", { email, oneTimeCode: otp })
       .then((response) => {
-        console.log(response);
-        console.log(response.data);
         // sweet alert for success and error set
         Swal.fire({
           icon: "success",

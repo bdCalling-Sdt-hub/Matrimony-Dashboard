@@ -24,7 +24,6 @@ export const ReportedUserData = createAsyncThunk(
           },
         }
       );
-      console.log('from report slice ------------> ',response.data);
       return response.data;
     } catch (error) {
       console.log(error);

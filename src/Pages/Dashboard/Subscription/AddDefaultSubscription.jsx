@@ -22,9 +22,7 @@ const AddDefaultSubscription = ({ modalVisible, handleCancel, setModalVisible, s
   };
 
   const onFinish = (values) => {
-    console.log('Received values:', values);
     setModalVisible(false);
-    console.log(allowFor, active, matchRequest, reminders, message, duration, name)
     baseAxios.post('/subscription/default', {
       name: name,
       duration: duration,
@@ -42,7 +40,6 @@ const AddDefaultSubscription = ({ modalVisible, handleCancel, setModalVisible, s
       },
     })
       .then((res) => {
-        console.log(res);
         setReload(reload => reload + 1);
         Swal.fire({
           icon: 'success',

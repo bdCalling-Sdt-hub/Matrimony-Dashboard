@@ -15,7 +15,6 @@ export const NotificationsData = createAsyncThunk(
   "notificationsData",
   async (value, thunkAPI) => {
     try {
-      console.log("slice page", value);
       let response = await baseAxios.get(
         `notification/admin?page=${!value?.page?1:value?.page}&sortBy=createdAt:desc`,
         {
@@ -25,7 +24,6 @@ export const NotificationsData = createAsyncThunk(
           },
         }
       );
-      console.log("check notifications", response.data);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -65,7 +63,6 @@ export const NotificationsSlice = createSlice({
       state.Success = true;
       state.Error = false;
       state.AllNotifications = action.payload.data.attributes.notifications.results;
-      //   console.log(state.AllNotifications);
       state.pagination = {"page":action.payload.data.attributes.notifications.page, "totalPages": action.payload.data.attributes.notifications.totalPages, "limit": action.payload.data.attributes.notifications.limit, "totalResults": action.payload.data.attributes.notifications.totalResults};
     },
     [NotificationsData.rejected]: (state, action) => {

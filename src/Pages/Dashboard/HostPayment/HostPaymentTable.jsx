@@ -195,7 +195,6 @@ const HostPaymentTable = () =>{
   
     const showDrawer = (record) => {
       setIsDrawerVisible(true);
-      console.log(record)
       setUserInfoData(record);
     };
   
@@ -280,7 +279,6 @@ const HostPaymentTable = () =>{
 
     const handlePageChange=(page)=>{
         setCurrentPage(page);
-        console.log(currentPage)
     }
 
     return(

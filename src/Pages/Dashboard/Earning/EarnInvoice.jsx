@@ -8,7 +8,6 @@ import TextArea from 'antd/es/input/TextArea';
 
 const EarnInvoice = ({ modalVisible, handleCancel, setModalVisible }) => {
     const onFinish = (values) => {
-        console.log('Received values:', values);
         setModalVisible(false);
     };
     return (

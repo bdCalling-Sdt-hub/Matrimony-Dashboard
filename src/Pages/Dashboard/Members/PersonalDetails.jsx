@@ -21,7 +21,6 @@ const PersonalDetails = () => {
   const token = localStorage.getItem("token");
   const componentRef = React.useRef();
 
-  console.log(id)
   useEffect(() => {
     baseAxios.get(`/users/${id}`, {
       headers: {

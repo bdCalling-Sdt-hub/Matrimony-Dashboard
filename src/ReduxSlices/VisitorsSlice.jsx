@@ -15,16 +15,12 @@ export const VisitorsData = createAsyncThunk(
   "VisitorsInfo",
   async (value, thunkAPI) => {
     try {
-      let response = await baseAxios.get(
-        `/visitors`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log("check visitors",response.data.data.attributes);
+      let response = await baseAxios.get(`/visitors`, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      });
       return response.data;
     } catch (error) {
       console.log(error);
@@ -64,7 +60,6 @@ export const VisitorsSlice = createSlice({
       state.Success = true;
       state.Error = false;
       state.VisitorsList = action.payload.data.attributes;
-      console.log("state visitors",state.VisitorsList);
     },
     [VisitorsData.rejected]: (state, action) => {
       state.Loading = false;

@@ -38,7 +38,6 @@ const Dashboard = () => {
   const userData = JSON.parse(localStorage.getItem("yourInfo"));
   const [userList, setUserList] = useState([]);
   const navigate = useNavigate()
-  console.log("user list -----> ", userList);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -52,7 +51,6 @@ const Dashboard = () => {
     navigate("/")
   }
 
-  console.log("dataApi -----> ", dataApi);
 
   const [notifications, setNotifications] = useState([]);
 
@@ -64,7 +62,7 @@ const Dashboard = () => {
       socket.on("connect", () => {
         // Emit events or listen for events here
         socket.on("admin-notification", (data) => {
-          console.log(data);
+
           setNotifications(data);
         });
       });
@@ -75,7 +73,7 @@ const Dashboard = () => {
       socket.on("connect", () => {
         // Emit events or listen for events here
         socket.on("super-admin-notification", (data) => {
-          console.log(data);
+
           setNotifications(data);
         });
       });
@@ -173,7 +171,6 @@ const Dashboard = () => {
     ? notifications?.allNotification
     : dataApi.allNotification;
 
-  console.log("data -----> ", data);
 
 
   function getTimeAgo(timestamp) {
@@ -250,8 +247,7 @@ const Dashboard = () => {
           },
         })
         .then((res) => {
-          console.log("-------------------------user data ------------------------> ", res.data, '---------------------------??______________________');
-          setUserList(res.data.data.attributes.results);
+        setUserList(res.data.data.attributes.results);
           setSearchResults(res.data.data.attributes.results); // Update search results
         })
         .catch((err) => {

@@ -25,7 +25,6 @@ const PersonalInfo = () => {
     formData.append('photo', photo);
 
     baseAxios.patch(`users/${data.id}`, formData, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }).then((res) => {
-      console.log(res);
       Swal.fire({
         icon: "success",
         title: "Profile updated successfully",

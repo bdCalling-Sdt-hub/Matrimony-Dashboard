@@ -23,7 +23,6 @@ const MembersInformationTable = ({ activeKey }) => {
   );
   const isLoading = useSelector((state) => state.UserInformationData.Loading);
 
-  // console.log(dataPagination);
 
   const dispatch = useDispatch();
 
@@ -74,7 +73,6 @@ const MembersInformationTable = ({ activeKey }) => {
     };
 
     dispatch(UserInformationData(data));
-    // console.log("with search");
   };
 
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
@@ -207,9 +205,6 @@ const MembersInformationTable = ({ activeKey }) => {
     setCurrentPage(page);
     userDataGetByPagination(page, gender);
   };
-  console.log("pages", dataPagination, dataPagination.totalPages);
-
-  console.log("data", data);
 
   return (
     <>

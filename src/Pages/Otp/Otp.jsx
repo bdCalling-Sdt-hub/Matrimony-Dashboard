@@ -16,7 +16,6 @@ const Otp = () => {
   const [otp, setOtp] = useState("");
 
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
   };
 
   const navigate = useNavigate();
@@ -25,8 +24,6 @@ const Otp = () => {
     baseAxios
       .post("/auth/verify-email", { email, oneTimeCode: otp })
       .then((response) => {
-        console.log(response);
-        console.log(response.data);
         // sweet alert for success and error set
         Swal.fire({
           icon: "success",

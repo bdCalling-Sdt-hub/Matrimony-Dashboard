@@ -9,12 +9,17 @@ import { SlRefresh } from "react-icons/sl";
 import InvoiceTable from "./InvoiceTable";
 import MostRentCarChart from "./MostRentCarChart";
 import DailyRentChart from "./DailyRentChart";
-import { RadialBarChart, RadialBar, Legend, ResponsiveContainer } from 'recharts';
+import {
+  RadialBarChart,
+  RadialBar,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 import FreeMembersChart from "./FreeMembersChart";
 import MembersUpChart from "./MembersUpChart";
-import { AiOutlineArrowUp } from 'react-icons/ai';
-import { GiQueenCrown } from 'react-icons/gi';
-import { FiTrendingUp } from 'react-icons/fi';
+import { AiOutlineArrowUp } from "react-icons/ai";
+import { GiQueenCrown } from "react-icons/gi";
+import { FiTrendingUp } from "react-icons/fi";
 import VisitorsChart from "./VisitorsChart";
 import { PaymentData } from "../../../ReduxSlices/PaymentSlice";
 import { SubscriptionCountData } from "../../../ReduxSlices/SubscriptionCountSlice";
@@ -24,18 +29,19 @@ import { useNavigate } from "react-router-dom";
 import { VisitorsData } from "../../../ReduxSlices/VisitorsSlice";
 
 function DashboardHome() {
-  const onChange = (pageNumber) => {
-    console.log("Page: ", pageNumber);
-  };
+  const onChange = (pageNumber) => {};
   const currentMonth = new Date().getMonth();
-  console.log("currentMonth", currentMonth)
-  const visitorsData = useSelector((state) => state.VisitorsData.VisitorsList)
-  const thisMonthVisitors = visitorsData?.lastMonthCount  || 0 
-  const thisYearVisitors = visitorsData?.yearlyVisitors || 0 
-  const navigate = useNavigate()
-  const paymentData = useSelector((state) => state.PaymentData.PaymentList)
-  const subscriptionCountData = useSelector((state) => state.SubscriptionCountData.SubscriptionCountList)
-  const userData = useSelector((state) => state.UserInformationData.UserInfoList)
+  const visitorsData = useSelector((state) => state.VisitorsData.VisitorsList);
+  const thisMonthVisitors = visitorsData?.lastMonthCount || 0;
+  const thisYearVisitors = visitorsData?.yearlyVisitors || 0;
+  const navigate = useNavigate();
+  const paymentData = useSelector((state) => state.PaymentData.PaymentList);
+  const subscriptionCountData = useSelector(
+    (state) => state.SubscriptionCountData.SubscriptionCountList
+  );
+  const userData = useSelector(
+    (state) => state.UserInformationData.UserInfoList
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     const limit = {
@@ -46,8 +52,7 @@ function DashboardHome() {
     dispatch(PaymentData());
     dispatch(UserInformationData(limit));
     dispatch(VisitorsData());
-  }, [])
-  console.log("user Count", userData)
+  }, []);
 
   return (
     <div>
@@ -62,32 +67,70 @@ function DashboardHome() {
         style={{ marginBottom: "30px" }}
       >
         <Col className="gutter-row" span={6}>
-          <div className='free-members'>
-            <div style={{ display: 'flex', justifyContent: "space-between", paddingLeft: "20px", paddingRight: "20px" }}>
+          <div className="free-members">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                paddingLeft: "20px",
+                paddingRight: "20px",
+              }}
+            >
               <div>
-                <h2 style={{ paddingLeft: "10px", paddingTop: "12.5px" }}>Free Members</h2>
-                <h1 style={{ fontSize: "52px", paddingLeft: "10px" }}>{subscriptionCountData?.free?.freeUsers}</h1>
+                <h2 style={{ paddingLeft: "10px", paddingTop: "12.5px" }}>
+                  Free Members
+                </h2>
+                <h1 style={{ fontSize: "52px", paddingLeft: "10px" }}>
+                  {subscriptionCountData?.free?.freeUsers}
+                </h1>
               </div>
             </div>
-            <FreeMembersChart data={subscriptionCountData?.free}></FreeMembersChart>
+            <FreeMembersChart
+              data={subscriptionCountData?.free}
+            ></FreeMembersChart>
           </div>
         </Col>
         <Col className="gutter-row" span={18}>
           <Row gutter={16}>
-            {
-              subscriptionCountData?.paid ? subscriptionCountData.paid.map((item, index) =>
-                <Col span={8}>
-                  <div className='income-card'>
-                    <div>
-                      <div style={{ display: 'flex', alignItems: "center", gap: "10px", paddingLeft: "5px", paddingTop: "5px" }}>
-                        <GiQueenCrown fontSize={20} color="orange"></GiQueenCrown>
-                        <h1 style={{ fontWeight: "normal", fontSize: "20px" }}>{item.packageName}</h1>
+            {subscriptionCountData?.paid
+              ? subscriptionCountData.paid.map((item, index) => (
+                  <Col span={8}>
+                    <div className="income-card">
+                      <div>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                            paddingLeft: "5px",
+                            paddingTop: "5px",
+                          }}
+                        >
+                          <GiQueenCrown
+                            fontSize={20}
+                            color="orange"
+                          ></GiQueenCrown>
+                          <h1
+                            style={{ fontWeight: "normal", fontSize: "20px" }}
+                          >
+                            {item.packageName}
+                          </h1>
+                        </div>
+                        <h3
+                          style={{
+                            fontSize: "2.5rem",
+                            letterSpacing: "1px",
+                            marginBottom: "15px",
+                            paddingLeft: "5px",
+                          }}
+                        >
+                          {item.count}
+                        </h3>
                       </div>
-                      <h3 style={{ fontSize: "2.5rem", letterSpacing: "1px", marginBottom: "15px", paddingLeft: "5px" }}>{item.count}</h3>
                     </div>
-                  </div>
-                </Col>) : null
-            }
+                  </Col>
+                ))
+              : null}
           </Row>
         </Col>
       </Row>
@@ -100,10 +143,19 @@ function DashboardHome() {
               padding: "30px 30px",
               borderRadius: "15px",
               boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-              background: "white"
+              background: "white",
             }}
           >
-            <h3 style={{ color: "black", paddingBottom: "8px", marginBottom: "8px", borderBottom: "2px solid #D3D3D3" }}>Earning Revenue</h3>
+            <h3
+              style={{
+                color: "black",
+                paddingBottom: "8px",
+                marginBottom: "8px",
+                borderBottom: "2px solid #D3D3D3",
+              }}
+            >
+              Earning Revenue
+            </h3>
             <MostRentCarChart data={paymentData.monthlyCounts} />
           </div>
         </Col>
@@ -111,54 +163,181 @@ function DashboardHome() {
         <Col lg={{ span: 8 }}>
           <Row gutter={24}>
             <Col span={12}>
-              <div className='shadow-design' style={{ marginBottom: "25px", background: "white", padding: "20px", borderRadius: "10px" }}>
-                <div >
-                  <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
-                    <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Total Earnings</h1>
+              <div
+                className="shadow-design"
+                style={{
+                  marginBottom: "25px",
+                  background: "white",
+                  padding: "20px",
+                  borderRadius: "10px",
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <h1
+                      style={{
+                        fontSize: "1.0rem",
+                        fontWeight: "200",
+                        marginTop: "10px",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      Total Earnings
+                    </h1>
                   </div>
 
-                  <h3 style={{ fontSize: "2.0rem", letterSpacing: "1px", marginBottom: "15px", color: "#2BA24C" }}>$ {paymentData.total}</h3>
+                  <h3
+                    style={{
+                      fontSize: "2.0rem",
+                      letterSpacing: "1px",
+                      marginBottom: "15px",
+                      color: "#2BA24C",
+                    }}
+                  >
+                    $ {paymentData.total}
+                  </h3>
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <FiTrendingUp fontSize={20} color="#E91E63"></FiTrendingUp>
                 </div>
               </div>
 
-              <div className='shadow-design' style={{ marginBottom: "10px", background: "white", padding: "20px", borderRadius: "10px" }}>
-                <div >
-                  <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
-                    <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Last Week Earnings</h1>
+              <div
+                className="shadow-design"
+                style={{
+                  marginBottom: "10px",
+                  background: "white",
+                  padding: "20px",
+                  borderRadius: "10px",
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <h1
+                      style={{
+                        fontSize: "1.0rem",
+                        fontWeight: "200",
+                        marginTop: "10px",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      Last Week Earnings
+                    </h1>
                   </div>
 
-                  <h3 style={{ fontSize: "2.0rem", letterSpacing: "1px", marginBottom: "15px", color: "#2BA24C" }}>$ {paymentData.weekly}</h3>
+                  <h3
+                    style={{
+                      fontSize: "2.0rem",
+                      letterSpacing: "1px",
+                      marginBottom: "15px",
+                      color: "#2BA24C",
+                    }}
+                  >
+                    $ {paymentData.weekly}
+                  </h3>
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <FiTrendingUp fontSize={20} color="#E91E63"></FiTrendingUp>
                 </div>
               </div>
-
             </Col>
             <Col span={12}>
-              <div className='shadow-design' style={{ marginBottom: "25px", background: "white", padding: "20px", borderRadius: "10px" }}>
-                <div >
-                  <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
-                    <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Last Month Earnings</h1>
+              <div
+                className="shadow-design"
+                style={{
+                  marginBottom: "25px",
+                  background: "white",
+                  padding: "20px",
+                  borderRadius: "10px",
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <h1
+                      style={{
+                        fontSize: "1.0rem",
+                        fontWeight: "200",
+                        marginTop: "10px",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      Last Month Earnings
+                    </h1>
                   </div>
 
-                  <h3 style={{ fontSize: "2.0rem", letterSpacing: "1px", marginBottom: "15px", color: "#2BA24C" }}>$ {paymentData.monthly}</h3>
+                  <h3
+                    style={{
+                      fontSize: "2.0rem",
+                      letterSpacing: "1px",
+                      marginBottom: "15px",
+                      color: "#2BA24C",
+                    }}
+                  >
+                    $ {paymentData.monthly}
+                  </h3>
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <FiTrendingUp fontSize={20} color="#E91E63"></FiTrendingUp>
                 </div>
               </div>
 
-              <div className='shadow-design' style={{ marginBottom: "10px", background: "white", padding: "20px", borderRadius: "10px" }}>
-                <div >
-                  <div style={{ display: 'flex', alignItems: "center", gap: "10px" }}>
-                    <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "10px", marginBottom: "15px" }}>Yearly Earnings</h1>
+              <div
+                className="shadow-design"
+                style={{
+                  marginBottom: "10px",
+                  background: "white",
+                  padding: "20px",
+                  borderRadius: "10px",
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                    }}
+                  >
+                    <h1
+                      style={{
+                        fontSize: "1.0rem",
+                        fontWeight: "200",
+                        marginTop: "10px",
+                        marginBottom: "15px",
+                      }}
+                    >
+                      Yearly Earnings
+                    </h1>
                   </div>
 
-                  <h3 style={{ fontSize: "2.0rem", letterSpacing: "1px", marginBottom: "15px", color: "#2BA24C" }}>$ {paymentData.yearly}</h3>
+                  <h3
+                    style={{
+                      fontSize: "2.0rem",
+                      letterSpacing: "1px",
+                      marginBottom: "15px",
+                      color: "#2BA24C",
+                    }}
+                  >
+                    $ {paymentData.yearly}
+                  </h3>
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <FiTrendingUp fontSize={20} color="#E91E63"></FiTrendingUp>
@@ -177,23 +356,76 @@ function DashboardHome() {
               padding: "30px 30px",
               borderRadius: "15px",
               boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-              background: "white"
+              background: "white",
             }}
           >
-            <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "2px solid #D3D3D3" }}>
-              <h3 style={{ color: "black", paddingBottom: "8px", marginBottom: "8px" }}>User List</h3>
-              <h3 style={{ color: "black", paddingBottom: "8px", marginBottom: "8px", cursor: "pointer" }} onClick={() => navigate('/user-info')}>See All</h3>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                borderBottom: "2px solid #D3D3D3",
+              }}
+            >
+              <h3
+                style={{
+                  color: "black",
+                  paddingBottom: "8px",
+                  marginBottom: "8px",
+                }}
+              >
+                User List
+              </h3>
+              <h3
+                style={{
+                  color: "black",
+                  paddingBottom: "8px",
+                  marginBottom: "8px",
+                  cursor: "pointer",
+                }}
+                onClick={() => navigate("/user-info")}
+              >
+                See All
+              </h3>
             </div>
             <InvoiceTable data={userData} />
           </div>
         </Col>
 
-        <Col className="gutter-row" style={{ marginBottom: "10px" }} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }}>
-          <div className='shadow-design' style={{ marginBottom: "25px", background: "white", padding: "20px", borderRadius: "10px" }}>
-            <div >
-              <div style={{ display: 'flex', alignItems: "center", gap: "10px", borderBottom: "2px solid #D3D3D3" }}>
-
-                <h3 style={{ color: "black", marginTop: "10px", marginBottom: "15px", }}>Visitors</h3>
+        <Col
+          className="gutter-row"
+          style={{ marginBottom: "10px" }}
+          xs={{ span: 24 }}
+          sm={{ span: 24 }}
+          md={{ span: 12 }}
+          lg={{ span: 8 }}
+        >
+          <div
+            className="shadow-design"
+            style={{
+              marginBottom: "25px",
+              background: "white",
+              padding: "20px",
+              borderRadius: "10px",
+            }}
+          >
+            <div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  borderBottom: "2px solid #D3D3D3",
+                }}
+              >
+                <h3
+                  style={{
+                    color: "black",
+                    marginTop: "10px",
+                    marginBottom: "15px",
+                  }}
+                >
+                  Visitors
+                </h3>
               </div>
 
               <div>
@@ -205,16 +437,81 @@ function DashboardHome() {
               </div>
             </div>
 
-            <div style={{ display: "flex", background: "white", borderRadius: "10px" }}>
-
-              <div style={{ backgroundColor: "#2BA24C", padding: "5px 20px", margin: "10px", borderRadius: "8px", width: "100%", textAlign: "center", height: "90px" }}>
-                <h3 style={{ fontSize: "2.0rem", fontWeight: "200", letterSpacing: "1px", marginBottom: "0px", color: "white" }}>{thisMonthVisitors}</h3>
-                <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "0px", marginBottom: "10px", color: "white" }}>Last Month</h1>
+            <div
+              style={{
+                display: "flex",
+                background: "white",
+                borderRadius: "10px",
+              }}
+            >
+              <div
+                style={{
+                  backgroundColor: "#2BA24C",
+                  padding: "5px 20px",
+                  margin: "10px",
+                  borderRadius: "8px",
+                  width: "100%",
+                  textAlign: "center",
+                  height: "90px",
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: "2.0rem",
+                    fontWeight: "200",
+                    letterSpacing: "1px",
+                    marginBottom: "0px",
+                    color: "white",
+                  }}
+                >
+                  {thisMonthVisitors}
+                </h3>
+                <h1
+                  style={{
+                    fontSize: "1.0rem",
+                    fontWeight: "200",
+                    marginTop: "0px",
+                    marginBottom: "10px",
+                    color: "white",
+                  }}
+                >
+                  Last Month
+                </h1>
               </div>
 
-              <div style={{ backgroundColor: "#E91E63", padding: "5px 20px", margin: "10px", borderRadius: "8px", width: "100%", textAlign: "center", height: "90px" }}>
-                <h3 style={{ fontSize: "2.0rem", fontWeight: "200", letterSpacing: "1px", marginBottom: "0px", color: "white" }}>{thisYearVisitors}</h3>
-                <h1 style={{ fontSize: "1.0rem", fontWeight: "200", marginTop: "0px", marginBottom: "10px", color: "white" }}>Last 1 Years</h1>
+              <div
+                style={{
+                  backgroundColor: "#E91E63",
+                  padding: "5px 20px",
+                  margin: "10px",
+                  borderRadius: "8px",
+                  width: "100%",
+                  textAlign: "center",
+                  height: "90px",
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: "2.0rem",
+                    fontWeight: "200",
+                    letterSpacing: "1px",
+                    marginBottom: "0px",
+                    color: "white",
+                  }}
+                >
+                  {thisYearVisitors}
+                </h3>
+                <h1
+                  style={{
+                    fontSize: "1.0rem",
+                    fontWeight: "200",
+                    marginTop: "0px",
+                    marginBottom: "10px",
+                    color: "white",
+                  }}
+                >
+                  Last 1 Years
+                </h1>
               </div>
             </div>
           </div>

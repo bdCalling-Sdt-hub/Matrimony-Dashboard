@@ -26,15 +26,10 @@ const Earning = () => {
     dispatch(PaymentData(page));
   },[])
 
-  console.log("payment Data",paymentData)
-
   const { RangePicker } = DatePicker;
   const onChange = (value, dateString) => {
-    console.log('Selected Time: ', value);
-    console.log('Formatted Selected Time: ', dateString);
   };
   const onOk = (value) => {
-    console.log('onOk: ', value);
   };
 
   return (

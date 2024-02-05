@@ -78,7 +78,6 @@ const MatchRequest = () => {
             },
           })
           .then((res) => {
-            console.log(res.data);
             setReload((reload) => reload + 1);
           })
           .catch((err) => {

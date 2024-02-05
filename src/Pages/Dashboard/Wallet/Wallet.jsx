@@ -31,7 +31,6 @@ const Wallet = () => {
     setSelectedFrequency('yearly');
   }, [])
 
-  console.log("payment Data", paymentData)
 
   const [paymentShowing, setPaymentShowing] = useState({
     monthly: paymentData?.monthly, // Monthly payment amount
@@ -54,20 +53,16 @@ const Wallet = () => {
   const handlePayment = () => {
     const paymentAmount = paymentShowing[selectedFrequency];
     // Use the paymentAmount as needed (e.g., pass it to a function or component)
-    console.log(`Payment amount for ${selectedFrequency} is: ${paymentAmount}`);
     // Here, you can perform actions with the payment amount based on the selected frequency
   };
 
   const { RangePicker } = DatePicker;
   const onChange = (value, dateString) => {
-    console.log('Selected Time: ', value);
-    console.log('Formatted Selected Time: ', dateString);
     setFromDate(dateString[0])
     setToDate(dateString[1])
 
   };
   const onOk = (value) => {
-    console.log('onOk: ', value);
   };
 
   return (

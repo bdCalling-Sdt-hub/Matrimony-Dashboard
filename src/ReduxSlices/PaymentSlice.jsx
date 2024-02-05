@@ -24,7 +24,6 @@ export const PaymentData = createAsyncThunk(
           },
         }
       );
-      console.log("check payment",response.data.data.attributes);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -64,7 +63,6 @@ export const PaymentSlice = createSlice({
       state.Success = true;
       state.Error = false;
       state.PaymentList = action.payload.data.attributes;
-      console.log("state payment",state.PaymentList);
     },
     [PaymentData.rejected]: (state, action) => {
       state.Loading = false;

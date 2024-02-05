@@ -7,7 +7,6 @@ const AddMatchRequest = ({ modalVisible, handleCancel, setModalVisible, setReloa
   const token = localStorage.getItem('token');
 
   const onFinish = (values) => {
-    console.log('Received values:', values);
     baseAxios
       .post(`/additional-match-requests`, values, {
         headers: {
@@ -15,7 +14,6 @@ const AddMatchRequest = ({ modalVisible, handleCancel, setModalVisible, setReloa
         },
       })
       .then((res) => {
-        console.log(res.data);
         setReload(reload => reload + 1);
         setModalVisible(false);
       })
