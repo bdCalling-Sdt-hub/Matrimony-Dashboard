@@ -23,6 +23,8 @@ const EditSubscription = ({ modalVisible, handleCancel, setModalVisible, request
       duration: values['duration']
     };
 
+    console.log(updatedValues);
+
     if (requestData) {
       baseAxios.put(`/subscription?subscriptionId=${requestData.id}`, updatedValues, {
         headers: {

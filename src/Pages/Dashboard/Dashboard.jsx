@@ -56,7 +56,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     // Connect to server using socket.io-client
-    var socket = io("http://192.168.10.17:3008");
+    var socket = io("103.145.138.78:3009");
 
     if (userData.role === "admin") {
       socket.on("connect", () => {
